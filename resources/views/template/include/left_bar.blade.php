@@ -24,9 +24,14 @@
     </div>
     <nav>
         <ul>
-            
+
+
+				<li  <?php if(in_array($segment1,['employee_dashboard'])){ echo 'class="active"';} ?>>
+					<a href="<?php  echo asset('/employee_dashboard');?>" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+				</li>
+
                 <li  <?php if(in_array($segment1,['all_employee_info'])){ echo 'class="active"';} ?>>
-                    <a href="<?php  echo asset('/all_employee_info');?>" title="All Employee List"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">All Employee List</span></a>
+                    <a href="<?php  echo asset('/all_employee_info');?>" title="All Employee List"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">All Employee List</span></a>
                 </li>
 
 

@@ -3,63 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="639aa833-301e-43ef-9f98-339cbc2f33e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/responsive.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/subpage.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/Kalpurush.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/Kalpurush.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/Kalpurush.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/Kalpurush.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/Kalpurush.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/Kalpurush.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/font/font.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/Upozila.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/baischirman.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/box9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/cororna.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/councilor.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/demo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/emarjenci.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/mayor.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/molilabaischirman.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/news.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/notice.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/pourosova.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/sangotonik_katamo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/slide2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/slide_logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/slider1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/upzila_sangotonik_katamojpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/uz_chirman.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/video.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jquery-3.5.1.slim.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/web.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template/include/left_bar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template/include/left_bar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +154,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619437885213</updated>
       <workItem from="1619437886276" duration="369000" />
-      <workItem from="1619508267567" duration="4631000" />
+      <workItem from="1619508267567" duration="5808000" />
     </task>
     <servers />
   </component>

@@ -114,11 +114,11 @@
 <div class="page-footer no-print">
     <div class="row">
         <div class="col-xs-12 col-sm-12">
-            <span class="txt-color-white" style="text-align:center;">  
-											   © <?php echo date('Y'); ?> University of Dhaka. All Rights Reserved. Designed, Developed and maintained by: <a href="https://www.du.ac.bd/IctCell"
-                                               target="_blank" style="font-weight:bold;">ICT Cell</a>
+            <span class="txt-color-white" style="text-align:center;">
+											   © <?php echo date('Y'); ?>  All Rights Reserved. Powered by: <a href="http://steptechbd.com/"
+                                               target="_blank" style="font-weight:bold;">Step Technology</a>
         </div>
-      
+
     </div>
 </div>
 
