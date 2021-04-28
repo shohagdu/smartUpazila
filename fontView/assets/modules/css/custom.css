@@ -1,0 +1,429 @@
+@media print {
+    .no-print,a{
+        display: none !important;
+    }
+    .show-print-date{
+        display: block !important;
+        position: absolute;
+        top:10px;
+        left:82%;
+    }
+
+
+    #employee_details td{
+        font-family: Arial, Verdana, sans-serif;
+        border:1px solid #d0d0d0;
+        font-size:10px;
+        padding-left:2px;
+    }
+    #employee_details th{
+        font-family: Arial, Verdana, sans-serif;
+        border:1px solid #d0d0d0;
+        font-size:10px;
+        padding-left:2px;
+    }
+    #title_info_print{
+        font-size:14px !important;
+    }
+    a[href]:after {
+        content: none !important;
+    }
+    table {
+        border-spacing: 0rem;
+    }
+
+}
+
+
+.header-button {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+label {
+    font-weight: bold !important;
+}
+
+#exampleModalLabel {
+    font-weight: bold !important;
+}
+
+.topbarbutton {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.padding-bottom-10px {
+    padding-bottom: 10px;
+}
+.padding-bottom-50px {
+    padding-bottom: 50px;
+}
+
+
+.width100per {
+    width: 100% !important;
+}
+
+.width50per {
+    width: 50% !important;
+}
+
+.width60per {
+    width: 60% !important;
+}
+
+.width70per {
+    width: 70% !important;
+}
+
+.width80per {
+    width: 80% !important;
+}
+
+.width90per {
+    width: 90% !important;
+    margin-left: 5%;
+}
+.width7per {
+    width: 7% !important;
+}
+
+.width10per {
+    width: 10% !important;
+}
+.width12per {
+    width: 12% !important;
+}
+
+
+
+.width15per {
+    width: 15% !important;
+}
+.width2per {
+    width: 2% !important;
+}
+
+
+.width20per {
+    width: 20% !important;
+}
+
+.width25per {
+    width: 25% !important;
+}
+
+.width30per {
+    width: 30% !important;
+}
+.width40per {
+    width: 40% !important;
+}
+
+.emp-text-right {
+    text-align: right !important;
+    padding-right: 10px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.employee-details-heading {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 4px;
+    border-bottom: 1px solid gray !important;
+    background: #eee;
+    margin-top: 10px !important;
+}
+
+.font-size-18px {
+    font-size: 18px !important;
+}
+
+.Inactive {
+    color: red;
+    font-weight: bold;
+}
+
+.Active {
+    color: green;
+    font-weight: bold;
+}
+
+.ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.leave-table td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.leave-table th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.padding10px {
+    padding: 10px;
+}
+
+#table-style td {
+    border: 1px solid #d0d0d0;
+    padding: 2px !important;
+}
+
+#table-style th {
+    border: 1px solid #d0d0d0;
+    padding: 2px !important;
+}
+
+.padding-top-50-pixel {
+    padding-top: 50px !important;
+}
+
+.leave-reason {
+    height: 250px;
+    vertical-align: top
+}
+
+.vertical-align-top {
+    vertical-align: top !important;
+}
+
+.modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+#employee_details td {
+    padding: 5px;
+    border-bottom: 1px solid #d0d0d0;
+    color: #333;
+
+}
+
+#employee_details th {
+    padding: 5px;
+    border-bottom: 1px solid #d0d0d0;
+
+}
+
+#employee_details_pdf td {
+    padding: 3px;
+    border-bottom: 1px solid #d0d0d0;
+    color: #333 !important;
+    font-size: 11px;
+
+}
+
+#employee_details_pdf th {
+    padding: 3px;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: 11px;
+
+}
+
+.leave_info_pdf td {
+    padding: 2px 5px;
+    border: 1px solid gray !important;
+    color: #333 !important;
+    font-size: 9px !important;
+
+}
+
+.no-border {
+    border-width: 0 !important
+}
+
+.no-border-transparent {
+    border-color: transparent !important
+}
+
+.ui-autocomplete {
+    z-index: 215000000 !important;
+}
+
+
+/*scroll bar css start*/
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/*scroll bar css end*/
+
+
+#default_table td {
+    padding: 5px;
+    font-size: 9px;
+}
+
+#default_table th {
+    padding: 5px;
+    font-size: 9px;
+}
+
+/* for dashboar css start */
+.widget-box-header {
+    background: #eee;
+    padding: 20px !important;
+    border-radius: 5px;
+    margin-left: 5px;
+
+}
+
+.widget-box-header > a {
+    color: white;
+}
+
+.widget-box-header:hover {
+    -webkit-box-shadow: 3px 3px 3px 3px #333;
+    -moz-box-shadow: 3px 3px 3px 3px #333;
+    box-shadow: 3px 3px 3px 3px #333;
+}
+
+.icon-size {
+    font-size: 30px;
+}
+
+.widget-box-text {
+    font-size: 14px;
+    font-weight: bolder;
+    vertical-align: top;
+    padding-left: 10px !important;
+}
+
+.orange {
+    background: orange;
+}
+
+.blue {
+    background: #00add7;
+}
+
+.green {
+    background: #00A65A;
+}
+
+.darkred {
+    background: #F56954;
+}
+
+.red {
+    background: red;
+}
+
+
+/* for dashboar css end */
+
+
+.margin-top-10px{
+    margin-top:10px !important;
+}
+.margin-top-20px{
+    margin-top:20px !important;
+}
+
+.sub-table td{
+    font-size:10px;
+}
+
+.publication_table td{
+    padding:5px;
+}
+.publication_table th{
+    padding:5px;
+}
+.mandatory_field{
+    color:red;
+}
+.publication_heading{
+    font-weight:bold;
+    padding-top:10px !important;
+    float: left;
+}
+
+.alert_message{
+    color:red;
+    font-weight: 700;
+    font-size:11px;
+    margin-top:3px;
+}
+.alert_message_research_activites{
+    color:red;
+    font-weight: 700;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.modal-footer{
+     margin-bottom:20px !important;
+}
+.border-editior{
+    border:1px solid #d0d0d0;
+}
+
+/* Email Request */
+.input-group-text {
+    padding: .4rem .875rem;
+    font-weight: bold;
+    font-size: 16px;
+    color: green;
+    white-space: nowrap;
+    background-color: #f3f3f3;
+    border: 1px solid #e5e5e5;
+}
+
+.emailRequest ul {
+    list-style: none;
+}
+.emailRequest ul li{
+    padding:7px;
+    font-size:16px;
+    text-align: justify;
+}
+.color-green{
+    color: green !important;
+    font-weight: bold;
+}
+.color-red{
+    color: red !important;
+    font-weight: bold;
+}
+.color-black{
+    color: black !important;
+    font-weight: bold;
+}
+.bg-color-lighgray{
+    background-color: #EEE9E9
+}
