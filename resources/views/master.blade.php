@@ -88,9 +88,9 @@
 
         <!-- breadcrumb -->
         <ol class="breadcrumb no-print " >
-            <!--
+        <!--
 {{--            <li><a href="<?php  echo asset('/home');?>">Dashboard</a></li>--}}
-                -->
+            -->
             <li>@yield('title_area')</li>
         </ol>
 
@@ -115,8 +115,9 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12">
             <span class="txt-color-white" style="text-align:center;">
-											   © <?php echo date('Y'); ?>  All Rights Reserved. Powered by: <a href="http://steptechbd.com/"
-                                               target="_blank" style="font-weight:bold;">Step Technology</a>
+											   © <?php echo date('Y'); ?> All Rights Reserved. Powered by: <a href="http://steptechbd.com/"  target="_blank" style="font-weight:bold;">Step Technology</a>
+            </span>
+            <a href="http://steptechbd.com/"  target="_blank" ><img src="{{ asset('fontView/assets/img/steptechIcon_.jpg') }}" style="height: 30px;float: right;"></a>
         </div>
 
     </div>

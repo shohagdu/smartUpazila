@@ -2,15 +2,15 @@
     <div id="logo-group">
         <span id="logo">
             <!--
-            @if( !empty(session('company_logo')) && file_exists('images/logo/'.session('company_logo')) )
-                <img  src=" {{ url('images\logo\header_logo.png')   }}" alt="Dhaka University"
-                     >
-            @else
-                <img  src="{{ url('images/default/default-avatar.png')   }}" alt="Dhaka University"
-                     style="height: 29px;width:113px;">
-            @endif
-                -->
-           <div style="color:white;font-weight: bold;font-size: 18px;">Natore Sadar</div>
+                @if( !empty(session('company_logo')) && file_exists('images/logo/'.session('company_logo')) )
+                    <img  src=" {{ url('images\logo\header_logo.png')   }}" alt="Dhaka University"
+                    >
+                @else
+                    <img  src="{{ url('images/default/default-avatar.png')   }}" alt="Dhaka University"
+                          style="height: 29px;width:113px;">
+                @endif
+            -->
+            <div style="font-size: 18px;font-weight:bold;color: #fff; ">Natore Sadar</div>
         </span>
         <span id="activity" class="activity-dropdown"> <i class="fa fa-user"></i> <b class="badge"> 0 </b> </span>
         <!-- END AJAX-DROPDOWN -->
@@ -19,7 +19,7 @@
     <div class="pull-right">
         <div id="hide-menu" class="btn-header pull-right">
             <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i
-                            class="fa fa-reorder"></i></a> </span>
+                        class="fa fa-reorder"></i></a> </span>
         </div>
         <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
             <li class="">
@@ -43,7 +43,7 @@
 
     <div id="fullscreen" class="btn-header transparent pull-right">
         <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i
-                        class="fa fa-arrows-alt"></i></a> </span>
+                    class="fa fa-arrows-alt"></i></a> </span>
     </div>
 <!--
 {{--   <div  class="btn-header transparent pull-right">--}}

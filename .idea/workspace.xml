@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="639aa833-301e-43ef-9f98-339cbc2f33e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fontView/assets/content/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fontView/assets/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fontView/index.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template/font_content.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template/include/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template/include/header.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/template/include/left_bar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template/include/left_bar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,7 +141,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webadmin-du" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -154,7 +159,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619437885213</updated>
       <workItem from="1619437886276" duration="369000" />
-      <workItem from="1619508267567" duration="5808000" />
+      <workItem from="1619508267567" duration="12253000" />
     </task>
     <servers />
   </component>
@@ -162,6 +167,14 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1619599232176">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1619599232176" />
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1619592246456">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1619592246456" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1619525159370">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
