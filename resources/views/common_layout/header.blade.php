@@ -2,24 +2,24 @@
 <section id="top_header_wrapper">
   <div class="container head_bg page_shadow">  <!-- container start -->
   <div class="row">  <!-- row start -->
-  <div class="col-md-5 col-6 slogan cus_col">  <!-- col-md-7 start-->
-  <h4>বাংলাদেশ জাতীয় তথ্য বাতায়ন</h4>
+  <div class="col-md-5 col-6 cus_col ">  <!-- col-md-7 start-->
+      <div class="dropdown text-left">  <!-- dropdown start -->
+          <a class="btn cus_btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ইউনিয়ন
+          </a>
+          <div class="dropdown-menu cus_dropdown" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/chhatniup/" target="blank">১ নং ছাতনী</a>
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/tebariaup/" target="blank">২ নং তে-বাডিয়া</a>
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/dighapatiaup/" target="blank">৩ নং দিঘাপতিয়া</a>
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/luxmipurkholabariaup/" target="blank">৪ নং খোলাবাড়িয়া</a>
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/barahorispurup/" target="blank">৫ নং বড়-হরিশপুর</a>
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/kaphuriaup/" target="blank">৬ নং কাপুরিয়া</a>
+              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/halsa/" target="blank">৭ নং হালসা</a>
+          </div>
+      </div> <!-- dropdown start -->
   </div>  <!-- col-md-7 end-->
-  <div class="col-md-3 col-6 cus_col"> <!-- col-md-2 start-->
-  <div class="dropdown text-right">  <!-- dropdown start -->
-  <a class="btn cus_btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    ইউনিয়ন
-  </a>
-  <div class="dropdown-menu cus_dropdown" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/chhatniup/" target="blank">১ নং ছাতনী</a>
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/tebariaup/" target="blank">২ নং তে-বাডিয়া</a>
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/dighapatiaup/" target="blank">৩ নং দিঘাপতিয়া</a>
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/luxmipurkholabariaup/" target="blank">৪ নং খোলাবাড়িয়া</a>
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/barahorispurup/" target="blank">৫ নং বড়-হরিশপুর</a>
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/kaphuriaup/" target="blank">৬ নং কাপুরিয়া</a>
-    <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/halsa/" target="blank">৭ নং হালসা</a>
-  </div>
-  </div> <!-- dropdown start -->
+  <div class="col-md-3 col-6  slogan cus_col"> <!-- col-md-2 start-->
+      <h4>নাটোর সদর উপজেলা</h4>
   </div> <!-- col-md-2 end-->
   <div class="col-md-4 d-md-block d-none cus_col"> <!-- col-md-3 start-->
   <div class="icon_wrap"> <!-- icon_wrap start -->
@@ -44,7 +44,7 @@
         <i class="fa fa-envelope"></i>
       </a>
     </li>
-    
+
   </ul>
   </div> <!-- icon_wrap end -->
   </div> <!-- col-md-3 end-->
@@ -62,7 +62,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent"> <!-- navbar-collapse start -->
     <ul class="navbar-nav "> <!-- navbar ul start -->
     <li class="nav-item active">
-      <a class="nav-link" href=" {{url('/')}} "> <i class="fa fa-home"></i> প্রথম পাথা</a>
+      <a class="nav-link" href=" {{url('/')}} "> <i class="fa fa-home"></i> প্রথম পাতা</a>
     </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -78,7 +78,7 @@
     </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        উপজেলা পরিষোদ
+        উপজেলা পরিষদ
       </a>
       <div class="dropdown-menu cus_dropdown_menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href=" {{url('/up_chirman')}} ">চেয়ারম্যান, উপজেলা পরিষদ</a>
@@ -105,7 +105,7 @@
     </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        পৌরসোভা সম্পর্কিত
+          পৌরসভা সম্পর্কিত
       </a>
       <div class="dropdown-menu cus_dropdown_menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href=" {{url('/pourosova')}} ">এক নজরে পৌরসভা</a>
@@ -117,7 +117,7 @@
         <a class="dropdown-item" href=" {{url('/kormocari')}} ">কর্মচারীবৃন্দ</a>
         <a class="dropdown-item" href=" {{url('/sangotonik_katamo')}} ">সাংগঠনিক কাঠাম</a>
         <a class="dropdown-item" href="http://bdlaws.minlaw.gov.bd/" target="blank">আইন ও বিধ</a>
-        
+
       </div>
     </li>
     <li class="nav-item dropdown">
@@ -140,16 +140,16 @@
         <a class="dropdown-item" href=" {{url('/educational_institutions')}} ">শিক্ষা প্রতিষ্ঠান</a>
         <a class="dropdown-item" href=" {{url('/non_govern_organizations')}} ">বেসরকারি প্রতিষ্ঠান</a>
         <a class="dropdown-item" href=" {{url('/religious_institutions')}} ">ধর্মীয় প্রতিষ্ঠান</a>
-        
+
       </div>
     </li>
-    
+
     </ul> <!-- navbar ul end -->
-    
+
     </div> <!-- navbar-collpase end -->
     </nav> <!-- navbar end -->
     </div> <!-- container end -->
-    
+
     </section><!-- menu area end -->
     <!-- slider section start -->
     <!-- container start -->
@@ -169,7 +169,7 @@
           </div>
         </div>
         </div><!-- 1st single carousel iteam start -->
-        
+
         <div class="carousel-item "> <!-- 2nd single carousel iteam start -->
         <img src="img/slide2.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-sm-block">
@@ -182,7 +182,7 @@
           </div>
         </div>
         </div> <!-- 2nd single carousel iteam start -->
-        
+
         </div><!--carousel inner end -->
         <!-- carousel control start -->
         <a class="carousel-control-prev cus_slider_control" href="#carouselExampleCaptions" role="button" data-slide="next">
@@ -196,7 +196,7 @@
         <!-- carousel control end -->
         </div><!--carousel wrapper end-->
         </div> <!-- container end -->
-        
+
         <!-- slider section end -->
         <!-- all news marque section start -->
         <section id="all_news">
