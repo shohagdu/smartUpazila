@@ -8,6 +8,7 @@
     <title> @yield('title_area') </title>
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="path" content="{{ url('/') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -210,7 +211,7 @@
 <script src="{{ asset('fontView') }}/assets/time_picker/moment.min.js"></script>
 <link rel="stylesheet" href="{{ asset('fontView') }}/assets/time_picker/bootstrap-datetimepicker.min.css">
 <script src="{{ asset('fontView') }}/assets/time_picker/bootstrap-datetimepicker.min.js"></script>
-
+@yield('js')
 
 </body>
 </html>

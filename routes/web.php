@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\UnionInfoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,3 +49,8 @@ Route::get('/religious_institutions', [WebsiteController::class, 'religious_inst
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// union setup area start 
+Route::get('/unionSetup', [UnionInfoController::class, 'index'])->name('union_setup.unionSetup');
+Route::post('/unionSetup/store', [UnionInfoController::class, 'store'])->name('union_setup.store');
+Route::post('/unionSetup/edit', [UnionInfoController::class, 'edit'])->name('union_setup.edit');
+Route::post('/unionSetup/delete', [UnionInfoController::class, 'destroy'])->name('union_setup.delete');
