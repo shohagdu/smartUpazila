@@ -25,14 +25,27 @@ class UnionInfoController extends Controller
                 ->addColumn('upazila_id',function($row){
                    return Upazila::find($row->upazila_id)->name;
                 })
-                ->addColumn('action',function($row){
+                ->addColumn('is_active',function($row){
                     $html = '';
                      
-                        $html.='<button class="btn btn-info btn-sm UnionSetupEdit" data-id="'.$row->id.'">Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-sm UnionSetupDelete" data-id="'.$row->id.'">Delete</button>'; 
+                    if($row->is_active == 1){
+                        $html.='<span class="label label-info"> Active </span>'; 
+                    }elseif($row->is_active == 2){
+                        
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+                   
 
                     return $html;
                 })
-                ->rawColumns(['upazila_id','action'])
+                ->addColumn('action',function($row){
+                    $html = '';
+                     
+                        $html.='<button class="btn btn-primary btn-xs UnionSetupEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs UnionSetupDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                    return $html;
+                })
+                ->rawColumns(['upazila_id','is_active','action'])
                 ->make(true);
         }else{
 
@@ -99,9 +112,6 @@ class UnionInfoController extends Controller
             ]);
 
         }
-
-        
-
 
     }
 

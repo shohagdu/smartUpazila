@@ -60,6 +60,7 @@
     <link rel="stylesheet" href="{{ asset('fontView') }}/assets/yajra_datatable/css/dataTables.bootstrap.min.css"/>
     <!--- For Yajra Datatable----end--->
     <link rel="stylesheet" href="{{ asset('fontView') }}/assets/modules/css/custom.css?v=1">
+    @yield('css')
 </head>
 
 

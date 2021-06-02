@@ -2,6 +2,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\UnionInfoController;
+use App\Http\Controllers\AllTypeTitleController;
+use App\Http\Controllers\UpazilaRelatedController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,8 +51,20 @@ Route::get('/religious_institutions', [WebsiteController::class, 'religious_inst
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // union setup area start 
 Route::get('/unionSetup', [UnionInfoController::class, 'index'])->name('union_setup.unionSetup');
 Route::post('/unionSetup/store', [UnionInfoController::class, 'store'])->name('union_setup.store');
 Route::post('/unionSetup/edit', [UnionInfoController::class, 'edit'])->name('union_setup.edit');
 Route::post('/unionSetup/delete', [UnionInfoController::class, 'destroy'])->name('union_setup.delete');
+// union setup area end 
+
+// all type title area start 
+Route::get('/all-type-title', [AllTypeTitleController::class, 'index'])->name('setup.all_type_title');
+Route::post('/all-type-title/store', [AllTypeTitleController::class, 'store'])->name('all_type_title.store');
+Route::post('/all-type-title/edit', [AllTypeTitleController::class, 'edit'])->name('all_type_title.edit');
+Route::post('/all-type-title/delete', [AllTypeTitleController::class, 'destroy'])->name('all_type_title.delete');
+// all type title area end 
+
+// all type title area start 
+Route::get('/upazilaIntroduction', [UpazilaRelatedController::class, 'create'])->name('upazila_related.upazilaIntroduction');

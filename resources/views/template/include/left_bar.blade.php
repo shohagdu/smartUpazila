@@ -58,6 +58,9 @@
                     <li  <?php if(in_array($combine_segment,['upazilaSetup'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazilaSetup')}}" title="Upazila Setup"><span class="menu-item-parent">Upazila Setup</span></a>
                     </li>
+                    <li  <?php if(in_array($combine_segment,['all-type-title'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('all-type-title')}}" title="All Type Title"><span class="menu-item-parent">All Type Title</span></a>
+                    </li>
                 </ul>
             </li>
 
