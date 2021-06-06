@@ -63,19 +63,6 @@
                     <div class="modal-body">
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Title Name <span class="text-danger">*</span></label>
-                            <div class="col-md-7">
-                                <select class="form-control form-control-alt" id="title" name="title" required>
-                                    <option value=""> Select</option>
-                                    @foreach($all_type_info as $item)
-                                    <option value="{{ $item->id}}"> {{$item->title}}</option>
-                                    @endforeach
-                                   
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="name" class="col-md-4 form-control-label modalLabelText"> Description <span class="text-danger">*</span></label>
                             <div class="col-md-7">
                             <textarea name="description" id="description" colspan="10" class="form-control"></textarea>

@@ -31,7 +31,13 @@
                         <a href="{{url('upazilaIntroduction')}}" title="Upazila Introduction"> <span class="menu-item-parent">উপজেলা পরিচিতি</span></a>
                     </li>
                     <li  <?php if(in_array($combine_segment,['upazilaHistory'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('upazilaHistory')}}" title="Hall Info. Update"> <span class="menu-item-parent">ইতিহাস ঐতিহ্য</span></a>
+                        <a href="{{url('upazilaHistory')}}" title="Upazila History"> <span class="menu-item-parent">ইতিহাস ঐতিহ্য</span></a>
+                    </li>
+                    <li  <?php if(in_array($combine_segment,['upazilaGeographical'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('upazilaGeographical')}}" title="upazila Geographical"> <span class="menu-item-parent"> ভৌগলিক ও অর্থনৈতিক </span></a>
+                    </li>
+                    <li  <?php if(in_array($combine_segment,['upPublicPeprestative'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('upPublicPeprestative')}}" title="Upazila Public Peprestative"> <span class="menu-item-parent"> জনপ্রতিনিধিগণের তালিকা </span></a>
                     </li>
                 </ul>
             </li>

@@ -66,5 +66,18 @@ Route::post('/all-type-title/edit', [AllTypeTitleController::class, 'edit'])->na
 Route::post('/all-type-title/delete', [AllTypeTitleController::class, 'destroy'])->name('all_type_title.delete');
 // all type title area end 
 
-// all type title area start 
-Route::get('/upazilaIntroduction', [UpazilaRelatedController::class, 'create'])->name('upazila_related.upazilaIntroduction');
+// upazilaIntroduction area start 
+Route::get('/upazilaIntroduction', [UpazilaRelatedController::class, 'index'])->name('upazila_related.upazilaIntroduction');
+Route::post('/upazilaIntroduction/store', [UpazilaRelatedController::class, 'store'])->name('upazilaIntroduction.store');
+Route::post('/upazilaIntroduction/edit', [UpazilaRelatedController::class, 'edit'])->name('upazilaIntroduction.edit');
+Route::post('/upazilaIntroduction/update', [UpazilaRelatedController::class, 'update'])->name('upazilaIntroduction.update');
+Route::post('/upazilaIntroduction/delete', [UpazilaRelatedController::class, 'destroy'])->name('upazilaIntroduction.delete');
+
+
+Route::get('/upazilaHistory', [UpazilaRelatedController::class, 'up_history'])->name('upazila_related.up_history');
+Route::post('/up-history/store', [UpazilaRelatedController::class, 'up_history_store'])->name('up_history.store');
+
+Route::get('/upazilaGeographical', [UpazilaRelatedController::class, 'upazila_geographical'])->name('upazila_related.upazila_geographical');
+Route::post('/upazilaGeographical/store', [UpazilaRelatedController::class, 'upazila_geographical_store'])->name('upazila_geographical.store');
+
+Route::get('/upPublicPeprestative', [UpazilaRelatedController::class, 'upPublicPeprestative'])->name('upazila_related.upPublicPeprestative');

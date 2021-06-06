@@ -1,0 +1,31 @@
++
+key = array_search($request->exhibition_id, array_column($exhibition_data, 'id'));
+                $exhibition_info = [
+                    'id' => $request->exhibition_id,
+                    'exh_category' => $request->exh_category,
+                    'exh_type' => $request->exh_type,
+                    'exh_title' => $request->exh_title,
+                    'exh_art_work_title' => !empty($request->exh_art_work_title)?$request->exh_art_work_title:NULL,
+                    'exh_medium' => !empty($request->exh_medium)?$request->exh_medium:NULL,
+                    'exh_size' => !empty($request->exh_size)?$request->exh_size:NULL,
+                    'exh_year' => !empty($request->exh_year)?$request->exh_year:NULL,
+                    'exh_venue' => !empty($request->exh_venue)?$request->exh_venue:NULL,
+                    'exh_curator' => !empty($request->exh_curator)?$request->exh_curator:NULL,
+                    'exh_organizer' => !empty($request->exh_organizer)?$request->exh_organizer:NULL,
+                    'exh_city' => !empty($request->exh_city)?$request->exh_city:NULL,
+                    'exh_country' => !empty($request->exh_country)?$request->exh_country:NULL,
+                    'year_exhibition' => !empty($request->year_exhibition)?$request->year_exhibition:NULL,
+                    'exh_description' => !empty($request->exh_description)?$request->exh_description:NULL,
+                    'is_active' =>1,
+                    'created_by' =>(!empty($exhibition_data[$key]['created_by']))
+                        ?$exhibition_data[$key]['created_by']:(!empty(session('user_info')->employee_id) ? session('user_info')->employee_id : NULL),
+                    'created_ip' => (!empty($exhibition_data[$key]['created_ip']))
+                        ?$exhibition_data[$key]['created_ip']:((!empty($this->getIp())) ? $this->getIp() : $request->ip()),
+                    'created_time' => (!empty($exhibition_data[$key]['created_time']))
+                        ?$exhibition_data[$key]['created_time']:date('Y-m-d H:i:s'),
+                    'updated_by' => (!empty(session('user_info')->employee_id) ? session('user_info')->employee_id : NULL),
+                    'updated_ip' => (!empty($this->getIp())) ? $this->getIp() : $request->ip(),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+
+                $exhibition_data[$key]=$exhibition_info;
