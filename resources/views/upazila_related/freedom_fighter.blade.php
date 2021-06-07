@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  :: Upazila Peprestative
+    :: Admin  :: Upazila Freedom Fighter
 @endsection
 @section('show_message')
     @if(Session::has('message'))
@@ -21,7 +21,7 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-               <h2> Upazila Peprestative </h2>
+               <h2> Upazila Freedom Fighter </h2>
                 <button onclick="AddNew()"  class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </button>
             </header>
             <!-- widget div-->
@@ -29,15 +29,13 @@
                 <div class="widget-body no-padding">
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
-                        <table class="table table-striped table-bordered" id="up_Peprestative_table">
+                        <table class="table table-striped table-bordered" id="freedom_fighter_table">
                             <thead>
                                 <tr>
                                     <th> # </th>
                                     <th> Name </th>
-                                    <th> Mobile</th>
-                                    <th> Email </th>
-                                    <th> Designation </th>
-                                    <th> Address </th>
+                                    <th> Father Name</th>
+                                    <th> Village </th>
                                     <th> Status </th>
                                     <th> Action</th>
                                 </tr>
@@ -49,13 +47,13 @@
         </div>
     </article>
 
-    <div id="UpPeprestativeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="freedomFighterModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                   <div class="row">
-                  <div class="col-md-4">  <h5 class="modal-title" id="myModalLabel"> Upazila Peprestative </h5></div>
+                  <div class="col-md-4">  <h5 class="modal-title" id="myModalLabel"> Freedom Fighter </h5></div>
                     <div class="col-md-8">  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></div>
                   </div>
                 
@@ -73,31 +71,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Mobile <span class="text-danger">*</span></label>
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Father Name <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control form-control-alt" name="mobile" id="mobile"
-                                       placeholder="Mobile">
+                                <input type="text" class="form-control form-control-alt" name="father_name" id="father_name"
+                                       placeholder="Father Name">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Email <span class="text-danger">*</span></label>
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Village <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <input type="email" class="form-control form-control-alt" name="email" id="email"
-                                       placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Designation <span class="text-danger">*</span></label>
-                            <div class="col-md-7">
-                                <input type="text" class="form-control form-control-alt" name="designation" id="designation"
-                                       placeholder="Designation">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Address <span class="text-danger">*</span></label>
-                            <div class="col-md-7">
-                            <textarea name="address" id="address" colspan="10" class="form-control"></textarea>
+                                <input type="text" class="form-control form-control-alt" name="village" id="village"
+                                       placeholder="Village">
                             </div>
                         </div>
 
@@ -116,12 +100,12 @@
 
                     </div>
                     <div class="modal-footer">
-                    <input type="hidden" id="peprestative_id" name="peprestative_id">
+                    <input type="hidden" id="freedom_fighter_id" name="freedom_fighter_id">
 
-                        <button type="submit" onclick="UpPeprestativeUpdate()" id="union_setup_update_button" style="display: none;"
+                        <button type="submit" onclick="UpFreedomFighterUpdate()" id="union_setup_update_button" style="display: none;"
                                 class="btn btn-info btn-sm waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
                         </button>
-                        <button type="submit" onclick="UpPeprestativeSave()" id="union_setup_save_button"
+                        <button type="submit" onclick="UpFreedomFighterUpdateSave()" id="union_setup_save_button"
                                 class="btn btn-primary btn-sm waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
                         </button>
                         <button  type="button" class="btn btn-danger btn-sm waves-effect"
@@ -142,20 +126,18 @@
 <script>
     // datatable 
   $(document).ready(function(){
-    let unionSetupTable = $("#up_Peprestative_table").DataTable({
+    let unionSetupTable = $("#freedom_fighter_table").DataTable({
         scrollCollapse: true,
         autoWidth: false,
         responsive: true,
         serverSide: true,
         processing: true,
-        ajax:"{{route('upazila_related.upPublicPeprestative')}}",
+        ajax:"{{route('upazila_related.freedom_fighter')}}",
         columns:[
             {data:'DT_RowIndex',name:'DT_RowIndex'},
             {data: 'name',name:'name'},
-            {data: 'mobile',name:'mobile'},
-            {data: 'email',name:'email'},
-            {data: 'designation',name:'designation'},
-            {data: 'address',name:'address'},
+            {data: 'father_name',name:'father_name'},
+            {data: 'village',name:'village'},
             {data: 'is_active',name:'is_active'},
             {data: 'action',name:'action'},
         ]
@@ -165,48 +147,41 @@
 function AddNew()
 {
     var name              =  $('#name').val('');
-    var mobile            =  $('#mobile').val('');
-    var email             =  $('#email').val('');
-    var designation       =  $('#designation').val('');
-    var address           =  $('#address').val('');
+    var father_name       =  $('#father_name').val('');
+    var village           =  $('#village').val('');
     var is_active         =  $('#is_active').val('');
-    var peprestative_id   = $('#peprestative_id').val('');
+    var freedom_fighter_id= $('#freedom_fighter_id').val('');
 
-    $("#UpPeprestativeModal").modal('toggle');
+    $("#freedomFighterModal").modal('toggle');
 
     document.getElementById("SubmitbtnText").innerHTML = "Submit";
 }
 
-//  UpPeprestativeSave save
-function UpPeprestativeSave(){
+//  Freedom FighterUpdate  save
+function UpFreedomFighterUpdateSave(){
 
-var name        =  $('#name').val();
-var mobile      =  $('#mobile').val();
-var email       =  $('#email').val();
-var designation =  $('#designation').val();
-var address     =  $('#address').val();
-var is_active   =  $('#is_active').val();
+var name          =  $('#name').val();
+var father_name   =  $('#father_name').val();
+var village       =  $('#village').val();
+var is_active     =  $('#is_active').val();
 
-if( name != '' && mobile > 0 ){
+if( name != '' && father_name != '' ){
 
     $.ajax({
-            url:"{{route('upPublicPeprestative.store')}}",
+            url:"{{route('freedom_fighter.store')}}",
             type:"POST",
             data:{
                 name: name,
-                mobile: mobile,
-                email: email,
-                designation: designation,
-                address: address,
+                father_name: father_name,
+                village: village,
                 is_active: is_active,
             },
             success:function(responseText){
                 
                     if(responseText.status == 'success'){
                         swal("Success", responseText.msg, "success");
-                        $("#up_Peprestative_table").DataTable().draw(true);
-                        $("#UpPeprestativeModal").modal('toggle');
-
+                        $("#freedom_fighter_table").DataTable().draw(true);
+                        $("#freedomFighterModal").modal('toggle');
 
                     }else{
                         swal("Something went wrong", responseText.msg, "error");
@@ -221,11 +196,11 @@ if( name != '' && mobile > 0 ){
 }
 
 
-$(document).on("click",".upPeprestativeEdit",function(){
+$(document).on("click",".upFreedomFighterEdit",function(){
     let id = $(this).data('id');
 
     $.ajax({
-        url:"{{route('upPublicPeprestative.edit')}}",
+        url:"{{route('freedom_fighter.edit')}}",
         type:"POST",
         data:{
             id: id
@@ -238,19 +213,17 @@ $(document).on("click",".upPeprestativeEdit",function(){
                 //console.log(data);
 
                 var name        =  $('#name').val(data.name);
-                var mobile      =  $('#mobile').val(data.mobile);
-                var email       =  $('#email').val(data.email);
-                var designation =  $('#designation').val(data.designation);
-                var address     =  $('#address').val(data.address);
+                var father_name =  $('#father_name').val(data.father_name);
+                var village     =  $('#village').val(data.village);
                 var is_active   =  $('#is_active').val(data.is_active);
 
-                var peprestative_id =  $('#peprestative_id').val(data.id);
+                var freedom_fighter_id =  $('#freedom_fighter_id').val(data.id);
 
                 $('#union_setup_update_button').show();
                 $('#union_setup_save_button').hide();
                 document.getElementById("SubmitbtnText").innerHTML = "Update";
 
-                $("#UpPeprestativeModal").modal('toggle');
+                $("#freedomFighterModal").modal('toggle');
             }
             else{
                 swal("Sorry", responseText.msg, "error");
@@ -261,35 +234,32 @@ $(document).on("click",".upPeprestativeEdit",function(){
 
 
 // Peprestative update
-function UpPeprestativeUpdate(){
+function UpFreedomFighterUpdate (){
 
-var name        =  $('#name').val();
-var mobile      =  $('#mobile').val();
-var email       =  $('#email').val();
-var designation =  $('#designation').val();
-var address     =  $('#address').val();
-var is_active   =  $('#is_active').val();
-var peprestative_id  = $('#peprestative_id').val();
+var name          =  $('#name').val();
+var father_name   =  $('#father_name').val();
+var village       =  $('#village').val();
+var is_active     =  $('#is_active').val();
+
+var freedom_fighter_id  = $('#freedom_fighter_id').val();
 
 $.ajax({
-        url:"{{route('upPublicPeprestative.update')}}",
+        url:"{{route('freedom_fighter.update')}}",
         type:"POST",
         data:{
                 name: name,
-                mobile: mobile,
-                email: email,
-                designation: designation,
-                address: address,
+                father_name: father_name,
+                village: village,
                 is_active: is_active,
-                peprestative_id:peprestative_id,
+                freedom_fighter_id:freedom_fighter_id,
         },
         success:function(responseText){
 
             
                 if(responseText.status == 'success'){
                     swal("Success", responseText.msg, "success");
-                    $("#up_Peprestative_table").DataTable().draw(true);
-                    $("#UpPeprestativeModal").modal('toggle');
+                    $("#freedom_fighter_table").DataTable().draw(true);
+                    $("#freedomFighterModal").modal('toggle');
 
 
                 }else{
@@ -300,7 +270,7 @@ $.ajax({
 }
 
 // upazila Introduction delete 
-$(document).on("click",".upPeprestativeDelete",function(){
+$(document).on("click",".upFreedomFighterDelete",function(){
     let id = $(this).data('id');
 
     swal({
@@ -315,7 +285,7 @@ $(document).on("click",".upPeprestativeDelete",function(){
              if (willDelete) {
                    
                     $.ajax({
-                        url:"{{route('upPublicPeprestative.delete')}}",
+                        url:"{{route('freedom_fighter.delete')}}",
                         type:"POST",
                         data:{
                             id: id
@@ -324,7 +294,7 @@ $(document).on("click",".upPeprestativeDelete",function(){
 
                             if(responseText.status == 'success'){
                                 swal("Success", responseText.msg, "success");
-                                $("#up_Peprestative_table").DataTable().draw(true);
+                                $("#freedom_fighter_table").DataTable().draw(true);
                             }
                             else{
                                 swal("Sorry", responseText.msg, "error");
@@ -333,7 +303,7 @@ $(document).on("click",".upPeprestativeDelete",function(){
                     });
                     } else {
                         
-                        swal("Peprestative Introduction is safe!");
+                        swal("Freedom fighter Introduction is safe!");
                     }
 
         });

@@ -60,13 +60,6 @@ class UpazilaRelatedController extends Controller
         return view('upazila_related.upazilaIntroduction', compact('all_type_info'));
         }
 
-        $all_type_info = AllTypeTitle::where('is_active','!=','0')
-        ->where('type','=','1')
-        ->get();
-
-return view('upazila_related.upazilaIntroduction', compact('all_type_info'));
-
-       
     }
 
     /**
@@ -88,7 +81,6 @@ return view('upazila_related.upazilaIntroduction', compact('all_type_info'));
     public function store(Request $request)
     {
         
-
 
         $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
 
@@ -461,6 +453,465 @@ return view('upazila_related.upazilaIntroduction', compact('all_type_info'));
                 return redirect()->route('upazila_related.upazila_geographical')->with('message', 'Successfully Save');   
 
             }
+
+    }
+  //  upPublicPeprestative
+    public function upPublicPeprestative(Request $request){
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+         
+
+        if($request->ajax()){
+           $data = !empty($if_exist_check_info->representative_upazila_organogram) ? json_decode($if_exist_check_info->representative_upazila_organogram) : [];;
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('is_active',function($row){
+                    $html = '';
+                     
+                    if($row->is_active == 1){
+                        $html.='<span class="label label-info"> Active </span>'; 
+                    }elseif($row->is_active == 2){
+                        
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+                   
+
+                    return $html;
+                })
+                ->addColumn('action',function($row){
+                    $html = '';
+                     
+                        $html.='<button class="btn btn-primary btn-xs upPeprestativeEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs upPeprestativeDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                    return $html;
+                })
+                ->rawColumns(['title','is_active','action'])
+                ->make(true);
+        }else{
+
+        return view('upazila_related.up_public_peprestative');
+        }
+
+    }
+
+    public function up_public_peprestative_store(Request $request){
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+
+     
+        $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        if ($representative_id > 0){
+
+            $representative_data_get = json_decode($if_exist_check_info->representative_upazila_organogram);
+
+
+            $id = count((array)$representative_data_get)+1;
+
+        }else{
+
+            $id = 1;
+        }
+
+        $representative_info = [
+            'id'          => $id,
+            'name'        => $request->name,
+            'mobile'      => $request->mobile,
+            'email'       => $request->email,
+            'designation' => $request->designation,
+            'address'     => $request->address,
+            'is_active'   => $request->is_active,
+            'created_by'  => Auth::user()->id,
+            'updated_by'  => NULL,
+            'created_ip'  => request()->ip(),
+            'updated_ip'  => NULL,
+            'created_at'  => date('Y-m-d H:i:s'),
+            'updated_at'  => NULL,
+        ];
+      
+        // dd($representative_info);
+
+        if (!empty($representative_data_get)){
+            $representative_data_get[] = $representative_info;
+
+            $upazila_basic_info_data = [
+                'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
+                'is_active'                         => $request->is_active,
+                'created_by'                        => Auth::user()->id,
+                'updated_by'                        => NULL,
+                'created_ip'                        => request()->ip(),
+                'updated_ip'                        => NULL,
+                'created_at'                        => date('Y-m-d H:i:s'),
+                'updated_at'                        => NULL,
+            ];
+       // dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+
+
+        }else{
+            $representative_data_get[] = $representative_info;
+
+            $upazila_basic_info_data = [
+                'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
+                'is_active'                         => $request->is_active,
+                'created_by'                        => Auth::user()->id,
+                'updated_by'                        => NULL,
+                'created_ip'                        => request()->ip(),
+                'updated_ip'                        => NULL,
+                'created_at'                        => date('Y-m-d H:i:s'),
+                'updated_at'                        => NULL,
+            ];
+           //dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+        }
+    }
+
+    public function up_public_peprestative_edit(Request $request)
+    {
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->representative_upazila_organogram);
+
+        $info = array_filter($informations, function($info) use($request){
+            return $info->id == $request->id;
+        });
+
+
+        return response()->json([
+            'status' => !empty($info) ? 'success' : 'error',
+            'msg'    => !empty($info) ? 'Data Found' : 'Something went wrong',
+            'data'   => !empty($info) ? array_values($info) : []
+        ]);
+    }
+
+    public function up_public_peprestative_update(Request $request){
+
+        $id = $request->peprestative_id; 
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+
+        $representative_data_get = json_decode($if_exist_check_info->representative_upazila_organogram);
+
+        $key = array_search($request->peprestative_id, array_column($representative_data_get, 'id'));
+
+     
+        $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        $representative_info = [
+            'id'          => $id,
+            'name'        => $request->name,
+            'mobile'      => $request->mobile,
+            'email'       => $request->email,
+            'designation' => $request->designation,
+            'address'     => $request->address,
+            'is_active'   => $request->is_active,
+            'created_by'  => Auth::user()->id,
+            'updated_by'  => NULL,
+            'created_ip'  => request()->ip(),
+            'updated_ip'  => NULL,
+            'created_at'  => date('Y-m-d H:i:s'),
+            'updated_at'  => NULL,
+        ];
+
+        ///dd($representative_info);
+
+        if (!empty($representative_data_get)){
+            $representative_data_get[$key] = $representative_info;
+
+            $upazila_basic_info_data = [
+                'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
+                'is_active'                         => $request->is_active,
+                'created_by'                        => Auth::user()->id,
+                'updated_by'                        => NULL,
+                'created_ip'                        => request()->ip(),
+                'updated_ip'                        => NULL,
+                'created_at'                        => date('Y-m-d H:i:s'),
+                'updated_at'                        => NULL,
+            ];
+         
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Updated' : 'Someting went wrong',
+            ]);
+
+        }
+    }
+
+    public function up_public_peprestative_delete(Request $request){
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+
+        $representative_data_get = json_decode($if_exist_check_info->representative_upazila_organogram);
+
+        $key = array_search($request->id, array_column($representative_data_get, 'id'));
+
+     
+        $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        if (!empty($representative_data_get)){
+
+            unset($representative_data_get[$key]);
+
+            $upazila_basic_info_data = [
+                'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
+                'is_active'                         => $request->is_active,
+                'created_by'                        => Auth::user()->id,
+                'updated_by'                        => NULL,
+                'created_ip'                        => request()->ip(),
+                'updated_ip'                        => NULL,
+                'created_at'                        => date('Y-m-d H:i:s'),
+                'updated_at'                        => NULL,
+            ];
+         
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Deleted' : 'Someting went wrong',
+            ]);
+
+        }
+    }
+
+    public function freedom_fighter(Request $request){
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+         
+
+        if($request->ajax()){
+           $data = !empty($if_exist_check_info->freedom_fighter) ? json_decode($if_exist_check_info->freedom_fighter) : [];;
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('is_active',function($row){
+                    $html = '';
+                     
+                    if($row->is_active == 1){
+
+                        $html.='<span class="label label-info"> Active </span>'; 
+
+                    }elseif($row->is_active == 2){
+                        
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+                   
+                    return $html;
+                })
+                ->addColumn('action',function($row){
+                    $html = '';
+                     
+                        $html.='<button class="btn btn-primary btn-xs upFreedomFighterEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs upFreedomFighterDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                    return $html;
+                })
+                ->rawColumns(['title','is_active','action'])
+                ->make(true);
+        }else{
+
+        return view('upazila_related.freedom_fighter');
+        }
+    }
+    
+    public function freedom_fighter_store(Request $request){
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+
+     
+        $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        if ($freedom_fighter_id > 0){
+
+            $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
+
+
+            $id = count((array)$freedom_fighter_data_get)+1;
+
+        }else{
+
+            $id = 1;
+        }
+
+        $freedom_fighter_info = [
+            'id'          => $id,
+            'name'        => $request->name,
+            'father_name' => $request->father_name,
+            'village'     => $request->village,
+            'is_active'   => $request->is_active,
+            'created_by'  => Auth::user()->id,
+            'updated_by'  => NULL,
+            'created_ip'  => request()->ip(),
+            'updated_ip'  => NULL,
+            'created_at'  => date('Y-m-d H:i:s'),
+            'updated_at'  => NULL,
+        ];
+      
+
+
+        if (!empty($freedom_fighter_data_get)){
+            $freedom_fighter_data_get[] = $freedom_fighter_info;
+
+            $upazila_basic_info_data = [
+                'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'updated_by'      => NULL,
+                'created_ip'      => request()->ip(),
+                'updated_ip'      => NULL,
+                'created_at'      => date('Y-m-d H:i:s'),
+                'updated_at'      => NULL,
+            ];
+       // dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $freedom_fighter_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+
+
+        }else{
+            $freedom_fighter_data_get[] = $freedom_fighter_info;
+
+            $upazila_basic_info_data = [
+                'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'updated_by'      => NULL,
+                'created_ip'      => request()->ip(),
+                'updated_ip'      => NULL,
+                'created_at'      => date('Y-m-d H:i:s'),
+                'updated_at'      => NULL,
+            ];
+           //dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+        }
+
+    }
+
+    
+    public function freedom_fighter_edit(Request $request)
+    {
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->freedom_fighter);
+
+        $info = array_filter($informations, function($info) use($request){
+            return $info->id == $request->id;
+        });
+
+
+        return response()->json([
+            'status' => !empty($info) ? 'success' : 'error',
+            'msg'    => !empty($info) ? 'Data Found' : 'Something went wrong',
+            'data'   => !empty($info) ? array_values($info) : []
+        ]);
+    }
+
+    public function freedom_fighter_update(Request $request){
+
+        $id = $request->freedom_fighter_id;
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+
+        $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
+     
+        $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $key = array_search($request->freedom_fighter_id, array_column($freedom_fighter_data_get, 'id'));
+
+
+        $freedom_fighter_info = [
+            'id'          => $id,
+            'name'        => $request->name,
+            'father_name' => $request->father_name,
+            'village'     => $request->village,
+            'is_active'   => $request->is_active,
+            'created_by'  => Auth::user()->id,
+            'updated_by'  => NULL,
+            'created_ip'  => request()->ip(),
+            'updated_ip'  => NULL,
+            'created_at'  => date('Y-m-d H:i:s'),
+            'updated_at'  => NULL,
+        ];
+
+        if (!empty($freedom_fighter_data_get)){
+            $freedom_fighter_data_get[$key] = $freedom_fighter_info;
+
+            $upazila_basic_info_data = [
+                'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'updated_by'      => NULL,
+                'created_ip'      => request()->ip(),
+                'updated_ip'      => NULL,
+                'created_at'      => date('Y-m-d H:i:s'),
+                'updated_at'      => NULL,
+            ];
+
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $freedom_fighter_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Updated' : 'Someting went wrong',
+            ]);
+
+        }
+
+    }
+
+    public function freedom_fighter_delete(Request $request){
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+
+        $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
+     
+        $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $key = array_search($request->id, array_column($freedom_fighter_data_get, 'id'));
+
+
+        if (!empty($freedom_fighter_data_get)){
+            unset($freedom_fighter_data_get[$key]);
+
+            $upazila_basic_info_data = [
+                'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'updated_by'      => NULL,
+                'created_ip'      => request()->ip(),
+                'updated_ip'      => NULL,
+                'created_at'      => date('Y-m-d H:i:s'),
+                'updated_at'      => NULL,
+            ];
+
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $freedom_fighter_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Deleted' : 'Someting went wrong',
+            ]);
+
+        }
 
     }
     

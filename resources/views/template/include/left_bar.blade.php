@@ -39,6 +39,9 @@
                     <li  <?php if(in_array($combine_segment,['upPublicPeprestative'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upPublicPeprestative')}}" title="Upazila Public Peprestative"> <span class="menu-item-parent"> জনপ্রতিনিধিগণের তালিকা </span></a>
                     </li>
+                    <li  <?php if(in_array($combine_segment,['freedom_fighter'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('freedom_fighter')}}" title="freedom fighter"> <span class="menu-item-parent"> মুক্তিযোদ্ধাদের তালিকা </span></a>
+                    </li>
                 </ul>
             </li>
             <li>

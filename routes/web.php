@@ -81,3 +81,14 @@ Route::get('/upazilaGeographical', [UpazilaRelatedController::class, 'upazila_ge
 Route::post('/upazilaGeographical/store', [UpazilaRelatedController::class, 'upazila_geographical_store'])->name('upazila_geographical.store');
 
 Route::get('/upPublicPeprestative', [UpazilaRelatedController::class, 'upPublicPeprestative'])->name('upazila_related.upPublicPeprestative');
+Route::post('/upPublicPeprestative/store', [UpazilaRelatedController::class, 'up_public_peprestative_store'])->name('upPublicPeprestative.store');
+Route::post('/upPublicPeprestative/edit', [UpazilaRelatedController::class, 'up_public_peprestative_edit'])->name('upPublicPeprestative.edit');
+Route::post('/upPublicPeprestative/update', [UpazilaRelatedController::class, 'up_public_peprestative_update'])->name('upPublicPeprestative.update');
+Route::post('/upPublicPeprestative/delete', [UpazilaRelatedController::class, 'up_public_peprestative_delete'])->name('upPublicPeprestative.delete');
+
+
+Route::get('/freedom_fighter', [UpazilaRelatedController::class, 'freedom_fighter'])->name('upazila_related.freedom_fighter');
+Route::post('/freedom_fighter/store', [UpazilaRelatedController::class, 'freedom_fighter_store'])->name('freedom_fighter.store');
+Route::post('/freedom_fighter/edit', [UpazilaRelatedController::class, 'freedom_fighter_edit'])->name('freedom_fighter.edit');
+Route::post('/freedom_fighter/update', [UpazilaRelatedController::class, 'freedom_fighter_update'])->name('freedom_fighter.update');
+Route::post('/freedom_fighter/delete', [UpazilaRelatedController::class, 'freedom_fighter_delete'])->name('freedom_fighter.delete');
