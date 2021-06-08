@@ -27,20 +27,29 @@
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >Website Manage</span></a>
                 <ul>
-                    <li  <?php if(in_array($combine_segment,['upazilaIntroduction'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['upazilaIntroduction'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazilaIntroduction')}}" title="Upazila Introduction"> <span class="menu-item-parent">উপজেলা পরিচিতি</span></a>
                     </li>
-                    <li  <?php if(in_array($combine_segment,['upazilaHistory'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['upazilaHistory'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazilaHistory')}}" title="Upazila History"> <span class="menu-item-parent">ইতিহাস ঐতিহ্য</span></a>
                     </li>
-                    <li  <?php if(in_array($combine_segment,['upazilaGeographical'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['upazilaGeographical'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazilaGeographical')}}" title="upazila Geographical"> <span class="menu-item-parent"> ভৌগলিক ও অর্থনৈতিক </span></a>
                     </li>
-                    <li  <?php if(in_array($combine_segment,['upPublicPeprestative'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['upPublicPeprestative'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upPublicPeprestative')}}" title="Upazila Public Peprestative"> <span class="menu-item-parent"> জনপ্রতিনিধিগণের তালিকা </span></a>
                     </li>
-                    <li  <?php if(in_array($combine_segment,['freedom_fighter'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['freedom_fighter'])){ echo 'class="active"';} ?>>
                         <a href="{{url('freedom_fighter')}}" title="freedom fighter"> <span class="menu-item-parent"> মুক্তিযোদ্ধাদের তালিকা </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['upazila_chairman'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('upazila_chairman')}}" title="upazila chairman"> <span class="menu-item-parent"> চেয়ারম্যান, উপজেলা পরিষদ  </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['upazila_vice_chairman'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('upazila_vice_chairman')}}" title="upazila chairman"> <span class="menu-item-parent"> ভাইস চেয়ারম্যান </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['upazila_female_vice_chairman'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('upazila_female_vice_chairman')}}" title="Female vice chairman"> <span class="menu-item-parent">মহিলা ভাইস চেয়ারম্যান </span></a>
                     </li>
                 </ul>
             </li>

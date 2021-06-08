@@ -4,6 +4,7 @@ use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\UnionInfoController;
 use App\Http\Controllers\AllTypeTitleController;
 use App\Http\Controllers\UpazilaRelatedController;
+use App\Http\Controllers\UpazilaParishadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,3 +93,25 @@ Route::post('/freedom_fighter/store', [UpazilaRelatedController::class, 'freedom
 Route::post('/freedom_fighter/edit', [UpazilaRelatedController::class, 'freedom_fighter_edit'])->name('freedom_fighter.edit');
 Route::post('/freedom_fighter/update', [UpazilaRelatedController::class, 'freedom_fighter_update'])->name('freedom_fighter.update');
 Route::post('/freedom_fighter/delete', [UpazilaRelatedController::class, 'freedom_fighter_delete'])->name('freedom_fighter.delete');
+
+
+Route::get('/upazila_chairman', [UpazilaParishadController::class, 'index'])->name('upazila_parishad.upazila_chairman');
+Route::get('/upazila_chairman/create', [UpazilaParishadController::class, 'create'])->name('upazila_chairman.create');
+Route::post('/upazila_chairman/store', [UpazilaParishadController::class, 'store'])->name('upazila_chairman.store');
+Route::get('/upazila_chairman/edit/{id}', [UpazilaParishadController::class, 'edit'])->name('upazila_chairman.edit');
+Route::post('/upazila_chairman/update/{id}', [UpazilaParishadController::class, 'update'])->name('upazila_chairman.update');
+Route::get('/upazila_chairman/delete/{id}', [UpazilaParishadController::class, 'destroy'])->name('upazila_chairman.delete');
+
+Route::get('/upazila_vice_chairman', [UpazilaParishadController::class, 'vice_chairman'])->name('upazila_parishad.vice_chairman');
+Route::get('/upazila_vice_chairman/create', [UpazilaParishadController::class, 'vice_chairman_create'])->name('upazila_parishad.vice_chairman_create');
+Route::post('/upazila_vice_chairman/store', [UpazilaParishadController::class, 'vice_chairman_store'])->name('upazila_parishad.vice_chairman_store');
+Route::get('/upazila_vice_chairman/edit/{id}', [UpazilaParishadController::class, 'vice_chairman_edit'])->name('upazila_parishad.vice_chairman_edit');
+Route::post('/upazila_vice_chairman/update/{id}', [UpazilaParishadController::class, 'vice_chairman_update'])->name('upazila_parishad.vice_chairman_update');
+Route::get('/upazila_vice_chairman/delete/{id}', [UpazilaParishadController::class, 'vice_chairman_delete'])->name('upazila_parishad.vice_chairman_delete');
+
+Route::get('/upazila_female_vice_chairman', [UpazilaParishadController::class, 'female_vice_chairman'])->name('upazila_parishad.female_vice_chairman');
+Route::get('/upazila_female_vice_chairman/create', [UpazilaParishadController::class, 'female_vice_chairman_create'])->name('upazila_parishad.female_vice_chairman_create');
+Route::post('/upazila_female_vice_chairman/store', [UpazilaParishadController::class, 'female_vice_chairman_store'])->name('upazila_parishad.female_vice_chairman_store');
+Route::get('/upazila_female_vice_chairman/edit/{id}', [UpazilaParishadController::class, 'female_vice_chairman_edit'])->name('upazila_parishad.female_vice_chairman_edit');
+Route::post('/upazila_female_vice_chairman/update/{id}', [UpazilaParishadController::class, 'female_vice_chairman_update'])->name('upazila_parishad.female_vice_chairman_update');
+Route::get('/upazila_female_vice_chairman/delete/{id}', [UpazilaParishadController::class, 'female_vice_chairman_delete'])->name('upazila_parishad.female_vice_chairman_delete');
