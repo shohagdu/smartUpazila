@@ -51,6 +51,18 @@
                     <li  <?php if(in_array($segment1,['upazila_female_vice_chairman'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazila_female_vice_chairman')}}" title="Female vice chairman"> <span class="menu-item-parent">মহিলা ভাইস চেয়ারম্যান </span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['pourosova_mayor'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('pourosova_mayor')}}" title="pourosova mayor"> <span class="menu-item-parent"> মেয়র </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['pourosova_councilor'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('pourosova_councilor')}}" title="pourosova councilor"> <span class="menu-item-parent"> কাউন্সিলরগণ </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['pourosova_kormokorta'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('pourosova_kormokorta')}}" title="pourosova kormokorta"> <span class="menu-item-parent"> কর্মকর্তাবৃন্দ </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['pourosovaWard'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('pourosovaWard')}}" title="pourosova kormokorta"> <span class="menu-item-parent"> ওয়ার্ডসমূহ </span></a>
+                    </li>
                 </ul>
             </li>
             <li>

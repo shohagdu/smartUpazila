@@ -5,6 +5,7 @@ use App\Http\Controllers\UnionInfoController;
 use App\Http\Controllers\AllTypeTitleController;
 use App\Http\Controllers\UpazilaRelatedController;
 use App\Http\Controllers\UpazilaParishadController;
+use App\Http\Controllers\PourosovaRelatedController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,3 +116,33 @@ Route::post('/upazila_female_vice_chairman/store', [UpazilaParishadController::c
 Route::get('/upazila_female_vice_chairman/edit/{id}', [UpazilaParishadController::class, 'female_vice_chairman_edit'])->name('upazila_parishad.female_vice_chairman_edit');
 Route::post('/upazila_female_vice_chairman/update/{id}', [UpazilaParishadController::class, 'female_vice_chairman_update'])->name('upazila_parishad.female_vice_chairman_update');
 Route::get('/upazila_female_vice_chairman/delete/{id}', [UpazilaParishadController::class, 'female_vice_chairman_delete'])->name('upazila_parishad.female_vice_chairman_delete');
+
+Route::get('/pourosova_mayor', [PourosovaRelatedController::class, 'pourosova_mayor'])->name('pourosova_related.pourosova_mayor');
+Route::get('/pourosova_mayor/create', [PourosovaRelatedController::class, 'pourosova_mayor_create'])->name('pourosova_related.pourosova_mayor_create');
+Route::post('/pourosova_mayor/store', [PourosovaRelatedController::class, 'pourosova_mayor_store'])->name('pourosova_related.pourosova_mayor_store');
+Route::get('/pourosova_mayor/edit/{id}', [PourosovaRelatedController::class, 'pourosova_mayor_edit'])->name('pourosova_related.pourosova_mayor_edit');
+Route::post('/pourosova_mayor/update/{id}', [PourosovaRelatedController::class, 'pourosova_mayor_update'])->name('pourosova_related.pourosova_mayor_update');
+Route::get('/pourosova_mayor/delete/{id}', [PourosovaRelatedController::class, 'pourosova_mayor_delete'])->name('pourosova_related.pourosova_mayor_delete');
+
+
+Route::get('/pourosova_councilor', [PourosovaRelatedController::class, 'pourosova_councilor'])->name('pourosova_related.pourosova_councilor');
+Route::get('/pourosova_councilor/create', [PourosovaRelatedController::class, 'pourosova_councilor_create'])->name('pourosova_related.pourosova_councilor_create');
+Route::post('/pourosova_councilor/store', [PourosovaRelatedController::class, 'pourosova_councilor_store'])->name('pourosova_related.pourosova_councilor_store');
+Route::get('/pourosova_councilor/edit/{id}', [PourosovaRelatedController::class, 'pourosova_councilor_edit'])->name('pourosova_related.pourosova_councilor_edit');
+Route::post('/pourosova_councilor/update/{id}', [PourosovaRelatedController::class, 'pourosova_councilor_update'])->name('pourosova_related.pourosova_councilor_update');
+Route::get('/pourosova_councilor/delete/{id}', [PourosovaRelatedController::class, 'pourosova_councilor_delete'])->name('pourosova_related.pourosova_councilor_delete');
+
+
+Route::get('/pourosova_kormokorta', [PourosovaRelatedController::class, 'pourosova_kormokorta'])->name('pourosova_related.pourosova_kormokorta');
+Route::get('/pourosova_kormokorta/create', [PourosovaRelatedController::class, 'pourosova_kormokorta_create'])->name('pourosova_related.pourosova_kormokorta_create');
+Route::post('/pourosova_kormokorta/store', [PourosovaRelatedController::class, 'pourosova_kormokorta_store'])->name('pourosova_related.pourosova_kormokorta_store');
+Route::get('/pourosova_kormokorta/edit/{id}', [PourosovaRelatedController::class, 'pourosova_kormokorta_edit'])->name('pourosova_related.pourosova_kormokorta_edit');
+Route::post('/pourosova_kormokorta/update/{id}', [PourosovaRelatedController::class, 'pourosova_kormokorta_update'])->name('pourosova_related.pourosova_kormokorta_update');
+Route::get('/pourosova_kormokorta/delete/{id}', [PourosovaRelatedController::class, 'pourosova_kormokorta_delete'])->name('pourosova_related.pourosova_kormokorta_delete');
+
+Route::get('/pourosovaWard', [PourosovaRelatedController::class, 'pourosova_ward'])->name('pourosova_related.pourosova_ward');
+Route::get('/pourosova_ward/create', [PourosovaRelatedController::class, 'pourosova_ward_create'])->name('pourosova_related.pourosova_ward_create');
+Route::post('/pourosova_ward/store', [PourosovaRelatedController::class, 'pourosova_ward_store'])->name('pourosova_related.pourosova_ward_store');
+Route::get('/pourosova_ward/edit/{id}', [PourosovaRelatedController::class, 'pourosova_ward_edit'])->name('pourosova_related.pourosova_ward_edit');
+Route::post('/pourosova_ward/update/{id}', [PourosovaRelatedController::class, 'pourosova_ward_update'])->name('pourosova_related.pourosova_ward_update');
+Route::get('/pourosova_ward/delete/{id}', [PourosovaRelatedController::class, 'pourosova_ward_delete'])->name('pourosova_related.pourosova_ward_delete');
