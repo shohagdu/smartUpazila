@@ -161,8 +161,6 @@ class UpazilaRelatedController extends Controller
             ]);
         }
 
-    
-
     }
 
     /**

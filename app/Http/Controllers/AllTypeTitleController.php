@@ -82,7 +82,7 @@ class AllTypeTitleController extends Controller
         }
         $all_type_title_info->title            = $request->title;
         $all_type_title_info->display_position = $request->display_position;
-        $all_type_title_info->type             = 1;
+        $all_type_title_info->type             = $request->type;
         $all_type_title_info->is_active        = $request->is_active;
 
         $isSave = $all_type_title_info->save();

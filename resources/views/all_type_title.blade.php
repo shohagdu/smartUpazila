@@ -76,6 +76,23 @@
                                        placeholder="Display Position">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Type <span class="text-danger">*</span></label>
+                            <div class="col-md-7">
+                                <select class="form-control form-control-alt" id="type" name="type" required>
+                                    <option value=""> Select</option>
+                                    <option value="1"> উপজেলা পরিচিতি  </option>
+                                    <option value="2"> এক নজরে পৌরসভা </option>
+                                    <option value="3"> সিটিজেন চার্টার </option>
+                                    <option value="4"> আইন-শৃঙ্খলা বিষয়ক </option>
+                                    <option value="5"> স্বাস্থ্য বিষয়ক</option>
+                                    <option value="6"> কৃষি ও খাদ্য বিষয়ক</option> 
+                                    <option value="7"> ভূমি বিষয়ক </option>
+                                    <option value="8"> প্রকৌশল ও যোগাযোগ </option>
+                                   
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 form-control-label modalLabelText"> Status <span class="text-danger">*</span></label>
@@ -132,7 +149,13 @@
 
 function AddNew()
 {
-$("#allTypeTitlepModal").modal('toggle');
+
+    var title             =  $('#title').val('');
+    var display_position  =  $('#display_position').val('');
+    var type             =  $('#type').val('');
+    var is_active         =  $('#is_active').val('');
+    var all_type_title_id = $('#all_type_title_id').val('');
+    $("#allTypeTitlepModal").modal('toggle');
 document.getElementById("SubmitbtnText").innerHTML = "Submit";
 }
 
@@ -141,6 +164,7 @@ function allTypeTitleSave(){
    
 var title             =  $('#title').val();
 var display_position  =  $('#display_position').val();
+var type             =  $('#type').val();
 var is_active         =  $('#is_active').val();
 var all_type_title_id = $('#all_type_title_id').val();
 
@@ -150,6 +174,7 @@ $.ajax({
         data:{
             title: title,
             display_position: display_position,
+            type: type,
             is_active: is_active,
             all_type_title_id:all_type_title_id,
         },
@@ -224,6 +249,7 @@ $(document).on("click",".AllTypeTitleEdit",function(){
                 let data = responseText.data;
                 var title             =  $('#title').val(data.title);
                 var display_position  =  $('#display_position').val(data.display_position);
+                var type              =  $('#type').val(data.type);
                 var is_active         =  $('#is_active').val(data.is_active);
                 var all_type_title_id = $('#all_type_title_id').val(data.id);
 

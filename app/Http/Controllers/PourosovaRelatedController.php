@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AllTypeTitle;
+use DataTables;
 use Session;
 use DB;
+
 
 class PourosovaRelatedController extends Controller
 {
@@ -580,7 +583,228 @@ class PourosovaRelatedController extends Controller
 
         }
     }
+   
+    // kormocari
+    public function pourosova_kormocari(Request $request)
+    {
+         $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
 
+         $informations = !empty($if_exist_check_info->kormocari) ? json_decode($if_exist_check_info->kormocari) : [];
+
+         $data = array_filter($informations, function($data){
+            return $data->is_active != 0;
+        });   
+
+
+        return view('pourosova_related.pourosova_kormocari', compact('data'));
+    }
+
+    public function pourosova_kormocari_create()
+    {
+        return view('pourosova_related.pourosova_kormocari_create');
+    }
+
+    public function pourosova_kormocari_store(Request $request)
+    {
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+
+        $kormocari_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        if ($kormocari_id > 0){
+
+            $kormocari_data_get = json_decode($if_exist_check_info->kormocari);
+
+
+            $id = count((array)$kormocari_data_get)+1;
+
+        }else{
+
+            $id = 1;
+        }
+
+
+        $upazila_kormocari_info = [
+            'id'             => $id,
+            'name'           => $request->name,
+            'mobile'         => $request->mobile,
+            'email'          => $request->email,
+            'view_order'     => $request->view_order,
+            'designation'    => $request->designation,
+            'responsibilities'=> $request->responsibilities,
+            'is_active'      => $request->is_active,
+            'created_by'     => Auth::user()->id,
+            'created_ip'     => request()->ip(),
+            'created_at'     => date('Y-m-d H:i:s'),
+        ];
+
+
+        if (!empty($kormocari_data_get)){
+
+            $kormocari_data_get[] = $upazila_kormocari_info;
+
+            $upazila_basic_info_data = [
+                'kormocari'      => (!empty($kormocari_data_get)? json_encode($kormocari_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
+            ];
+        
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $kormocari_id)->update($upazila_basic_info_data);
+
+            if($data_save){
+                return redirect()->route('pourosova_related.pourosova_kormocari')->with('message', 'Successfully Save');   
+            }
+
+
+
+        }else{
+
+            $kormocari_data_get[] = $upazila_kormocari_info;
+
+            $upazila_basic_info_data = [
+                'kormocari'      => (!empty($kormocari_data_get)? json_encode($kormocari_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'created_ip'      => request()->ip(),
+                'created_at'      => date('Y-m-d H:i:s'),
+            ];
+
+            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+
+            if($data_save){
+                
+                  return redirect()->route('pourosova_related.pourosova_kormocari')->with('message', 'Successfully Save');  
+
+            }
+        }
+
+    }
+
+    
+    public function pourosova_kormocari_edit($id)
+    {
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->kormocari);
+
+        $info = array_filter($informations, function($info) use($id){
+            return $info->id == $id;
+        });   
+         $kormocari_data = array_values($info);
+
+        return view('pourosova_related.pourosova_kormocari_edit', compact('kormocari_data'));
+    }
+
+    public function pourosova_kormocari_update(Request $request, $id)
+    {
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+
+        $kormocari_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $kormocari_data_get = json_decode($if_exist_check_info->kormocari);
+
+        $key = array_search($id, array_column($kormocari_data_get, 'id'));
+
+
+        $upazila_kormocari_info = [
+            'id'             => $id,
+            'name'           => $request->name,
+            'mobile'         => $request->mobile,
+            'email'          => $request->email,
+            'view_order'     => $request->view_order,
+            'designation'    => $request->designation,
+            'responsibilities'=> $request->responsibilities,
+            'is_active'      => $request->is_active,
+            'created_by'     => Auth::user()->id,
+            'created_ip'     => request()->ip(),
+            'created_at'     => date('Y-m-d H:i:s'),
+        ];
+
+
+        if (!empty($kormocari_data_get)){
+
+            $kormocari_data_get[$key] = $upazila_kormocari_info;
+
+            $upazila_basic_info_data = [
+                'kormocari'      => (!empty($kormocari_data_get)? json_encode($kormocari_data_get):NULL),
+                'is_active'       => $request->is_active,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
+            ];
+        
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $kormocari_id)->update($upazila_basic_info_data);
+
+            if($data_save){
+
+                return redirect()->route('pourosova_related.pourosova_kormocari')->with('message', 'Successfully Updated');   
+            }
+        }
+
+        }
+
+        public function pourosova_kormocari_delete($id)
+    {
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+
+        $kormocari_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $kormocari_data_get = json_decode($if_exist_check_info->kormocari);
+
+        $key = array_search($id, array_column($kormocari_data_get, 'id'));
+
+        $info = array_filter($kormocari_data_get, function($info) use($id){
+            return $info->id == $id;
+        }); 
+
+         $kormocari_data = array_values($info);
+
+
+        $upazila_kormocari_info = [
+            'id'             => $id,
+            'name'           => $kormocari_data[0]->name,
+            'mobile'         => $kormocari_data[0]->mobile,
+            'email'          => $kormocari_data[0]->email,
+            'view_order'     => $kormocari_data[0]->view_order,
+            'designation'    => $kormocari_data[0]->designation,
+            'responsibilities'=> $kormocari_data[0]->responsibilities,
+            'is_active'      => 0,
+            'created_by'     => Auth::user()->id,
+            'created_ip'     => request()->ip(),
+            'created_at'     => date('Y-m-d H:i:s'),
+        ];
+
+
+        if (!empty($kormocari_data_get)){
+
+            $kormocari_data_get[$key] = $upazila_kormocari_info;
+
+            $upazila_basic_info_data = [
+                'kormocari'      => (!empty($kormocari_data_get)? json_encode($kormocari_data_get):NULL),
+                'is_active'       => 1,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
+            ];
+        
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $kormocari_id)->update($upazila_basic_info_data);
+
+            if($data_save){
+
+                return redirect()->route('pourosova_related.pourosova_kormocari')->with('message', 'Successfully Deleted');   
+            }
+        }
+
+        }
+
+
+      // kormokorta
     public function pourosova_kormokorta(Request $request)
     {
          $if_exist_check_info = DB::table('upazila_basic_info')->where('kormokorta', '!=', NULL)->first();
@@ -799,7 +1023,8 @@ class PourosovaRelatedController extends Controller
 
         }
 
-        // Pourosova waed
+
+   // Pourosova waed
 
     public function pourosova_ward(Request $request)
     {
@@ -1003,6 +1228,274 @@ class PourosovaRelatedController extends Controller
             }
 
         }
+    }
+
+    public function citizen_charter(Request $request)
+    {
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+
+        if($request->ajax()){
+            $informations = !empty($if_exist_check_info->citizen_charter) ? json_decode($if_exist_check_info->citizen_charter) : [];
+
+            $data = array_filter($informations, function($data){
+            return $data->is_active != 0;
+            });   
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('is_active',function($row){
+                    $html = '';
+                     
+                    if($row->is_active == 1){
+                        $html.='<span class="label label-info"> Active </span>'; 
+                    }elseif($row->is_active == 2){
+                        
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+                   
+
+                    return $html;
+                })
+                ->addColumn('action',function($row){
+                    $html = '';
+                     
+                        $html.='<button class="btn btn-primary btn-xs citizenCharterEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs citizenCharterDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                    return $html;
+                })
+                ->rawColumns(['is_active','action'])
+                ->make(true);
+        }
+            $all_type_info = AllTypeTitle::where('is_active','!=',0)
+                                    ->where('type','=',3)
+                                    ->get();
+
+            return view('pourosova_related.citizen_charter', compact('all_type_info'));
+        
+    }
+
+    public function citizen_charter_store(Request $request)
+    {
+        
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+
+       // dd($if_exist_check_info);
+        $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        if ($citizen_charter_id > 0){
+
+            $citizen_charter_data_get = json_decode($if_exist_check_info->citizen_charter);
+
+
+            $id = count((array)$citizen_charter_data_get)+1;
+
+        }else{
+
+            $id = 1;
+        }
+
+        $citizen_charter_info = [
+            'id'               => $id,
+            'services'         => $request->services,
+            'services_process' => $request->services_process,
+            'services_price'    => $request->services_price,
+            'services_time'     => $request->services_time,
+            'type'             => $request->type,
+            'is_active'        => $request->is_active,
+            'created_by'       => Auth::user()->id,
+            'updated_by'       => NULL,
+            'created_ip'       => request()->ip(),
+            'updated_ip'       => NULL,
+            'created_at'       => date('Y-m-d H:i:s'),
+            'updated_at'       => NULL,
+        ];
+
+      
+
+       // dd($upazila_basic_info_data);
+
+        if (!empty($citizen_charter_data_get)){
+            $citizen_charter_data_get[] =$citizen_charter_info;
+
+            $upazila_basic_info_data = [
+                'citizen_charter'=> (!empty($citizen_charter_data_get)? json_encode($citizen_charter_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'updated_by'  => NULL,
+                'created_ip'  => request()->ip(),
+                'updated_ip'  => NULL,
+                'created_at'   => date('Y-m-d H:i:s'),
+                'updated_at'   => NULL,
+            ];
+            ////dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $citizen_charter_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+
+
+        }else{
+            $citizen_charter_data_get[] =$citizen_charter_info;
+
+            $upazila_basic_info_data = [
+                'citizen_charter'=> (!empty($citizen_charter_data_get)? json_encode($citizen_charter_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'updated_by'  => NULL,
+                'created_ip'  => request()->ip(),
+                'updated_ip'  => NULL,
+                'created_at'   => date('Y-m-d H:i:s'),
+                'updated_at'   => NULL,
+            ];
+           //dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+        }
+
+    }
+
+    public function citizen_charter_edit(Request $request)
+    {
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->citizen_charter);
+
+        $info = array_filter($informations, function($info) use($request){
+            return $info->id == $request->id;
+        });
+
+
+        return response()->json([
+            'status' => !empty($info) ? 'success' : 'error',
+            'msg'    => !empty($info) ? 'Data Found' : 'Something went wrong',
+            'data'   => !empty($info) ? array_values($info) : []
+        ]);
+    }
+
+    public function citizen_charter_update(Request $request)
+    {
+        $id = $request->citizen_charter_id;
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+
+       // dd($if_exist_check_info);
+        $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $citizen_charter_data_get = json_decode($if_exist_check_info->citizen_charter);
+
+        $key = array_search($request->citizen_charter_id, array_column($citizen_charter_data_get, 'id'));
+    
+        $citizen_charter_info = [
+            'id'               => $id,
+            'services'         => $request->services,
+            'services_process' => $request->services_process,
+            'services_price'    => $request->services_price,
+            'services_time'     => $request->services_time,
+            'type'             => $request->type,
+            'is_active'        => $request->is_active,
+            'created_by'       => Auth::user()->id,
+            'updated_by'       => NULL,
+            'created_ip'       => request()->ip(),
+            'updated_ip'       => NULL,
+            'created_at'       => date('Y-m-d H:i:s'),
+            'updated_at'       => NULL,
+        ];
+
+      
+
+       // dd($upazila_basic_info_data);
+
+        if (!empty($citizen_charter_data_get)){
+            $citizen_charter_data_get[$key] = $citizen_charter_info;
+
+            $upazila_basic_info_data = [
+                'citizen_charter'=> (!empty($citizen_charter_data_get)? json_encode($citizen_charter_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'updated_by'  => NULL,
+                'created_ip'  => request()->ip(),
+                'updated_ip'  => NULL,
+                'created_at'   => date('Y-m-d H:i:s'),
+                'updated_at'   => NULL,
+            ];
+            ////dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $citizen_charter_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+        }
+    }
+
+    public function citizen_charter_destroy(Request $request){
+
+        $id = $request->id;
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+
+       // dd($if_exist_check_info);
+        $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $citizen_charter_data_get = json_decode($if_exist_check_info->citizen_charter);
+
+        $key = array_search($request->id, array_column($citizen_charter_data_get, 'id'));
+
+        $info = array_filter($citizen_charter_data_get, function($info) use($id){
+            return $info->id == $id;
+        }); 
+
+         $citizen_charter = array_values($info);
+
+    
+        $citizen_charter_info = [
+            'id'               => $id,
+            'services'         => $citizen_charter[0]->services,
+            'services_process' => $citizen_charter[0]->services_process,
+            'services_price'    => $citizen_charter[0]->services_price,
+            'services_time'     => $citizen_charter[0]->services_time,
+            'type'             => $citizen_charter[0]->type,
+            'is_active'        => 0,
+            'created_by'       => Auth::user()->id,
+            'updated_by'       => NULL,
+            'created_ip'       => request()->ip(),
+            'updated_ip'       => NULL,
+            'created_at'       => date('Y-m-d H:i:s'),
+            'updated_at'       => NULL,
+        ];
+
+    
+       // dd($upazila_basic_info_data);
+
+        if (!empty($citizen_charter_data_get)){
+            $citizen_charter_data_get[$key] = $citizen_charter_info;
+
+            $upazila_basic_info_data = [
+                'citizen_charter'=> (!empty($citizen_charter_data_get)? json_encode($citizen_charter_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'updated_by'  => NULL,
+                'created_ip'  => request()->ip(),
+                'updated_ip'  => NULL,
+                'created_at'   => date('Y-m-d H:i:s'),
+                'updated_at'   => NULL,
+            ];
+            ////dd($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $citizen_charter_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Delated' : 'Someting went wrong',
+            ]);
+        }
+        
     }
 
 }
