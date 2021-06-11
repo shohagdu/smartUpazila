@@ -1,4 +1,7 @@
-<!-- top header area start -->
+<?php
+use App\Models\UnionInfo;
+$allUnionListData=$union_info = UnionInfo::where(['is_active'=>1])->get();
+?>
 <section id="top_header_wrapper">
   <div class="container head_bg page_shadow">  <!-- container start -->
   <div class="row">  <!-- row start -->
@@ -8,17 +11,15 @@
               ইউনিয়ন
           </a>
           <div class="dropdown-menu cus_dropdown" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/chhatniup/" target="blank">১ নং ছাতনী</a>
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/tebariaup/" target="blank">২ নং তে-বাডিয়া</a>
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/dighapatiaup/" target="blank">৩ নং দিঘাপতিয়া</a>
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/luxmipurkholabariaup/" target="blank">৪ নং খোলাবাড়িয়া</a>
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/barahorispurup/" target="blank">৫ নং বড়-হরিশপুর</a>
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/kaphuriaup/" target="blank">৬ নং কাপুরিয়া</a>
-              <a class="dropdown-item cus_dropdowm_iteam" href="http://natoresadar.com/halsa/" target="blank">৭ নং হালসা</a>
+              @if(!empty($allUnionListData))
+                  @foreach($allUnionListData as $union)
+                    <a class="dropdown-item cus_dropdowm_iteam" href="{{ (!empty($union->web_url)?$union->web_url:'') }}" target="blank">{{ (!empty($union->union_name)?$union->union_name:'') }}</a>
+                  @endforeach
+              @endif
           </div>
       </div> <!-- dropdown start -->
   </div>  <!-- col-md-7 end-->
-  <div class="col-md-3 col-6  slogan cus_col"> <!-- col-md-2 start-->
+  <div class="col-md-3 col-6  slogan cus_col" style="padding-top:3px "> <!-- col-md-2 start-->
       <h4>নাটোর সদর উপজেলা</h4>
   </div> <!-- col-md-2 end-->
   <div class="col-md-4 d-md-block d-none cus_col"> <!-- col-md-3 start-->
@@ -94,13 +95,11 @@
         ইউনিয়ন সম্পর্কিত
       </a>
       <div class="dropdown-menu cus_dropdown_menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="http://natoresadar.com/chhatniup/">১ নং ছাতনী ইউনিয়ন</a>
-        <a class="dropdown-item" href="http://natoresadar.com/tebariaup/">২ নং তে-বাডিয়া ইউনিয়ন</a>
-        <a class="dropdown-item" href="http://natoresadar.com/dighapatiaup/">৩ নং দিঘাপতিয়া ইউনিয়ন</a>
-        <a class="dropdown-item" href="http://natoresadar.com/luxmipurkholabariaup/">৪ নং লক্ষীপুর খোলাবাড়িয়া ইউনিয়ন</a>
-        <a class="dropdown-item" href="http://natoresadar.com/barahorispurup/"> ৫ নং বড়-হরিশপুর ইউনিয়ন</a>
-        <a class="dropdown-item" href="http://natoresadar.com/kaphuriaup/">  ৬ নং কাপুরিয়া ইউনিয়ন</a>
-        <a class="dropdown-item" href="http://natoresadar.com/halsa/">  ৭ নং হালসা ইউনিয়ন</a>
+          @if(!empty($allUnionListData))
+              @foreach($allUnionListData as $union)
+                <a class="dropdown-item" target="_blank" href="{{ (!empty($union->web_url)?$union->web_url:'') }}">{{ (!empty($union->union_name)?$union->union_name:'') }}</a>
+              @endforeach
+          @endif
       </div>
     </li>
     <li class="nav-item dropdown">

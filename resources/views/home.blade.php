@@ -13,20 +13,15 @@
 @endsection
 @section('main_content_area')
     <article class="col-sm-12 col-md-12 col-lg-12">
-
-        <!-- Widget ID (each widget will need unique ID)-->
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                 <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
                 <h2>Dashboard </h2>
             </header>
-
-            <!-- widget div-->
             <div >
                 <div class="widget-body no-padding">
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
-
                         Page is updating....
                     </div>
                 </div>

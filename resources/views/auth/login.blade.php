@@ -10,7 +10,6 @@
         <h3 style="text-align: center;font-weight: bold;color:blue;">উপজেলা অটোমেশন সিস্টেম</h3>
         <h4 style="text-align: center;font-weight: bold;color:blue;">নাটোর সদর, নাটোর</h4>
         <div class="col-sm-offset-2 col-md-7" style="margin-top:20px;padding:30px;">
-
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

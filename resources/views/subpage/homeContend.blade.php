@@ -1,6 +1,6 @@
 @extends("index")
 @section('title_area')
-Home :: Natore  Sadar Upazila
+{{ (!empty($title)?$title:'') }}
 @endsection
 @section('all_union_content')
 <!-- union section start -->
@@ -8,62 +8,19 @@ Home :: Natore  Sadar Upazila
   <div class="container cus_union_con page_shadow">
     <h3 class="all_union">ইউনিয়ন সমূহ</h3>
     <div class="row">
-      <div class="col-md-4">
-        <div class="col_wrap">
-          <h3>১ নং</h3>
-          <h4>ছাতনী </h4>
-          <a href="http://natoresadar.com/chhatniup/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col_wrap">
-          <h3>২ নং</h3>
-          <h4>তে-বাডিয়া </h4>
-          <a href="http://natoresadar.com/tebariaup/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col_wrap">
-          <h3>৩ নং</h3>
-          <h4>দিঘাপতিয়া </h4>
-          <a href="http://natoresadar.com/dighapatiaup/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-
+        @if(!empty($unionList))
+            @foreach($unionList as $union)
+                <div class="col-md-4">
+                    <div class="col_wrap">
+                        <?php  $name = (!empty($union->union_name)?$union->union_name:''); $expUnion=explode('নং',$name);  ?>
+                        <h3>{{ !empty($expUnion[0])?$expUnion[0].' নং ':'' }}</h3>
+                        <h4>{{ !empty($expUnion[1])?$expUnion[1]:'' }} </h4>
+                        <a href="{{  (!empty($union->web_url)?$union->web_url:'') }}" target="blank">ওয়েব সাইট লিংক <i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="col_wrap">
-          <h3>৪ নং</h3>
-          <h4>লক্ষীপুর খোলাবাড়িয়া </h4>
-          <a href="http://natoresadar.com/luxmipurkholabariaup/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col_wrap">
-          <h3>৫ নং</h3>
-          <h4>বড়-হরিশপুর </h4>
-          <a href="http://natoresadar.com/barahorispurup/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col_wrap">
-          <h3>৬ নং</h3>
-          <h4>কাপুরিয়া </h4>
-          <a href="http://natoresadar.com/kaphuriaup/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 ">
-        <div class="col_wrap">
-          <h3>৭ নং</h3>
-          <h4>হালসা</h4>
-          <a href="http://natoresadar.com/halsa/" target="blank">ওয়েব সাইট লিংক... <i class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 <!-- union section end -->

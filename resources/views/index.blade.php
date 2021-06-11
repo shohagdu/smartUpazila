@@ -19,7 +19,7 @@
     <!-- responsive css  -->
     <link rel="stylesheet" href="css/responsive.css">
     <title>
-    @yield('title_area')
+         @yield('title_area')
     </title>
   </head>
   <body>
@@ -29,34 +29,22 @@
     <!-- all union content start -->
     @yield('all_union_content')
     <!-- all union content start -->
-    
+
     <!--  1st sectin start -->
     <section id="first_scction">
-      <div class="container page_shadow">
-        <div class="full_sec_con_wrap"> <!-- full_sec_con_wrap -->
-        <div class="row">
-          
-          <!-- left side bar -->
-          @yield('main_content_area')
-          <!-- left side bar -->
-          <!-- right side bar -->
-          @include('common_layout.right_side')
-          <!-- right side bar -->
+        <div class="container page_shadow">
+            <div class="full_sec_con_wrap"> <!-- full_sec_con_wrap -->
+                <div class="row">
+                    @yield('main_content_area')
+                    @include('common_layout.right_side')
+                </div>
+            </div>
         </div>
-        </div><!-- full_sec_con_wrap -->
-      </div>
     </section>
-    <!--  1st sectin end -->
-    <!-- footer start -->
     @include('common_layout.footer')
-    <!-- footer start -->
-    
-    <!--main jquery -->
     <script src="js/jquery-3.5.1.slim.min.js"></script>
-    <!-- bootsrap js -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <!-- custom js -->
     <script src="js/custom.js"></script>
   </body>
 </html>
