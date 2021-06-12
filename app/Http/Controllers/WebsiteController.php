@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\UnionInfo;
+use App\Models\Upazila_basic_info;
 use App\Feature;
 use PDF;
 use Session;
@@ -16,16 +18,24 @@ class WebsiteController extends Controller
     // home
     public function index()
     {
-        return view('subpage.homeContend');
+        $title='Home :: Upazila';
+        $allUnionList=$union_info = UnionInfo::where(['is_active'=>1])->get();
+        return view('subpage.homeContend',['title'=>$title,'unionList'=>$allUnionList]);
     }
 // upzila sompirkota page
      public function up_introduce()
     {
-        return view('subpage.upzila_introduce');
+        $title='উপজেলা সম্পর্কিত তথ্য :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select('introduction')->whereNotNull('introduction')->orderBy('id')->first();
+        $info=(!empty($data->introduction)?json_decode($data->introduction,true):'');
+        return view('subpage.upzila_introduce',['title'=>$title,'data'=>$info]);
     }
       public function up_history()
     {
-        return view('subpage.upazila_history');
+        $title=' উপজেলার ঐতিহ্য  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select('history')->whereNotNull('history')->orderBy('id')->first();
+        $info=(!empty($data->history)?json_decode($data->history,true):'');
+        return view('subpage.upazila_history',['title'=>$title,'data'=>(!empty($info[0])?$info[0]:'')]);
     }
       public function up_geographical()
     {
@@ -95,7 +105,7 @@ class WebsiteController extends Controller
     {
         return view('subpage.pourosova_citizen_serzen');
     }
-    
+
      public function kormocari()
     {
         return view('subpage.pourosova_kormocari');

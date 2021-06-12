@@ -3,11 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-offset-3 col-md-6" style="margin-top:100px;background: #eee;padding:30px;">
-            <h3 style="text-align: center;font-weight: bold;">উপজেলা অটোমেশন লগ ইন</h3>
+        <div class="col-sm-offset-3 col-md-6" style="text-align: center">
+            <img src="{{ url('img/slide_logo.png') }}" >
+        </div>
+        <div class="clearfix"></div>
+        <h3 style="text-align: center;font-weight: bold;color:blue;">উপজেলা অটোমেশন সিস্টেম</h3>
+        <h4 style="text-align: center;font-weight: bold;color:blue;">নাটোর সদর, নাটোর</h4>
+        <div class="col-sm-offset-2 col-md-7" style="margin-top:20px;padding:30px;">
             <div class="card">
-                <div class="card-header" style="margin-top:50px !important;"></div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

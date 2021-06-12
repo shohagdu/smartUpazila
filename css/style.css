@@ -243,12 +243,6 @@ body {
 
 /*all union area start*/
 
-#union_wrapper .all_union {
-  color: white;
-  text-align: center;
-  padding: 5px 0px;
-  background: #0a5a9b;
-}
 .cus_union_con {
   background: #f3f3f3;
 }
@@ -665,12 +659,19 @@ body {
 
 /*all union area start*/
 
-#union_wrapper .all_union {
+.all_union {
   color: white;
   text-align: center;
-  padding: 5px 0px;
+  padding-top:5px !important; ;
   background: #0a5a9b;
 }
+.h4-title {
+  color: white;
+  text-align: center;
+  padding-top:8px !important; ;
+  background: #0a5a9b;
+}
+
 .cus_union_con {
   background: #f3f3f3;
 }
@@ -838,3 +839,13 @@ body {
   text-align: right;
 }
 /*footer end*/
+
+.table-style th{
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+}
+.table-style td{
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+}
+

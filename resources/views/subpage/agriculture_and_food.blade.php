@@ -1,6 +1,6 @@
 @extends("index")
 @section('title_area')
-agricultuerl :: Natore  Sadar
+    Agriculture and Food
 @endsection
 @section('main_content_area')
 <!-- left side -->
@@ -11,7 +11,7 @@ agricultuerl :: Natore  Sadar
     <table class="table table-bordered">
       <thead>
         <tr>
-          
+
           <th scope="col" class="d-lg-block d-none">ক্রমিক</th>
           <th scope="col">নাম</th>
           <th scope="col">পদবি</th>
@@ -37,14 +37,14 @@ agricultuerl :: Natore  Sadar
           <td>প্রধান তথ্য অফিসার</td>
           <td>০১৯২৪২৭৫৬৯৫</td>
         </tr>
-        
+
       </tbody>
     </table>
-    
-    
-    
-    
-    
+
+
+
+
+
   </div>
 </div>
 <!-- left end -->
