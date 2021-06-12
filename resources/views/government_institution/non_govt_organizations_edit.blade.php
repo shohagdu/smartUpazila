@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  :: agriculture and food Edit
+    :: Admin  :: Non govt organizations Edit
 @endsection
 @section('show_message')
     @if(Session::has('message'))
@@ -21,8 +21,8 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                 <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-                <h2> agriculture and food Edit </h2>
-                <a href="{{ route('government_institution.agriculture_and_food')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  agriculture and food List </a>
+                <h2> Non govt organizations Edit </h2>
+                <a href="{{ route('government_institution.non_govt_organizations')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  Non govt organizations  List </a>
             </header>
 
             <!-- widget div-->
@@ -31,7 +31,7 @@
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
 
-                        <form action="{{ route('government_institution.agriculture_and_food_update', $info->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('government_institution.non_govt_organizations_update', $info->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                              <br><br>
                             <div class="form-group row">
@@ -54,11 +54,11 @@
                                     value="{{$info->email}}">
                                 </div>
 
-                                <label for="name" class="col-md-2 form-control-label modalLabelText"> Designation<span class="text-danger">*</span></label>
+                                <label for="name" class="col-md-2 form-control-label modalLabelText"> View order <span class="text-danger">*</span></label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-alt" name="designation" id="designation" required
-                                    value="{{$info->designation}}">
-                                </div>   
+                                    <input type="text" class="form-control form-control-alt" name="view_order" id="view_order" required
+                                    value="{{$info->view_order}}">
+                                </div>
                            </div><br>
                            
                            <div class="form-group row">
@@ -75,12 +75,12 @@
                                 </select>
                                 
                             </div>
-
-                            <label for="name" class="col-md-2 form-control-label modalLabelText"> View order <span class="text-danger">*</span></label>
+                            <label for="name" class="col-md-2 form-control-label modalLabelText"> Image </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control form-control-alt" name="view_order" id="view_order" required
-                                value="{{$info->view_order}}">
+                                    <input type="file" class="form-control form-control-alt" name="image" id="image">
+                                    <input type="hidden" name="pre_image" id="pre_image" value="{{$info->image}}">
                             </div>
+                            
                            </div><br>
 
                            
@@ -90,17 +90,16 @@
                             <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_active" name="is_active" required>
                                     <option value=""> Select</option>
-                                    <option value="1" <?php if($low_and_order_info->is_active==1){ echo "selected";}?>> Active </option>
-                                    <option value="2" <?php if($low_and_order_info->is_active==2){ echo "selected";}?>> Inactive </option>
+                                    <option value="1" <?php if($info->is_active==1){ echo "selected";}?>> Active </option>
+                                    <option value="2" <?php if($info->is_active==2){ echo "selected";}?>> Inactive </option>
                                    
                                 </select>
                                 
                             </div>
                     
-                            <label for="name" class="col-md-2 form-control-label modalLabelText"> Image </label>
+                            <label for="name" class="col-md-2 form-control-label modalLabelText"> Address </label>
                             <div class="col-md-4">
-                                    <input type="file" class="form-control form-control-alt" name="image" id="image">
-                                    <input type="hidden" name="pre_image" id="pre_image" value="{{$info->image}}">
+                                    <textarea name="address" id="address" class="form-control">{{$info->address}}</textarea>
                             </div>
 
                            </div>

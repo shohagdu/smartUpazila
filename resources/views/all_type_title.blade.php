@@ -89,6 +89,11 @@
                                     <option value="6"> কৃষি ও খাদ্য বিষয়ক</option> 
                                     <option value="7"> ভূমি বিষয়ক </option>
                                     <option value="8"> প্রকৌশল ও যোগাযোগ </option>
+                                    <option value="9"> ভূমি বিষয়ক  </option>
+                                    <option value="10">  প্রকৌশল ও যোগাযোগ  </option>
+                                    <option value="11">  শিক্ষা প্রতিষ্ঠান  </option>
+                                    <option value="12">  বেসরকারি প্রতিষ্ঠান  </option>
+                                    <option value="13">  ধর্মীয় প্রতিষ্ঠান  </option>
                                    
                                 </select>
                             </div>
@@ -110,9 +115,9 @@
                     <div class="modal-footer">
                     <input type="hidden" id="all_type_title_id" name="all_type_title_id">
                         <button type="submit" onclick="allTypeTitleSave()" id="union_setup_save_button"
-                                class="btn btn-primary btn-xs waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
+                                class="btn btn-primary btn-sm waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
                         </button>
-                        <button  type="button" class="btn btn-danger btn-xs waves-effect"
+                        <button  type="button" class="btn btn-danger btn-sm waves-effect"
                                 data-dismiss="modal"> <i class="glyphicon glyphicon-remove"></i> Cancel 
                         </button>
                     </div>

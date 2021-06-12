@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  :: agriculture and food Edit
+    :: Admin  :: land matters Edit
 @endsection
 @section('show_message')
     @if(Session::has('message'))
@@ -21,8 +21,8 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                 <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-                <h2> agriculture and food Edit </h2>
-                <a href="{{ route('government_institution.agriculture_and_food')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  agriculture and food List </a>
+                <h2> land matters Edit </h2>
+                <a href="{{ route('pourosova_related.low_and_order')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  land matters  List </a>
             </header>
 
             <!-- widget div-->
@@ -31,7 +31,7 @@
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
 
-                        <form action="{{ route('government_institution.agriculture_and_food_update', $info->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('government_institution.land_matters_update', $info->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                              <br><br>
                             <div class="form-group row">
@@ -90,8 +90,8 @@
                             <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_active" name="is_active" required>
                                     <option value=""> Select</option>
-                                    <option value="1" <?php if($low_and_order_info->is_active==1){ echo "selected";}?>> Active </option>
-                                    <option value="2" <?php if($low_and_order_info->is_active==2){ echo "selected";}?>> Inactive </option>
+                                    <option value="1" <?php if($info->is_active==1){ echo "selected";}?>> Active </option>
+                                    <option value="2" <?php if($info->is_active==2){ echo "selected";}?>> Inactive </option>
                                    
                                 </select>
                                 

@@ -186,3 +186,46 @@ Route::post('/agriculture-and-food/store', [GovernmentInstitutionController::cla
 Route::get('/agriculture-and-food/edit/{id}', [GovernmentInstitutionController::class, 'agriculture_and_food_edit'])->name('government_institution.agriculture_and_food_edit');
 Route::post('/agriculture-and-food/update/{id}', [GovernmentInstitutionController::class, 'agriculture_and_food_update'])->name('government_institution.agriculture_and_food_update');
 Route::get('/agriculture-and-food/delete/{id}', [GovernmentInstitutionController::class, 'agriculture_and_food_delete'])->name('government_institution.agriculture_and_food_delete');
+
+// land-matters
+Route::get('/land-matters', [GovernmentInstitutionController::class, 'land_matters'])->name('government_institution.land_matters');
+Route::get('/land-matters/create', [GovernmentInstitutionController::class, 'land_matters_create'])->name('government_institution.land_matters_create');
+Route::post('/land-matters/store', [GovernmentInstitutionController::class, 'land_matters_store'])->name('government_institution.land_matters_store');
+Route::get('/land-matters/edit/{id}', [GovernmentInstitutionController::class, 'land_matters_edit'])->name('government_institution.land_matters_edit');
+Route::post('/land-matters/update/{id}', [GovernmentInstitutionController::class, 'land_matters_update'])->name('government_institution.land_matters_update');
+Route::get('/land-matters/delete/{id}', [GovernmentInstitutionController::class, 'land_matters_delete'])->name('government_institution.land_matters_delete');
+
+
+// govt-engineers
+Route::get('/govt-engineers', [GovernmentInstitutionController::class, 'govt_engineers'])->name('government_institution.govt_engineers');
+Route::get('/govt-engineers/create', [GovernmentInstitutionController::class, 'govt_engineers_create'])->name('government_institution.govt_engineers_create');
+Route::post('/govt-engineers/store', [GovernmentInstitutionController::class, 'govt_engineers_store'])->name('government_institution.govt_engineers_store');
+Route::get('/govt-engineers/edit/{id}', [GovernmentInstitutionController::class, 'govt_engineers_edit'])->name('government_institution.govt_engineers_edit');
+Route::post('/govt-engineers/update/{id}', [GovernmentInstitutionController::class, 'govt_engineers_update'])->name('government_institution.govt_engineers_update');
+Route::get('/govt-engineers/delete/{id}', [GovernmentInstitutionController::class, 'govt_engineers_delete'])->name('government_institution.govt_engineers_delete');
+
+
+// educational institutions
+Route::get('/educational-institutions', [GovernmentInstitutionController::class, 'educational_institutions'])->name('government_institution.educational_institutions');
+Route::get('/educational-institutions/create', [GovernmentInstitutionController::class, 'educational_institutions_create'])->name('government_institution.educational_institutions_create');
+Route::post('/educational-institutions/store', [GovernmentInstitutionController::class, 'educational_institutions_store'])->name('government_institution.educational_institutions_store');
+Route::get('/educational-institutions/edit/{id}', [GovernmentInstitutionController::class, 'educational_institutions_edit'])->name('government_institution.educational_institutions_edit');
+Route::post('/educational-institutions/update/{id}', [GovernmentInstitutionController::class, 'educational_institutions_update'])->name('government_institution.educational_institutions_update');
+Route::get('/educational-institutions/delete/{id}', [GovernmentInstitutionController::class, 'educational_institutions_delete'])->name('government_institution.educational_institutions_delete');
+
+
+// non_govt_organizations
+Route::get('/non_govt-organizations', [GovernmentInstitutionController::class, 'non_govt_organizations'])->name('government_institution.non_govt_organizations');
+Route::get('/non_govt-organizations/create', [GovernmentInstitutionController::class, 'non_govt_organizations_create'])->name('government_institution.non_govt_organizations_create');
+Route::post('/non_govt-organizations/store', [GovernmentInstitutionController::class, 'non_govt_organizations_store'])->name('government_institution.non_govt_organizations_store');
+Route::get('/non_govt-organizations/edit/{id}', [GovernmentInstitutionController::class, 'non_govt_organizations_edit'])->name('government_institution.non_govt_organizations_edit');
+Route::post('/non_govt-organizations/supdate/{id}', [GovernmentInstitutionController::class, 'non_govt_organizations_update'])->name('government_institution.non_govt_organizations_update');
+Route::get('/non_govt-organizations/delete/{id}', [GovernmentInstitutionController::class, 'non_govt_organizations_delete'])->name('government_institution.non_govt_organizations_delete');
+
+// religious institutions
+Route::get('/religious-institutions', [GovernmentInstitutionController::class, 'religious_institutions'])->name('government_institution.religious_institutions');
+Route::get('/religious-institutions/create', [GovernmentInstitutionController::class, 'religious_institutions_create'])->name('government_institution.religious_institutions_create');
+Route::post('/religious-institutions/store', [GovernmentInstitutionController::class, 'religious_institutions_store'])->name('government_institution.religious_institutions_store');
+Route::get('/religious-institutions/edit/{id}', [GovernmentInstitutionController::class, 'religious_institutions_edit'])->name('government_institution.religious_institutions_edit');
+Route::post('/religious-institutions/supdate/{id}', [GovernmentInstitutionController::class, 'religious_institutions_update'])->name('government_institution.religious_institutions_update');
+Route::get('/religious-institutions/delete/{id}', [GovernmentInstitutionController::class, 'religious_institutions_delete'])->name('government_institution.religious_institutions_delete');
