@@ -2,21 +2,18 @@
 @section('title_area')
     :: Admin  ::  Councilor
 @endsection
-@section('show_message')
-    @if(Session::has('message'))
-        <div class="alert alert-success alert-dismissible" id="alert_hide_after" role="alert"
-             style="margin-bottom:10px; ">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ Session::get('message') }}
-        </div>
-    @endif
-@endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
 @endsection
 @section('main_content_area')
     <article class="">
-
+        @if(Session::has('message'))
+            <div class="alert alert-success alert-dismissible" id="alert_hide_after" role="alert"
+                style="margin-bottom:10px; ">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ Session::get('message') }}
+            </div>
+        @endif
         <!-- Widget ID (each widget will need unique ID)-->
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
@@ -74,6 +71,6 @@
 
 @section('js')
 
-<!-- <script src="{{ asset('js') }}/union_setup.js"></script> -->
+<script src="{{ asset('js') }}/customer.js"></script>
 
 @endsection

@@ -389,7 +389,6 @@ class UpazilaRelatedController extends Controller
 
         $geographical_view =  !empty($data) ?  $data->geographical_view : NULL;
 
-        
 
         
         return view('upazila_related.upazila_geographical', compact('geographical_view'));

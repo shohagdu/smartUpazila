@@ -2,15 +2,6 @@
 @section('title_area')
     :: Admin  :: Vice Chairman add
 @endsection
-@section('show_message')
-    @if(Session::has('message'))
-        <div class="alert alert-success alert-dismissible" id="alert_hide_after" role="alert"
-             style="margin-bottom:10px; ">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ Session::get('message') }}
-        </div>
-    @endif
-@endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
 @endsection
@@ -63,12 +54,12 @@
                            <div class="form-group row">
                                 <label for="name" class="col-md-1 form-control-label modalLabelText"> Period Start </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_start" id="period_start">
+                                    <input type="text" class="form-control form-control-alt datepicker" name="period_start" id="period_start">
                                 </div>
 
                                 <label for="name" class="col-md-2 form-control-label modalLabelText"> Period End </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_end" id="period_end">
+                                    <input type="text" class="form-control form-control-alt datepicker" name="period_end" id="period_end">
                                 </div>
                            </div><br>
 

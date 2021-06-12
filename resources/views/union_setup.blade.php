@@ -78,7 +78,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 form-control-label modalLabelText">Union Name <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <input type="name" class="form-control form-control-alt" name="union_name" id="union_name"
+                                <input type="text" class="form-control form-control-alt" name="union_name" id="union_name"
                                        placeholder="Union Name" required>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 form-control-label modalLabelText">Union Code <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <input type="name" class="form-control form-control-alt" name="union_code" id="union_code"
+                                <input type="text" class="form-control form-control-alt" name="union_code" id="union_code"
                                        placeholder="Union Code">
                             </div>
                         </div>
@@ -94,8 +94,15 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 form-control-label modalLabelText"> Web url <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <input type="name" class="form-control form-control-alt" name="web_url" id="web_url"
+                                <input type="text" class="form-control form-control-alt" name="web_url" id="web_url"
                                        placeholder="www.exampleup.com">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> View order </label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control form-control-alt" name="view_order" id="view_order"
+                                       placeholder="view order">
                             </div>
                         </div>
 
@@ -159,6 +166,7 @@ function AddNew()
     var union_name =  $('#union_name').val('');
     var union_code =  $('#union_code').val('');
     var web_url    =  $('#web_url').val('');
+    var view_order =  $('#view_order').val('');
     var is_active  =  $('#is_active').val('');
     var union_info_id = $('#union_info_id').val('');
 
@@ -173,6 +181,7 @@ var upazila_id =  $('#upazila_id').val();
 var union_name =  $('#union_name').val();
 var union_code =  $('#union_code').val();
 var web_url    =  $('#web_url').val();
+var view_order =  $('#view_order').val();
 var is_active  =  $('#is_active').val();
 var union_info_id = $('#union_info_id').val();
 
@@ -185,6 +194,7 @@ $.ajax({
             union_code: union_code,
             web_url: web_url,
             is_active: is_active,
+            view_order:view_order,
             union_info_id:union_info_id,
         },
         success:function(responseText){
@@ -260,6 +270,7 @@ $(document).on("click",".UnionSetupEdit",function(){
                 var union_name    =  $('#union_name').val(data.union_name);
                 var union_code    =  $('#union_code').val(data.union_code);
                 var web_url       =  $('#web_url').val(data.web_url);
+                var view_order    =  $('#web_url').val(data.view_order);
                 var is_active     =  $('#is_active').val(data.is_active);
 
                 document.getElementById("SubmitbtnText").innerHTML = "Update";

@@ -962,7 +962,7 @@ class PourosovaRelatedController extends Controller
 
             if($data_save){
 
-                return redirect()->route('pourosova_related.pourosova_kormokorta')->with('message', 'Successfully Save');   
+                return redirect()->route('pourosova_related.pourosova_kormokorta')->with('message', 'Successfully Updated');   
             }
         }
 
@@ -1024,7 +1024,7 @@ class PourosovaRelatedController extends Controller
         }
 
 
-   // Pourosova waed
+   // Pourosova ward
 
     public function pourosova_ward(Request $request)
     {
@@ -1172,7 +1172,7 @@ class PourosovaRelatedController extends Controller
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $ward_id)->update($upazila_basic_info_data);
 
             if($data_save){
-                return redirect()->route('pourosova_related.pourosova_ward')->with('message', 'Successfully Save');   
+                return redirect()->route('pourosova_related.pourosova_ward')->with('message', 'Successfully Updated');   
             }
 
         }

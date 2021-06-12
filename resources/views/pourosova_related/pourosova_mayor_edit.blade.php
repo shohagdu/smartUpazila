@@ -63,12 +63,12 @@
                            <div class="form-group row">
                                 <label for="name" class="col-md-1 form-control-label modalLabelText"> Period Start </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_start" id="period_start" value="{{$mayor_data[0]->period_start}}">
+                                    <input type="text" class="form-control form-control-alt datepicker" name="period_start" id="period_start" value="{{$mayor_data[0]->period_start}}">
                                 </div>
 
                                 <label for="name" class="col-md-2 form-control-label modalLabelText"> Period End </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_end" id="period_end" value="{{$mayor_data[0]->period_end}}">
+                                    <input type="text" class="form-control form-control-alt datepicker" name="period_end" id="period_end" value="{{$mayor_data[0]->period_end}}">
                                 </div>
                            </div><br>
 
@@ -108,10 +108,6 @@
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script>
 CKEDITOR.replace( 'summary-ckeditor' );
-</script>
-
-<script>
-
 </script>
 @endsection
 

@@ -2,26 +2,24 @@
 @section('title_area')
     :: Admin  ::  Upazila Chairman
 @endsection
-@section('show_message')
-    @if(Session::has('message'))
-        <div class="alert alert-success alert-dismissible" id="alert_hide_after" role="alert"
-             style="margin-bottom:10px; ">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ Session::get('message') }}
-        </div>
-    @endif
-@endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
 @endsection
 @section('main_content_area')
     <article class="">
 
+        @if(Session::has('message'))
+            <div class="alert alert-success alert-dismissible" id="alert_hide_after" role="alert"
+                style="margin-bottom:10px; ">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ Session::get('message') }}
+            </div>
+        @endif
         <!-- Widget ID (each widget will need unique ID)-->
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-               <h2> Upazila Chairman </h2>
+               <h2> Upazila Chairman   </h2>
                 <a href="{{ route('upazila_chairman.create')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </a>
             </header>
             <!-- widget div-->
@@ -29,7 +27,7 @@
                 <div class="widget-body no-padding">
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
-                        <table class="table table-striped table-bordered" id="">
+                        <table class="table table-striped table-bordered" id="InformationTable">
                             <thead>
                                 <tr>
                                     <th> # </th>
@@ -68,12 +66,11 @@
             </div>
         </div>
     </article>
-
-    
 @endsection
-
 @section('js')
-
-<!-- <script src="{{ asset('js') }}/union_setup.js"></script> -->
-
+    <script>
+        $(document).ready( function () {
+    $('#InformationTable').DataTable();
+} );
+    </script>
 @endsection

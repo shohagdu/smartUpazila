@@ -35,7 +35,7 @@
                             @csrf
                              <br><br>
                             <div class="form-group row">
-                                <label for="name" class="col-md-1 form-control-label modalLabelText"> Name <span class="text-danger">*</span></label>
+                                <label for="name" class="col-md-2 form-control-label modalLabelText"> Name <span class="text-danger">*</span></label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control form-control-alt" name="name" id="name" required
                                         placeholder="Name">
@@ -46,9 +46,9 @@
                                     <input type="text" class="form-control form-control-alt" name="mobile" id="mobile" required
                                         placeholder="Mobile">
                                 </div>
-                           </div><br>
+                           </div>
                            <div class="form-group row">
-                                <label for="name" class="col-md-1 form-control-label modalLabelText"> Email <span class="text-danger">*</span></label>
+                                <label for="name" class="col-md-2 form-control-label modalLabelText"> Email <span class="text-danger">*</span></label>
                                 <div class="col-md-4">
                                     <input type="email" class="form-control form-control-alt" name="email" id="email" required
                                         placeholder="Email">
@@ -58,22 +58,22 @@
                                 <div class="col-md-4">
                                     <input type="file" class="form-control form-control-alt" name="image" id="image">
                                 </div>
-                           </div><br>
+                           </div>
                            
                            <div class="form-group row">
-                                <label for="name" class="col-md-1 form-control-label modalLabelText"> Period Start </label>
+                                <label for="name" class="col-md-2 form-control-label modalLabelText"> Period Start </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_start" id="period_start">
+                                    <input type="text" class="form-control form-control-alt  datepicker" name="period_start" id="period_start">
                                 </div>
 
                                 <label for="name" class="col-md-2 form-control-label modalLabelText"> Period End </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_end" id="period_end">
+                                    <input type="text" class="form-control form-control-alt datepicker" name="period_end" id="period_end">
                                 </div>
-                           </div><br>
+                           </div>
 
                            <div class="form-group row">
-                            <label for="name" class="col-md-1 form-control-label modalLabelText"> Status <span class="text-danger">*</span></label>
+                            <label for="name" class="col-md-2 form-control-label modalLabelText"> Status <span class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_active" name="is_active" required>
                                     <option value=""> Select</option>
@@ -89,7 +89,7 @@
                                 </div>
                            </div>
                            <div class="form-group row">
-                             <label class="col-md-1"> &nbsp;&nbsp;&nbsp; Details </label>
+                             <label class="col-md-2 modalLabelText "> &nbsp;&nbsp;&nbsp; Details </label>
                               <textarea  name="details"   class="form-control" id="summary-ckeditor" name="summary-ckeditor"> </textarea><br>
                            </div>
 
@@ -108,10 +108,6 @@
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script>
 CKEDITOR.replace( 'summary-ckeditor' );
-</script>
-
-<script>
-
 </script>
 @endsection
 
