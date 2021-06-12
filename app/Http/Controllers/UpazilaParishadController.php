@@ -111,7 +111,10 @@ class UpazilaParishadController extends Controller
            // dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
-            return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Save');   
+            if($data_save){
+
+                return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Save'); 
+            }  
 
 
         }else{
@@ -130,10 +133,11 @@ class UpazilaParishadController extends Controller
 
             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
 
-            return response()->json([
-                'status' => $data_save ? 'success' : 'error',
-                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
-            ]);
+           if($data_save){
+
+            return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Save');   
+
+           }
         }
 
 
@@ -233,7 +237,7 @@ class UpazilaParishadController extends Controller
            // dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
-            return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Save');   
+            return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Updated');   
 
 
         }     

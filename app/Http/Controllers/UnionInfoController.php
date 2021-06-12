@@ -93,6 +93,7 @@ class UnionInfoController extends Controller
         $union_info->union_name = $request->union_name;
         $union_info->union_code = $request->union_code;
         $union_info->web_url    = $request->web_url;
+        $union_info->view_order = $request->view_order;
         $union_info->is_active  = $request->is_active;
 
         $isSave = $union_info->save();
@@ -136,9 +137,6 @@ class UnionInfoController extends Controller
     {
         $data =  UnionInfo::find($request->id);
 
-
-        //  echo "<pre>";
-        // print_r($data);exit;
 
         return response()->json([
             'status' => !empty($data) ? 'success' : 'error',

@@ -2,7 +2,11 @@
 @section('title_area')
     :: Admin  :: Female Vice Chairman
 @endsection
-@section('show_message')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css') }}/custom.css">
+@endsection
+@section('main_content_area')
+    <article class="">
     @if(Session::has('message'))
         <div class="alert alert-success alert-dismissible" id="alert_hide_after" role="alert"
              style="margin-bottom:10px; ">
@@ -10,13 +14,6 @@
             {{ Session::get('message') }}
         </div>
     @endif
-@endsection
-@section('css')
-<link rel="stylesheet" href="{{ asset('css') }}/custom.css">
-@endsection
-@section('main_content_area')
-    <article class="">
-
         <!-- Widget ID (each widget will need unique ID)-->
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
@@ -29,7 +26,7 @@
                 <div class="widget-body no-padding">
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
-                        <table class="table table-striped table-bordered" id="">
+                        <table class="table table-striped table-bordered" id="InformationTable">
                             <thead>
                                 <tr>
                                     <th> # </th>
@@ -74,6 +71,6 @@
 
 @section('js')
 
-<!-- <script src="{{ asset('js') }}/union_setup.js"></script> -->
+<script src="{{ asset('js') }}/custom.js"></script>
 
 @endsection

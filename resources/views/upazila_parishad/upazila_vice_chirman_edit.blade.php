@@ -63,12 +63,12 @@
                            <div class="form-group row">
                                 <label for="name" class="col-md-1 form-control-label modalLabelText"> Period Start </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_start" id="period_start" value="{{$chairman_data[0]->period_start}}">
+                                    <input type="text" class="form-control form-control-alt datepicker" name="period_start" id="period_start" value="{{$chairman_data[0]->period_start}}">
                                 </div>
 
                                 <label for="name" class="col-md-2 form-control-label modalLabelText"> Period End </label>
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control form-control-alt" name="period_end" id="period_end" value="{{$chairman_data[0]->period_end}}">
+                                    <input type="text" class="form-control form-control-alt datepicker " name="period_end" id="period_end" value="{{$chairman_data[0]->period_end}}">
                                 </div>
                            </div><br>
 
