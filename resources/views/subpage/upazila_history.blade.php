@@ -1,6 +1,6 @@
 @extends("index")
 @section('title_area')
-upazila_history :: Natore  Sadar
+    {{ (!empty($title)?$title:'') }}
 @endsection
 @section('main_content_area')
     <div class="col-md-8">

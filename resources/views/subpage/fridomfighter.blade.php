@@ -1,52 +1,39 @@
 @extends("index")
 @section('title_area')
-fridomfighter :: Natore  Sadar
+    {{ (!empty($title)?$title:'') }}
 @endsection
 @section('main_content_area')
-<!-- left side -->
 <div class="col-md-8">
   <div class="all_content_wrap">
     <h4>নাটোর সদর উপজেলার মুক্তিযোদ্ধাদের তালিকা</h4>
-    
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col" >ক্রম</th>
-          <th scope="col" > মুক্তিযোদ্ধার নাম</th>
-          <th scope="col"> পিতার নাম</th>
-          <th scope="col"> গ্রাম</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>১</td>
-          <td>এস এম সেকেন্দার আলী</td>
-          <td>মৃত বছির উদ্দিন সরদার</td>
-          <td>সরকুতিয়া</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>মোঃ নজমুল করিম</td>
-          <td>মৃত বছির উদ্দিন প্রাং</td>
-          <td>ছাতারভাগ</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>মোঃ লুৎফর রহমান</td>
-          <td>মৃত খয়ের উদ্দিন মন্ডল</td>
-          <td>আবদানপুর</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        
-      </tbody>
-    </table>
-    
+      <table class="table table-bordered table-style">
+          <thead>
+          <tr>
+              <th style="width: 5%" > নং</th>
+              <th style="width:25%" > নাম</th>
+              <th style="width:25%"> পিতার নাম</th>
+              <th style="width:30%"> ঠিকানা</th>
+          </tr>
+          </thead>
+          <tbody>
+          @if(!empty($data))
+              @php($i=1)
+              @foreach($data as $row)
+                  <tr>
+                      <td>{{ $i++ }}</td>
+                      <td> {{ (!empty($row['name'])?$row['name']:'') }} </td>
+                      <td> {{ (!empty($row['father_name'])?$row['father_name']:'') }} </td>
+                      <td>{{ (!empty($row['village'])?$row['village']:'') }}</td>
+                  </tr>
+              @endforeach
+          @else
+              <tr>
+                  <td colspan="4" class="text-center">No Data Found</td>
+              </tr>
+          @endif
+          </tbody>
+      </table>
   </div>
 </div>
-<!-- left end -->
+
 @endsection

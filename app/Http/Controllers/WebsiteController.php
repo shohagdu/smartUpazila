@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\UnionInfo;
 use App\Models\Upazila_basic_info;
+use App\Models\AllTypeTitle;
 use App\Feature;
 use PDF;
 use Session;
@@ -28,7 +29,8 @@ class WebsiteController extends Controller
         $title='উপজেলা সম্পর্কিত তথ্য :: Upazila';
         $data=Upazila_basic_info::where(['is_active'=>1])->select('introduction')->whereNotNull('introduction')->orderBy('id')->first();
         $info=(!empty($data->introduction)?json_decode($data->introduction,true):'');
-        return view('subpage.upzila_introduce',['title'=>$title,'data'=>$info]);
+        $settingInfo=AllTypeTitle::where(['type'=>1])->pluck('title','id');
+        return view('subpage.upzila_introduce',['title'=>$title,'data'=>$info,'settingInfo'=>$settingInfo]);
     }
       public function up_history()
     {
@@ -39,15 +41,33 @@ class WebsiteController extends Controller
     }
       public function up_geographical()
     {
-        return view('subpage.Geographical');
+        $field='geographical_view';
+        $title=' ভৌগলিক ও অর্থনৈতিক  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        return view('subpage.Geographical',['title'=>$title,'data'=>(!empty($info)?$info:'')]);
     }
       public function up_public_represtative()
     {
-        return view('subpage.Public_representative');
+        $field='representative_upazila_organogram';
+        $title=' জনপ্রতিনিধিগণের তালিকা  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new = array_filter($info, function ($var) {
+            return ($var['is_active'] == 1);
+        });
+        return view('subpage.Public_representative',['title'=>$title,'data'=>(!empty($info_new)?$info_new:'')]);
     }
       public function up_fridomfighter()
     {
-        return view('subpage.fridomfighter');
+        $field='freedom_fighter';
+        $title=' মুক্তিযোদ্ধাদের তালিকা  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new = array_filter($info, function ($var) {
+            return ($var['is_active'] == 1);
+        });
+        return view('subpage.fridomfighter',['title'=>$title,'data'=>(!empty($info_new)?$info_new:'')]);
     }
 
     // upzila porisad
