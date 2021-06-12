@@ -115,9 +115,9 @@
                     <div class="modal-footer">
                     <input type="hidden" id="union_info_id" name="union_info_id">
                         <button type="submit" onclick="unionSetupSave()" id="union_setup_save_button"
-                                class="btn btn-primary btn-xs waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
+                                class="btn btn-primary btn-sm waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
                         </button>
-                        <button  type="button" class="btn btn-danger btn-xs waves-effect"
+                        <button  type="button" class="btn btn-danger btn-sm waves-effect"
                                 data-dismiss="modal"> <i class="glyphicon glyphicon-remove"></i> Cancel 
                         </button>
                     </div>
@@ -155,8 +155,15 @@
 
 function AddNew()
 {
-$("#unionSetupModal").modal('toggle');
-document.getElementById("SubmitbtnText").innerHTML = "Submit";
+    var upazila_id =  $('#upazila_id').val('');
+    var union_name =  $('#union_name').val('');
+    var union_code =  $('#union_code').val('');
+    var web_url    =  $('#web_url').val('');
+    var is_active  =  $('#is_active').val('');
+    var union_info_id = $('#union_info_id').val('');
+
+    $("#unionSetupModal").modal('toggle');
+    document.getElementById("SubmitbtnText").innerHTML = "Submit";
 }
 
 // union info save

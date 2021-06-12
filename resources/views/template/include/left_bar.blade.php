@@ -63,6 +63,36 @@
                     <li  <?php if(in_array($segment1,['pourosovaWard'])){ echo 'class="active"';} ?>>
                         <a href="{{url('pourosovaWard')}}" title="pourosova kormokorta"> <span class="menu-item-parent"> ওয়ার্ডসমূহ </span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['pourosova_kormocari'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('pourosova_kormocari')}}" title="pourosova kormocari"> <span class="menu-item-parent"> কর্মচারীবৃন্দ  </span></a>
+                    </li>   
+                    <li  <?php if(in_array($segment1,['citizen-charter'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('citizen-charter')}}" title="citizen-charter"> <span class="menu-item-parent"> সিটিজেন চার্টার  </span></a>
+                    </li>  
+                    <li  <?php if(in_array($segment1,['lowAndOrder'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('lowAndOrder')}}" title="low and order"> <span class="menu-item-parent"> আইন-শৃঙ্খলা বিষয়ক  </span></a>
+                    </li>  
+                    <li  <?php if(in_array($segment1,['health-issues'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('health-issues')}}" title="low and order"> <span class="menu-item-parent"> স্বাস্থ্য বিষয়ক </span></a>
+                    </li>  
+                    <li  <?php if(in_array($segment1,['agriculture-and-food'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('agriculture-and-food')}}" title="low and order"> <span class="menu-item-parent"> কৃষি ও খাদ্য বিষয়ক</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['land-matters'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('land-matters')}}" title="low and order"> <span class="menu-item-parent">ভূমি বিষয়ক </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['govt-engineers'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('govt-engineers')}}" title="govt engineers"> <span class="menu-item-parent"> প্রকৌশল ও যোগাযোগ</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['educational-institutions'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('educational-institutions')}}" title="educational institutions"> <span class="menu-item-parent"> শিক্ষা প্রতিষ্ঠান </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['non_govt-organizations'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('non_govt-organizations')}}" title="non_govt organizations"> <span class="menu-item-parent"> বেসরকারি প্রতিষ্ঠান </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['religious-institutions'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('religious-institutions')}}" title="religious institutions"> <span class="menu-item-parent"> ধর্মীয় প্রতিষ্ঠান </span></a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -91,6 +121,7 @@
                     <li  <?php if(in_array($combine_segment,['all-type-title'])){ echo 'class="active"';} ?>>
                         <a href="{{url('all-type-title')}}" title="All Type Title"><span class="menu-item-parent">All Type Title</span></a>
                     </li>
+                    
                 </ul>
             </li>
 

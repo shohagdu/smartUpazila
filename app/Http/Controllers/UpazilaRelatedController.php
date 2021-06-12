@@ -161,8 +161,6 @@ class UpazilaRelatedController extends Controller
             ]);
         }
 
-    
-
     }
 
     /**
@@ -316,8 +314,8 @@ class UpazilaRelatedController extends Controller
         $if_exist_check_info = DB::table('upazila_basic_info')->where('history', '!=', NULL)->first();
         $data = !empty($if_exist_check_info->history) ? json_decode($if_exist_check_info->history) : NULL;
 
-        $history =  !empty($data) ?  $data[0]->history : NULL;
-        
+        $history =  !empty($data) ?  $data->history : NULL;
+
         
         return view('upazila_related.up_history', compact('history'));
     }
@@ -332,7 +330,7 @@ class UpazilaRelatedController extends Controller
 
        
 
-        $history_info[] = [
+        $history_info = [
             'history'           => $history,
             'created_by'       => Auth::user()->id,
             'updated_by'       => NULL,
@@ -347,7 +345,7 @@ class UpazilaRelatedController extends Controller
 
 
                 $upazila_basic_info_data = [
-                    'history'=> (!empty($history_info)? json_encode($history_info):NULL),
+                    'history'=> (!empty($history_info)? json_encode($history_info, JSON_UNESCAPED_UNICODE ):NULL),
                     'is_active'   =>1,
                     'created_by'  => Auth::user()->id,
                     'updated_by'  => NULL,
@@ -356,6 +354,7 @@ class UpazilaRelatedController extends Controller
                     'created_at'   => date('Y-m-d H:i:s'),
                     'updated_at'   => NULL,
                 ];
+
                 
                 $data_save = DB::table('upazila_basic_info')->where('id', '=', $history_id)->update($upazila_basic_info_data);
 
@@ -364,7 +363,7 @@ class UpazilaRelatedController extends Controller
             }else{
 
                 $upazila_basic_info_data = [
-                    'history'=> (!empty($history_info)? json_encode($history_info):NULL),
+                    'history'=> (!empty($history_info)? json_encode($history_info, JSON_UNESCAPED_UNICODE):NULL),
                     'is_active'   => 1,
                     'created_by'  => Auth::user()->id,
                     'updated_by'  => NULL,
@@ -388,8 +387,10 @@ class UpazilaRelatedController extends Controller
         $if_exist_check_info = DB::table('upazila_basic_info')->where('geographical_view', '!=', NULL)->first();
         $data = !empty($if_exist_check_info->geographical_view) ? json_decode($if_exist_check_info->geographical_view) : NULL;
 
-        $geographical_view =  !empty($data) ?  $data[0]->geographical_view : NULL;
+        $geographical_view =  !empty($data) ?  $data->geographical_view : NULL;
+
         
+
         
         return view('upazila_related.upazila_geographical', compact('geographical_view'));
     }
@@ -404,7 +405,7 @@ class UpazilaRelatedController extends Controller
 
        
 
-        $geographical_info[] = [
+        $geographical_info = [
             'geographical_view'=> $geographical_view,
             'created_by'       => Auth::user()->id,
             'updated_by'       => NULL,
@@ -419,7 +420,7 @@ class UpazilaRelatedController extends Controller
 
 
                 $upazila_basic_info_data = [
-                    'geographical_view'=> (!empty($geographical_info)? json_encode($geographical_info):NULL),
+                    'geographical_view'=> (!empty($geographical_info)? json_encode($geographical_info, JSON_UNESCAPED_UNICODE):NULL),
                     'is_active'        =>1,
                     'created_by'       => Auth::user()->id,
                     'updated_by'       => NULL,
@@ -437,7 +438,7 @@ class UpazilaRelatedController extends Controller
             }else{
 
                 $upazila_basic_info_data = [
-                    'geographical_view'=> (!empty($geographical_info)? json_encode($geographical_info):NULL),
+                    'geographical_view'=> (!empty($geographical_info)? json_encode($geographical_info, JSON_UNESCAPED_UNICODE):NULL),
                     'is_active'   => 1,
                     'created_by'  => Auth::user()->id,
                     'updated_by'  => NULL,
