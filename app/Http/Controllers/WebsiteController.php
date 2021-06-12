@@ -53,6 +53,7 @@ class WebsiteController extends Controller
         $title=' জনপ্রতিনিধিগণের তালিকা  :: Upazila';
         $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
         $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
         if(!empty($info)) {
             $info_new = array_filter($info, function ($var) {
                 return ($var['is_active'] == 1);
@@ -66,6 +67,7 @@ class WebsiteController extends Controller
         $title=' মুক্তিযোদ্ধাদের তালিকা  :: Upazila';
         $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
         $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
         if(!empty($info)) {
             $info_new = array_filter($info, function ($var) {
                 return ($var['is_active'] == 1);
@@ -81,7 +83,7 @@ class WebsiteController extends Controller
         $title=' উপজেলা চেয়ারম্যান  :: Upazila';
         $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
         $info=(!empty($data->$field)?json_decode($data->$field,true):'');
-
+        $info_new=[];
         if(!empty($info)) {
             $info_new = array_filter($info, function ($var) {
                 return ($var['is_active'] == 1);
@@ -92,11 +94,31 @@ class WebsiteController extends Controller
     }
      public function up_vais_chirman()
     {
-        return view('subpage.upzilavais_chirman');
+        $field='vice_chariman';
+        $title=' উপজেলা ভাইস  চেয়ারম্যান  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+        }
+        return view('subpage.upzilavais_chirman',['title'=>$title,'data'=>(!empty($info_new[0])?$info_new[0]:'')]);
     }
          public function up_mohilavais_chirman()
     {
-        return view('subpage.mohilavais_chirman');
+        $field='female_vice_chairman';
+        $title=' উপজেলা ভাইস  চেয়ারম্যান  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+        }
+        return view('subpage.mohilavais_chirman',['title'=>$title,'data'=>(!empty($info_new[0])?$info_new[0]:'')]);
     }
          public function up_frakton_chirman()
     {

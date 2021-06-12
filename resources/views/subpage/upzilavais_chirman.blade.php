@@ -1,24 +1,26 @@
 @extends("index")
 @section('title_area')
-upzilavais_chirman :: Natore  Sadar 
+    {{ (!empty($title)?$title:'') }}
 @endsection
 @section('main_content_area')
-
-      <!-- left side -->
-      <div class="col-md-8">
-        <div class="all_content_wrap">
-          <img src="img/baischirman.png" alt="" class="img-fluid">
-          <div class="uz_chirman_content">
-            <h2>আব্দুল্লাহ আল সাকিব বাকী</h2>
-            <p>ভাইস চেয়ারম্যান</p>
-            <hr>
-            <h5>মোবাইল : 01712663717</h5>
-            <h5>ফোন (অফিস) : 01712663717</h5>
-            <h5>ইমেইল : shakibvc@gmail.com</h5>
-            <h5>ব্যাচ (বিসিএস) : ০</h5>
-            <h5>বর্তমান কর্মস্থলে যোগদানের তারিখ :</h5>
-          </div>
+    <div class="col-md-8">
+        <div class="col-sm-12" >
+            <div class="col-md-4" style="float: left">
+                <div class="col-sm-12" style="margin-top: 20px">
+                    <img src="<?php echo (!empty($data['image']) && (file_exists('img/upazila_chairman/'.$data['image']))?url('img/upazila_chairman/'.$data['image']):url('fontView/assets/img/avatars/male.png')) ?>" style="height: 200px;" onerror="{{ url('fontView/assets/img/avatars/male.png') }}" alt="" class="img-thumbnail">
+                </div>
+            </div>
+            <div class="col-md-8" style="float: right">
+                <div class="uz_chirman_content">
+                    <h2>{{ (!empty($data['name'])?$data['name']:'-') }}</h2>
+                    <h5 class="text-center">উপজেলা  চেয়ারম্যান</h5>
+                    <h5><b>মোবাইল :</b> {{ (!empty($data['mobile'])?$data['mobile']:'-') }}</h5>
+                    <h5><b>ইমেইল :</b> {{ (!empty($data['email'])?$data['email']:'-') }}</h5>
+                    <h5><b>বর্তমান কর্মস্থলে যোগদানের তারিখ : </b> {{ (!empty($data['period_start'])?date('d, M Y',strtotime($data['period_start'])):'-') }}</h5>
+                    <div class="clearfix"></div>
+                    <?php echo (!empty($data['details'])?$data['details']:'-') ?>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- left end -->
-    @endsection
+    </div>
+@endsection
