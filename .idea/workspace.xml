@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="639aa833-301e-43ef-9f98-339cbc2f33e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/Upazila_basic_info.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebsiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebsiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/common_layout/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/common_layout/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/subpage/agriculture_and_food.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/agriculture_and_food.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/subpage/homeContend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/homeContend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/subpage/Geographical.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/Geographical.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/subpage/Public_representative.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/Public_representative.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/subpage/fridomfighter.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/fridomfighter.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/subpage/upazila_history.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/upazila_history.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/subpage/upzila_introduce.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/upzila_introduce.blade.php" afterDir="false" />
     </list>
@@ -182,7 +177,7 @@
       <workItem from="1619508267567" duration="13676000" />
       <workItem from="1620121118357" duration="269000" />
       <workItem from="1620121398277" duration="2979000" />
-      <workItem from="1623395228489" duration="10663000" />
+      <workItem from="1623395228489" duration="16520000" />
     </task>
     <servers />
   </component>

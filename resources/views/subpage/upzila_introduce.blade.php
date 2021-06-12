@@ -20,7 +20,7 @@
                         @foreach($data as $row)
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{ (!empty($row['title'])?$row['title']:'') }}</td>
+                                <td>{{ (!empty($settingInfo[$row['title']])?$settingInfo[$row['title']]:'') }}</td>
                                 <td>{{ (!empty($row['description'])?$row['description']:'') }}</td>
                             </tr>
                         @endforeach
