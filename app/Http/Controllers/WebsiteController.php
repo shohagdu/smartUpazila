@@ -73,7 +73,15 @@ class WebsiteController extends Controller
     // upzila porisad
   public function up_chirman()
     {
-        return view('subpage.upzila_chirman');
+        $field='upazila_chairman';
+        $title=' উপজেলা চেয়ারম্যান  :: Upazila';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new = array_filter($info, function ($var) {
+            return ($var['is_active'] == 1);
+        });
+        return view('subpage.upzila_chirman',['title'=>$title,'data'=>(!empty($info_new)?$info_new:'')]);
+
     }
      public function up_vais_chirman()
     {
