@@ -19,15 +19,19 @@ class UpazilaRelatedController extends Controller
      */
     public function index(Request $request)
     {
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
+
+
         $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
-         
+
 
         if($request->ajax()){
            $informations = !empty($if_exist_check_info->introduction) ? json_decode($if_exist_check_info->introduction) : [];
 
             $data = array_filter($informations, function($data){
                 return $data->is_active != 0;
-            });   
+            });
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -36,21 +40,21 @@ class UpazilaRelatedController extends Controller
                  })
                 ->addColumn('is_active',function($row){
                     $html = '';
-                     
+
                     if($row->is_active == 1){
-                        $html.='<span class="label label-info"> Active </span>'; 
+                        $html.='<span class="label label-info"> Active </span>';
                     }elseif($row->is_active == 2){
-                        
+
                         $html.='<span class="label label-warning"> Inactive </span>';
                     }
-                   
+
 
                     return $html;
                 })
                 ->addColumn('action',function($row){
                     $html = '';
-                     
-                        $html.='<button class="btn btn-primary btn-xs introDuceEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs UpIntrouduceDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                        $html.='<button class="btn btn-primary btn-xs introDuceEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs UpIntrouduceDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>';
 
                     return $html;
                 })
@@ -85,7 +89,7 @@ class UpazilaRelatedController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
 
@@ -116,7 +120,7 @@ class UpazilaRelatedController extends Controller
             'created_at'       => date('Y-m-d H:i:s'),
         ];
 
-      
+
 
        // dd($upazila_basic_info_data);
 
@@ -245,7 +249,7 @@ class UpazilaRelatedController extends Controller
             ]);
 
 
-        }    
+        }
 
     }
 
@@ -267,7 +271,7 @@ class UpazilaRelatedController extends Controller
 
         $info = array_filter($introduction_data_get, function($info) use($id){
             return $info->id == $id;
-        }); 
+        });
 
 
          $introduction_data_info = array_values($info);
@@ -291,9 +295,14 @@ class UpazilaRelatedController extends Controller
 
 
         if (!empty($introduction_data_get)){
-            
+
+
+            unset($introduction_data_get[$key]);
+
+
             $introduction_data_get[$key] = $introduction_info;
-        
+
+
             $upazila_basic_info_data = [
                 'introduction'=> (!empty($introduction_data_get)? json_encode($introduction_data_get):NULL),
                 'is_active'   => $request->is_active,
@@ -302,7 +311,7 @@ class UpazilaRelatedController extends Controller
                 'updated_at'  => date('Y-m-d H:i:s'),
             ];
 
-           
+
            // dd($upazila_basic_info_data);
             $data_delete = DB::table('upazila_basic_info')->where('id', '=', $introduction_id)->update($upazila_basic_info_data);
 
@@ -312,7 +321,7 @@ class UpazilaRelatedController extends Controller
             ]);
 
 
-        }    
+        }
     }
 
 
@@ -324,7 +333,7 @@ class UpazilaRelatedController extends Controller
 
         $history =  !empty($data) ?  $data->history : NULL;
 
-        
+
         return view('upazila_related.up_history', compact('history'));
     }
 
@@ -336,7 +345,7 @@ class UpazilaRelatedController extends Controller
 
         $history_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
-       
+
 
         $history_info = [
             'history'           => $history,
@@ -344,7 +353,7 @@ class UpazilaRelatedController extends Controller
             'created_ip'       => request()->ip(),
             'created_at'       => date('Y-m-d H:i:s'),
         ];
-        
+
 
             if(!empty($if_exist_check_info)){
 
@@ -357,10 +366,10 @@ class UpazilaRelatedController extends Controller
                     'updated_at'   => date('Y-m-d H:i:s'),
                 ];
 
-                
+
                 $data_save = DB::table('upazila_basic_info')->where('id', '=', $history_id)->update($upazila_basic_info_data);
 
-                return redirect()->route('upazila_related.up_history')->with('message', 'Successfully Saved');   
+                return redirect()->route('upazila_related.up_history')->with('message', 'Successfully Saved');
 
             }else{
 
@@ -371,10 +380,10 @@ class UpazilaRelatedController extends Controller
                     'created_ip'  => request()->ip(),
                     'created_at'   => date('Y-m-d H:i:s'),
                 ];
-         
+
                 $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
 
-                return redirect()->route('upazila_related.up_history')->with('message', 'Successfully Save');   
+                return redirect()->route('upazila_related.up_history')->with('message', 'Successfully Save');
 
             }
 
@@ -390,7 +399,7 @@ class UpazilaRelatedController extends Controller
         $geographical_view =  !empty($data) ?  $data->geographical_view : NULL;
 
 
-        
+
         return view('upazila_related.upazila_geographical', compact('geographical_view'));
     }
 
@@ -402,7 +411,7 @@ class UpazilaRelatedController extends Controller
 
         $geographical_view_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
-       
+
 
         $geographical_info = [
             'geographical_view'=> $geographical_view,
@@ -410,7 +419,7 @@ class UpazilaRelatedController extends Controller
             'created_ip'       => request()->ip(),
             'created_at'       => date('Y-m-d H:i:s'),
         ];
-        
+
 
         if(!empty($if_exist_check_info)){
 
@@ -423,10 +432,10 @@ class UpazilaRelatedController extends Controller
                     'updated_at'       => date('Y-m-d H:i:s'),
                 ];
 
-                
+
                 $data_save = DB::table('upazila_basic_info')->where('id', '=', $geographical_view_id)->update($upazila_basic_info_data);
 
-                return redirect()->route('upazila_related.upazila_geographical')->with('message', 'Successfully Saved');   
+                return redirect()->route('upazila_related.upazila_geographical')->with('message', 'Successfully Saved');
 
             }else{
 
@@ -438,10 +447,10 @@ class UpazilaRelatedController extends Controller
                     'created_at'   => date('Y-m-d H:i:s'),
                 ];
 
-         
+
                 $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
 
-                return redirect()->route('upazila_related.upazila_geographical')->with('message', 'Successfully Save');   
+                return redirect()->route('upazila_related.upazila_geographical')->with('message', 'Successfully Save');
 
             }
 
@@ -449,34 +458,38 @@ class UpazilaRelatedController extends Controller
   //  upPublicPeprestative
     public function upPublicPeprestative(Request $request){
 
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+
+
         $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
-         
+
 
         if($request->ajax()){
            $informations = !empty($if_exist_check_info->representative_upazila_organogram) ? json_decode($if_exist_check_info->representative_upazila_organogram) : [];
 
             $data = array_filter($informations, function($data){
                     return $data->is_active != 0;
-                });   
+                });
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('is_active',function($row){
                     $html = '';
-                     
+
                     if($row->is_active == 1){
-                        $html.='<span class="label label-info"> Active </span>'; 
+                        $html.='<span class="label label-info"> Active </span>';
                     }elseif($row->is_active == 2){
-                        
+
                         $html.='<span class="label label-warning"> Inactive </span>';
                     }
-                   
+
 
                     return $html;
                 })
                 ->addColumn('action',function($row){
                     $html = '';
-                     
-                        $html.='<button class="btn btn-primary btn-xs upPeprestativeEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs upPeprestativeDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                        $html.='<button class="btn btn-primary btn-xs upPeprestativeEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs upPeprestativeDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>';
 
                     return $html;
                 })
@@ -493,15 +506,12 @@ class UpazilaRelatedController extends Controller
 
         $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
-     
+
         $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
         if ($representative_id > 0){
-
             $representative_data_get = json_decode($if_exist_check_info->representative_upazila_organogram);
-
-
             $id = count((array)$representative_data_get)+1;
 
         }else{
@@ -521,7 +531,7 @@ class UpazilaRelatedController extends Controller
             'created_ip'  => request()->ip(),
             'created_at'  => date('Y-m-d H:i:s'),
         ];
-      
+
         // dd($representative_info);
 
         if (!empty($representative_data_get)){
@@ -582,7 +592,7 @@ class UpazilaRelatedController extends Controller
 
     public function up_public_peprestative_update(Request $request){
 
-        $id = $request->peprestative_id; 
+        $id = $request->peprestative_id;
 
         $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
@@ -590,7 +600,7 @@ class UpazilaRelatedController extends Controller
 
         $key = array_search($request->peprestative_id, array_column($representative_data_get, 'id'));
 
-     
+
         $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
@@ -619,7 +629,7 @@ class UpazilaRelatedController extends Controller
                 'updated_ip'                        => request()->ip(),
                 'updated_at'                        => date('Y-m-d H:i:s'),
             ];
-         
+
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
 
             return response()->json([
@@ -640,13 +650,13 @@ class UpazilaRelatedController extends Controller
 
         $info = array_filter($representative_data_get, function($info) use($id){
             return $info->id == $id;
-        }); 
+        });
 
         $representative_data_info = array_values($info);
 
         $key = array_search($request->id, array_column($representative_data_get, 'id'));
 
-     
+
         $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
@@ -675,7 +685,7 @@ class UpazilaRelatedController extends Controller
                 'updated_ip'                        => request()->ip(),
                 'updated_at'                        => date('Y-m-d H:i:s'),
             ];
-         
+
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
 
             return response()->json([
@@ -688,35 +698,39 @@ class UpazilaRelatedController extends Controller
 
     public function freedom_fighter(Request $request){
 
+
+        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+
         $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
-         
+
+
 
         if($request->ajax()){
            $informations = !empty($if_exist_check_info->freedom_fighter) ? json_decode($if_exist_check_info->freedom_fighter) : [];
-          
+
            $data = array_filter($informations, function($data){
             return $data->is_active != 0;
-        });   
+        });
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('is_active',function($row){
                     $html = '';
-                     
+
                     if($row->is_active == 1){
 
-                        $html.='<span class="label label-info"> Active </span>'; 
+                        $html.='<span class="label label-info"> Active </span>';
 
                     }elseif($row->is_active == 2){
-                        
+
                         $html.='<span class="label label-warning"> Inactive </span>';
                     }
-                   
+
                     return $html;
                 })
                 ->addColumn('action',function($row){
                     $html = '';
-                     
-                        $html.='<button class="btn btn-primary btn-xs upFreedomFighterEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs upFreedomFighterDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                        $html.='<button class="btn btn-primary btn-xs upFreedomFighterEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs upFreedomFighterDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>';
 
                     return $html;
                 })
@@ -727,12 +741,12 @@ class UpazilaRelatedController extends Controller
         return view('upazila_related.freedom_fighter');
         }
     }
-    
+
     public function freedom_fighter_store(Request $request){
 
         $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
 
-     
+
         $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
@@ -758,7 +772,7 @@ class UpazilaRelatedController extends Controller
             'created_ip'  => request()->ip(),
             'created_at'  => date('Y-m-d H:i:s'),
         ];
-      
+
 
 
         if (!empty($freedom_fighter_data_get)){
@@ -800,7 +814,7 @@ class UpazilaRelatedController extends Controller
 
     }
 
-    
+
     public function freedom_fighter_edit(Request $request)
     {
         $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
@@ -826,7 +840,7 @@ class UpazilaRelatedController extends Controller
         $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
 
         $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
-     
+
         $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
         $key = array_search($request->freedom_fighter_id, array_column($freedom_fighter_data_get, 'id'));
@@ -871,14 +885,16 @@ class UpazilaRelatedController extends Controller
 
         $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
 
+
         $id = $request->id;
 
         $info = array_filter($freedom_fighter_data_get, function($info) use($id){
             return $info->id == $id;
-        }); 
+        });
 
         $freedom_fighter_data_info = array_values($info);
-     
+
+
         $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
         $key = array_search($request->id, array_column($freedom_fighter_data_get, 'id'));
@@ -1218,5 +1234,5 @@ class UpazilaRelatedController extends Controller
             }
 
     }
-    
+
 }
