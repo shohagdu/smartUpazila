@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="639aa833-301e-43ef-9f98-339cbc2f33e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebsiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebsiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/subpage/mohilavais_chirman.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/mohilavais_chirman.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/subpage/upzila_chirman.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/upzila_chirman.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/subpage/upzilavais_chirman.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subpage/upzilavais_chirman.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UpazilaRelatedController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UpazilaRelatedController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +151,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webportal-du" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -175,7 +172,7 @@
       <workItem from="1619508267567" duration="13676000" />
       <workItem from="1620121118357" duration="269000" />
       <workItem from="1620121398277" duration="2979000" />
-      <workItem from="1623395228489" duration="22568000" />
+      <workItem from="1623395228489" duration="23930000" />
     </task>
     <servers />
   </component>
@@ -183,9 +180,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1619637117371">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1623562967233">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1623562967233" />
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1619637117371" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1623439079769">
       <screen x="0" y="0" width="1366" height="728" />
