@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AllTypeTitle;
+use App\Models\Upazila_basic_info;
 use DataTables;
 use Session;
 use DB;
@@ -18,11 +19,19 @@ class UpazilaRelatedController extends Controller
      */
     public function index(Request $request)
     {
+
         $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
 
 
+        $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
+
+
         if($request->ajax()){
-           $data = json_decode($if_exist_check_info->introduction);
+           $informations = !empty($if_exist_check_info->introduction) ? json_decode($if_exist_check_info->introduction) : [];
+
+            $data = array_filter($informations, function($data){
+                return $data->is_active != 0;
+            });
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -82,7 +91,7 @@ class UpazilaRelatedController extends Controller
     {
 
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
 
        // dd($if_exist_check_info);
         $introduction_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -107,11 +116,8 @@ class UpazilaRelatedController extends Controller
             'display_position' => $request->display_position,
             'is_active'        => $request->is_active,
             'created_by'       => Auth::user()->id,
-            'updated_by'       => NULL,
             'created_ip'       => request()->ip(),
-            'updated_ip'       => NULL,
             'created_at'       => date('Y-m-d H:i:s'),
-            'updated_at'       => NULL,
         ];
 
 
@@ -125,11 +131,8 @@ class UpazilaRelatedController extends Controller
                 'introduction'=> (!empty($introduction_data_get)? json_encode($introduction_data_get):NULL),
                 'is_active'   => $request->is_active,
                 'created_by'  => Auth::user()->id,
-                'updated_by'  => NULL,
                 'created_ip'  => request()->ip(),
-                'updated_ip'  => NULL,
                 'created_at'   => date('Y-m-d H:i:s'),
-                'updated_at'   => NULL,
             ];
             ////dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $introduction_id)->update($upazila_basic_info_data);
@@ -147,11 +150,8 @@ class UpazilaRelatedController extends Controller
                 'introduction'=> (!empty($introduction_data_get)? json_encode($introduction_data_get):NULL),
                 'is_active'   => $request->is_active,
                 'created_by'  => Auth::user()->id,
-                'updated_by'  => NULL,
                 'created_ip'  => request()->ip(),
-                'updated_ip'  => NULL,
                 'created_at'   => date('Y-m-d H:i:s'),
-                'updated_at'   => NULL,
             ];
           //  dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
@@ -182,7 +182,7 @@ class UpazilaRelatedController extends Controller
      */
     public function edit(Request $request)
     {
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->introduction);
 
@@ -209,7 +209,7 @@ class UpazilaRelatedController extends Controller
     {
         $id = $request->introduction_id;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
 
         $introduction_data_get= !empty($if_exist_check_info->introduction)?json_decode($if_exist_check_info->introduction,true):NULl;
 
@@ -225,12 +225,9 @@ class UpazilaRelatedController extends Controller
             'description'      => $request->description,
             'display_position' => $request->display_position,
             'is_active'        => $request->is_active,
-            'created_by'       => Auth::user()->id,
-            'updated_by'       => NULL,
-            'created_ip'       => request()->ip(),
-            'updated_ip'       => NULL,
-            'created_at'       => date('Y-m-d H:i:s'),
-            'updated_at'       => NULL,
+            'updated_by'       => Auth::user()->id,
+            'updated_ip'       => request()->ip(),
+            'updated_at'       => date('Y-m-d H:i:s'),
         ];
 
         if (!empty($introduction_data_get)){
@@ -239,12 +236,9 @@ class UpazilaRelatedController extends Controller
             $upazila_basic_info_data = [
                 'introduction'=> (!empty($introduction_data_get)? json_encode($introduction_data_get):NULL),
                 'is_active'   => $request->is_active,
-                'created_by'  => Auth::user()->id,
-                'updated_by'  => NULL,
-                'created_ip'  => request()->ip(),
-                'updated_ip'  => NULL,
-                'created_at'   => date('Y-m-d H:i:s'),
-                'updated_at'   => NULL,
+                'updated_by'  => Auth::user()->id,
+                'updated_ip'  => request()->ip(),
+                'updated_at'   => date('Y-m-d H:i:s'),
             ];
             //dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $introduction_id)->update($upazila_basic_info_data);
@@ -267,31 +261,54 @@ class UpazilaRelatedController extends Controller
      */
     public function destroy(Request $request)
     {
+
+        $if_exist_check_info = Upazila_basic_info::where('introduction', '!=', NULL)->first();
+
+        $introduction_data_get= json_decode($if_exist_check_info->introduction);
+
+
          $id = $request->id;
 
-         $if_exist_check_info = DB::table('upazila_basic_info')->where('introduction', '!=', NULL)->first();
+        $info = array_filter($introduction_data_get, function($info) use($id){
+            return $info->id == $id;
+        });
 
-        $introduction_data_get= !empty($if_exist_check_info->introduction)?json_decode($if_exist_check_info->introduction,true):NULl;
+
+         $introduction_data_info = array_values($info);
 
          $key = array_search($request->id, array_column($introduction_data_get, 'id'));
-
 
          $introduction_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
+         $introduction_info = [
+            'id'               => $id,
+            'title'            => $introduction_data_info[0]->title,
+            'description'      => $introduction_data_info[0]->description,
+            'display_position' => $introduction_data_info[0]->display_position,
+            'is_active'        => 0,
+            'updated_by'       => Auth::user()->id,
+            'updated_ip'       => request()->ip(),
+            'updated_at'       => date('Y-m-d H:i:s'),
+        ];
+
+
+
         if (!empty($introduction_data_get)){
 
+
             unset($introduction_data_get[$key]);
+
+
+            $introduction_data_get[$key] = $introduction_info;
+
 
             $upazila_basic_info_data = [
                 'introduction'=> (!empty($introduction_data_get)? json_encode($introduction_data_get):NULL),
                 'is_active'   => $request->is_active,
-                'created_by'  => Auth::user()->id,
-                'updated_by'  => NULL,
-                'created_ip'  => request()->ip(),
-                'updated_ip'  => NULL,
-                'created_at'   => date('Y-m-d H:i:s'),
-                'updated_at'   => NULL,
+                'updated_by'  => Auth::user()->id,
+                'updated_ip'  => request()->ip(),
+                'updated_at'  => date('Y-m-d H:i:s'),
             ];
 
 
@@ -311,7 +328,7 @@ class UpazilaRelatedController extends Controller
     //up_history
     public function up_history(){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('history', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('history', '!=', NULL)->first();
         $data = !empty($if_exist_check_info->history) ? json_decode($if_exist_check_info->history) : NULL;
 
         $history =  !empty($data) ?  $data->history : NULL;
@@ -324,7 +341,7 @@ class UpazilaRelatedController extends Controller
 
         $history = $request->history;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('history', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('history', '!=', NULL)->first();
 
         $history_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -333,11 +350,8 @@ class UpazilaRelatedController extends Controller
         $history_info = [
             'history'           => $history,
             'created_by'       => Auth::user()->id,
-            'updated_by'       => NULL,
             'created_ip'       => request()->ip(),
-            'updated_ip'       => NULL,
             'created_at'       => date('Y-m-d H:i:s'),
-            'updated_at'       => NULL,
         ];
 
 
@@ -347,12 +361,9 @@ class UpazilaRelatedController extends Controller
                 $upazila_basic_info_data = [
                     'history'=> (!empty($history_info)? json_encode($history_info, JSON_UNESCAPED_UNICODE ):NULL),
                     'is_active'   =>1,
-                    'created_by'  => Auth::user()->id,
-                    'updated_by'  => NULL,
-                    'created_ip'  => request()->ip(),
-                    'updated_ip'  => NULL,
-                    'created_at'   => date('Y-m-d H:i:s'),
-                    'updated_at'   => NULL,
+                    'updated_by'  => Auth::user()->id,
+                    'updated_ip'  => request()->ip(),
+                    'updated_at'   => date('Y-m-d H:i:s'),
                 ];
 
 
@@ -366,11 +377,8 @@ class UpazilaRelatedController extends Controller
                     'history'=> (!empty($history_info)? json_encode($history_info, JSON_UNESCAPED_UNICODE):NULL),
                     'is_active'   => 1,
                     'created_by'  => Auth::user()->id,
-                    'updated_by'  => NULL,
                     'created_ip'  => request()->ip(),
-                    'updated_ip'  => NULL,
                     'created_at'   => date('Y-m-d H:i:s'),
-                    'updated_at'   => NULL,
                 ];
 
                 $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
@@ -384,7 +392,8 @@ class UpazilaRelatedController extends Controller
     // upazila_geographical
     public function upazila_geographical(){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('geographical_view', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('geographical_view', '!=', NULL)->first();
+
         $data = !empty($if_exist_check_info->geographical_view) ? json_decode($if_exist_check_info->geographical_view) : NULL;
 
         $geographical_view =  !empty($data) ?  $data->geographical_view : NULL;
@@ -398,7 +407,7 @@ class UpazilaRelatedController extends Controller
 
         $geographical_view = $request->geographical_view;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('geographical_view', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('geographical_view', '!=', NULL)->first();
 
         $geographical_view_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -407,11 +416,8 @@ class UpazilaRelatedController extends Controller
         $geographical_info = [
             'geographical_view'=> $geographical_view,
             'created_by'       => Auth::user()->id,
-            'updated_by'       => NULL,
             'created_ip'       => request()->ip(),
-            'updated_ip'       => NULL,
             'created_at'       => date('Y-m-d H:i:s'),
-            'updated_at'       => NULL,
         ];
 
 
@@ -421,12 +427,9 @@ class UpazilaRelatedController extends Controller
                 $upazila_basic_info_data = [
                     'geographical_view'=> (!empty($geographical_info)? json_encode($geographical_info, JSON_UNESCAPED_UNICODE):NULL),
                     'is_active'        =>1,
-                    'created_by'       => Auth::user()->id,
-                    'updated_by'       => NULL,
-                    'created_ip'       => request()->ip(),
-                    'updated_ip'       => NULL,
-                    'created_at'       => date('Y-m-d H:i:s'),
-                    'updated_at'       => NULL,
+                    'updated_by'       => Auth::user()->id,
+                    'updated_ip'       => request()->ip(),
+                    'updated_at'       => date('Y-m-d H:i:s'),
                 ];
 
 
@@ -440,11 +443,8 @@ class UpazilaRelatedController extends Controller
                     'geographical_view'=> (!empty($geographical_info)? json_encode($geographical_info, JSON_UNESCAPED_UNICODE):NULL),
                     'is_active'   => 1,
                     'created_by'  => Auth::user()->id,
-                    'updated_by'  => NULL,
                     'created_ip'  => request()->ip(),
-                    'updated_ip'  => NULL,
                     'created_at'   => date('Y-m-d H:i:s'),
-                    'updated_at'   => NULL,
                 ];
 
 
@@ -458,12 +458,19 @@ class UpazilaRelatedController extends Controller
   //  upPublicPeprestative
     public function upPublicPeprestative(Request $request){
 
+
         $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
 
 
-        if($request->ajax()){
-           $data = !empty($if_exist_check_info->representative_upazila_organogram) ? json_decode($if_exist_check_info->representative_upazila_organogram) : [];;
+        $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
+
+        if($request->ajax()){
+           $informations = !empty($if_exist_check_info->representative_upazila_organogram) ? json_decode($if_exist_check_info->representative_upazila_organogram) : [];
+
+            $data = array_filter($informations, function($data){
+                    return $data->is_active != 0;
+                });
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('is_active',function($row){
@@ -497,7 +504,7 @@ class UpazilaRelatedController extends Controller
 
     public function up_public_peprestative_store(Request $request){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
 
         $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -521,11 +528,8 @@ class UpazilaRelatedController extends Controller
             'address'     => $request->address,
             'is_active'   => $request->is_active,
             'created_by'  => Auth::user()->id,
-            'updated_by'  => NULL,
             'created_ip'  => request()->ip(),
-            'updated_ip'  => NULL,
             'created_at'  => date('Y-m-d H:i:s'),
-            'updated_at'  => NULL,
         ];
 
         // dd($representative_info);
@@ -537,11 +541,8 @@ class UpazilaRelatedController extends Controller
                 'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
                 'is_active'                         => $request->is_active,
                 'created_by'                        => Auth::user()->id,
-                'updated_by'                        => NULL,
                 'created_ip'                        => request()->ip(),
-                'updated_ip'                        => NULL,
                 'created_at'                        => date('Y-m-d H:i:s'),
-                'updated_at'                        => NULL,
             ];
        // dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
@@ -559,11 +560,8 @@ class UpazilaRelatedController extends Controller
                 'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
                 'is_active'                         => $request->is_active,
                 'created_by'                        => Auth::user()->id,
-                'updated_by'                        => NULL,
                 'created_ip'                        => request()->ip(),
-                'updated_ip'                        => NULL,
                 'created_at'                        => date('Y-m-d H:i:s'),
-                'updated_at'                        => NULL,
             ];
            //dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
@@ -576,7 +574,7 @@ class UpazilaRelatedController extends Controller
 
     public function up_public_peprestative_edit(Request $request)
     {
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->representative_upazila_organogram);
 
@@ -596,7 +594,7 @@ class UpazilaRelatedController extends Controller
 
         $id = $request->peprestative_id;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
         $representative_data_get = json_decode($if_exist_check_info->representative_upazila_organogram);
 
@@ -614,12 +612,9 @@ class UpazilaRelatedController extends Controller
             'designation' => $request->designation,
             'address'     => $request->address,
             'is_active'   => $request->is_active,
-            'created_by'  => Auth::user()->id,
-            'updated_by'  => NULL,
-            'created_ip'  => request()->ip(),
-            'updated_ip'  => NULL,
-            'created_at'  => date('Y-m-d H:i:s'),
-            'updated_at'  => NULL,
+            'updated_by'  => Auth::user()->id,
+            'updated_ip'  => request()->ip(),
+            'updated_at'  => date('Y-m-d H:i:s'),
         ];
 
         ///dd($representative_info);
@@ -630,12 +625,9 @@ class UpazilaRelatedController extends Controller
             $upazila_basic_info_data = [
                 'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
                 'is_active'                         => $request->is_active,
-                'created_by'                        => Auth::user()->id,
-                'updated_by'                        => NULL,
-                'created_ip'                        => request()->ip(),
-                'updated_ip'                        => NULL,
-                'created_at'                        => date('Y-m-d H:i:s'),
-                'updated_at'                        => NULL,
+                'updated_by'                        => Auth::user()->id,
+                'updated_ip'                        => request()->ip(),
+                'updated_at'                        => date('Y-m-d H:i:s'),
             ];
 
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
@@ -650,9 +642,17 @@ class UpazilaRelatedController extends Controller
 
     public function up_public_peprestative_delete(Request $request){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('representative_upazila_organogram', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('representative_upazila_organogram', '!=', NULL)->first();
 
         $representative_data_get = json_decode($if_exist_check_info->representative_upazila_organogram);
+
+        $id = $request->id;
+
+        $info = array_filter($representative_data_get, function($info) use($id){
+            return $info->id == $id;
+        });
+
+        $representative_data_info = array_values($info);
 
         $key = array_search($request->id, array_column($representative_data_get, 'id'));
 
@@ -660,19 +660,30 @@ class UpazilaRelatedController extends Controller
         $representative_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
+        $representative_info = [
+            'id'          => $request->id,
+            'name'        => $representative_data_info[0]->name,
+            'mobile'      => $representative_data_info[0]->mobile,
+            'email'       => $representative_data_info[0]->email,
+            'designation' => $representative_data_info[0]->designation,
+            'address'     => $representative_data_info[0]->address,
+            'is_active'   => 0,
+            'updated_by'  => Auth::user()->id,
+            'updated_ip'  => request()->ip(),
+            'updated_at'  => date('Y-m-d H:i:s'),
+        ];
+
+
         if (!empty($representative_data_get)){
 
-            unset($representative_data_get[$key]);
+            $representative_data_get[$key] = $representative_info;
 
             $upazila_basic_info_data = [
                 'representative_upazila_organogram' => (!empty($representative_data_get)? json_encode($representative_data_get):NULL),
                 'is_active'                         => $request->is_active,
-                'created_by'                        => Auth::user()->id,
-                'updated_by'                        => NULL,
-                'created_ip'                        => request()->ip(),
-                'updated_ip'                        => NULL,
-                'created_at'                        => date('Y-m-d H:i:s'),
-                'updated_at'                        => NULL,
+                'updated_by'                        => Auth::user()->id,
+                'updated_ip'                        => request()->ip(),
+                'updated_at'                        => date('Y-m-d H:i:s'),
             ];
 
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $representative_id)->update($upazila_basic_info_data);
@@ -687,12 +698,19 @@ class UpazilaRelatedController extends Controller
 
     public function freedom_fighter(Request $request){
 
+
         $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+
+        $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
+
 
 
         if($request->ajax()){
-           $data = !empty($if_exist_check_info->freedom_fighter) ? json_decode($if_exist_check_info->freedom_fighter) : [];;
+           $informations = !empty($if_exist_check_info->freedom_fighter) ? json_decode($if_exist_check_info->freedom_fighter) : [];
 
+           $data = array_filter($informations, function($data){
+            return $data->is_active != 0;
+        });
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('is_active',function($row){
@@ -726,7 +744,7 @@ class UpazilaRelatedController extends Controller
 
     public function freedom_fighter_store(Request $request){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
 
 
         $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -751,11 +769,8 @@ class UpazilaRelatedController extends Controller
             'village'     => $request->village,
             'is_active'   => $request->is_active,
             'created_by'  => Auth::user()->id,
-            'updated_by'  => NULL,
             'created_ip'  => request()->ip(),
-            'updated_ip'  => NULL,
             'created_at'  => date('Y-m-d H:i:s'),
-            'updated_at'  => NULL,
         ];
 
 
@@ -767,11 +782,8 @@ class UpazilaRelatedController extends Controller
                 'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
                 'is_active'       => $request->is_active,
                 'created_by'      => Auth::user()->id,
-                'updated_by'      => NULL,
                 'created_ip'      => request()->ip(),
-                'updated_ip'      => NULL,
                 'created_at'      => date('Y-m-d H:i:s'),
-                'updated_at'      => NULL,
             ];
        // dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $freedom_fighter_id)->update($upazila_basic_info_data);
@@ -789,11 +801,8 @@ class UpazilaRelatedController extends Controller
                 'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
                 'is_active'       => $request->is_active,
                 'created_by'      => Auth::user()->id,
-                'updated_by'      => NULL,
                 'created_ip'      => request()->ip(),
-                'updated_ip'      => NULL,
                 'created_at'      => date('Y-m-d H:i:s'),
-                'updated_at'      => NULL,
             ];
            //dd($upazila_basic_info_data);
             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
@@ -808,7 +817,7 @@ class UpazilaRelatedController extends Controller
 
     public function freedom_fighter_edit(Request $request)
     {
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->freedom_fighter);
 
@@ -828,7 +837,7 @@ class UpazilaRelatedController extends Controller
 
         $id = $request->freedom_fighter_id;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
 
         $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
 
@@ -843,12 +852,9 @@ class UpazilaRelatedController extends Controller
             'father_name' => $request->father_name,
             'village'     => $request->village,
             'is_active'   => $request->is_active,
-            'created_by'  => Auth::user()->id,
-            'updated_by'  => NULL,
-            'created_ip'  => request()->ip(),
-            'updated_ip'  => NULL,
-            'created_at'  => date('Y-m-d H:i:s'),
-            'updated_at'  => NULL,
+            'updated_by'  => Auth::user()->id,
+            'updated_ip'  => request()->ip(),
+            'updated_at'  => date('Y-m-d H:i:s'),
         ];
 
         if (!empty($freedom_fighter_data_get)){
@@ -857,12 +863,9 @@ class UpazilaRelatedController extends Controller
             $upazila_basic_info_data = [
                 'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
                 'is_active'       => $request->is_active,
-                'created_by'      => Auth::user()->id,
-                'updated_by'      => NULL,
-                'created_ip'      => request()->ip(),
-                'updated_ip'      => NULL,
-                'created_at'      => date('Y-m-d H:i:s'),
-                'updated_at'      => NULL,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
             ];
 
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $freedom_fighter_id)->update($upazila_basic_info_data);
@@ -878,27 +881,45 @@ class UpazilaRelatedController extends Controller
 
     public function freedom_fighter_delete(Request $request){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('freedom_fighter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('freedom_fighter', '!=', NULL)->first();
 
         $freedom_fighter_data_get = json_decode($if_exist_check_info->freedom_fighter);
+
+
+        $id = $request->id;
+
+        $info = array_filter($freedom_fighter_data_get, function($info) use($id){
+            return $info->id == $id;
+        });
+
+        $freedom_fighter_data_info = array_values($info);
+
 
         $freedom_fighter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
         $key = array_search($request->id, array_column($freedom_fighter_data_get, 'id'));
 
+        $freedom_fighter_info = [
+            'id'          => $request->id,
+            'name'        => $freedom_fighter_data_info[0]->name,
+            'father_name' => $freedom_fighter_data_info[0]->father_name,
+            'village'     => $freedom_fighter_data_info[0]->village,
+            'is_active'   => 0,
+            'updated_by'  => Auth::user()->id,
+            'updated_ip'  => request()->ip(),
+            'updated_at'  => date('Y-m-d H:i:s'),
+        ];
+
 
         if (!empty($freedom_fighter_data_get)){
-            unset($freedom_fighter_data_get[$key]);
+            $freedom_fighter_data_get[$key] = $freedom_fighter_info;
 
             $upazila_basic_info_data = [
                 'freedom_fighter' => (!empty($freedom_fighter_data_get)? json_encode($freedom_fighter_data_get):NULL),
                 'is_active'       => $request->is_active,
-                'created_by'      => Auth::user()->id,
-                'updated_by'      => NULL,
-                'created_ip'      => request()->ip(),
-                'updated_ip'      => NULL,
-                'created_at'      => date('Y-m-d H:i:s'),
-                'updated_at'      => NULL,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
             ];
 
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $freedom_fighter_id)->update($upazila_basic_info_data);

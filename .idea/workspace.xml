@@ -151,7 +151,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webportal-du" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -173,6 +173,7 @@
       <workItem from="1620121118357" duration="269000" />
       <workItem from="1620121398277" duration="2979000" />
       <workItem from="1623395228489" duration="23930000" />
+      <workItem from="1623585273018" duration="206000" />
     </task>
     <servers />
   </component>
