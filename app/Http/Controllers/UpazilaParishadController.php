@@ -10,11 +10,7 @@ use DB;
 
 class UpazilaParishadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index(Request $request)
     {
          $if_exist_check_info = DB::table('upazila_basic_info')->where('upazila_chairman', '!=', NULL)->first();
@@ -29,22 +25,12 @@ class UpazilaParishadController extends Controller
         return view('upazila_parishad.upazila_chirman', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('upazila_parishad.upazila_chirman_create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
 
@@ -96,19 +82,18 @@ class UpazilaParishadController extends Controller
             'created_at'     => date('Y-m-d H:i:s'),
         ];
 
-       // dd($upazila_chairman_info);
 
         if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-           // dd($upazila_basic_info_data);
+      
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             if($data_save){
@@ -122,14 +107,13 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'created_by'      => Auth::user()->id,
                 'created_ip'      => request()->ip(),
                 'created_at'      => date('Y-m-d H:i:s'),
             ];
 
-            //dd($upazila_basic_info_data);
 
             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
 
@@ -143,23 +127,12 @@ class UpazilaParishadController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
 
@@ -175,13 +148,7 @@ class UpazilaParishadController extends Controller
         return view('upazila_parishad.upazila_chirman_edit', compact('chairman_data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $if_exist_check_info = DB::table('upazila_basic_info')->where('upazila_chairman', '!=', NULL)->first();
@@ -228,13 +195,13 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[$key] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-           // dd($upazila_basic_info_data);
+          
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Updated');   
@@ -244,12 +211,7 @@ class UpazilaParishadController extends Controller
     
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         $if_exist_check_info = DB::table('upazila_basic_info')->where('upazila_chairman', '!=', NULL)->first();
@@ -282,7 +244,7 @@ class UpazilaParishadController extends Controller
             'updated_at'     => date('Y-m-d H:i:s'),
         ];
 
-           // dd($upazila_chairman_info);
+          
 
         if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[$key] = $upazila_chairman_info;
@@ -294,7 +256,7 @@ class UpazilaParishadController extends Controller
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-            //dd($upazila_basic_info_data);
+            
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.upazila_chairman')->with('message', 'Successfully Delete');   
@@ -380,7 +342,7 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
@@ -397,7 +359,7 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'created_by'      => Auth::user()->id,
                 'created_ip'      => request()->ip(),
@@ -472,13 +434,13 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[$key] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-           // dd($upazila_basic_info_data);
+        
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.vice_chairman')->with('message', 'Successfully Updated');   
@@ -520,7 +482,6 @@ class UpazilaParishadController extends Controller
             'updated_at'     => date('Y-m-d H:i:s'),
         ];
 
-           // dd($upazila_chairman_info);
 
         if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[$key] = $upazila_chairman_info;
@@ -532,7 +493,7 @@ class UpazilaParishadController extends Controller
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-            //dd($upazila_basic_info_data);
+        
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.vice_chairman')->with('message', 'Successfully Delete');   
@@ -618,7 +579,7 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
@@ -635,7 +596,7 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'created_by'      => Auth::user()->id,
                 'created_ip'      => request()->ip(),
@@ -710,13 +671,13 @@ class UpazilaParishadController extends Controller
             $upazila_chairman_data_get[$key] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get):NULL),
+                'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-           // dd($upazila_basic_info_data);
+     
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.female_vice_chairman')->with('message', 'Successfully Updated');   
@@ -758,8 +719,6 @@ class UpazilaParishadController extends Controller
             'updated_at'     => date('Y-m-d H:i:s'),
         ];
 
-           // dd($upazila_chairman_info);
-
         if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[$key] = $upazila_chairman_info;
 
@@ -770,7 +729,7 @@ class UpazilaParishadController extends Controller
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
             ];
-            //dd($upazila_basic_info_data);
+
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.female_vice_chairman')->with('message', 'Successfully Delete');   

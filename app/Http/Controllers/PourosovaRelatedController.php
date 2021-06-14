@@ -18,9 +18,54 @@ class PourosovaRelatedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_at_glance', '!=', NULL)->first();
+
+
+        if($request->ajax()){
+           $informations = !empty($if_exist_check_info->pourosova_at_glance) ? json_decode($if_exist_check_info->pourosova_at_glance) : [];
+
+            $data = array_filter($informations, function($data){
+                return $data->is_active != 0;
+            });
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('title',function($row){
+                    return AllTypeTitle::find($row->title)->title;
+                 })
+                ->addColumn('is_active',function($row){
+                    $html = '';
+
+                    if($row->is_active == 1){
+                        $html.='<span class="label label-info"> Active </span>';
+                    }elseif($row->is_active == 2){
+
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+
+
+                    return $html;
+                })
+                ->addColumn('action',function($row){
+                    $html = '';
+
+                        $html.='<button class="btn btn-primary btn-xs introDuceEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs UpIntrouduceDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>';
+
+                    return $html;
+                })
+                ->rawColumns(['title','is_active','action'])
+                ->make(true);
+        }else{
+
+               $all_type_info = AllTypeTitle::where('is_active','!=', 0)
+                                    ->where('type','=',2)
+                                    ->get();
+
+        return view('pourosova_related.pourosova_at_glance', compact('all_type_info'));
+        }
     }
 
     /**
@@ -41,7 +86,75 @@ class PourosovaRelatedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_at_glance', '!=', NULL)->first();
+
+        // dd($if_exist_check_info);
+         $pourosova_at_glance_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+ 
+ 
+         if ($pourosova_at_glance_id > 0){
+ 
+             $pourosova_at_glance_data_get = json_decode($if_exist_check_info->pourosova_at_glance);
+ 
+ 
+             $id = count((array)$pourosova_at_glance_data_get)+1;
+ 
+         }else{
+ 
+             $id = 1;
+         }
+ 
+         $pourosova_at_glance_info = [
+             'id'               => $id,
+             'title'            => $request->title,
+             'description'      => $request->description,
+             'display_position' => $request->display_position,
+             'is_active'        => $request->is_active,
+             'created_by'       => Auth::user()->id,
+             'created_ip'       => request()->ip(),
+             'created_at'       => date('Y-m-d H:i:s'),
+         ];
+ 
+ 
+ 
+        // dd($upazila_basic_info_data);
+ 
+         if (!empty($pourosova_at_glance_data_get)){
+             $pourosova_at_glance_data_get[] = $pourosova_at_glance_info;
+ 
+             $upazila_basic_info_data = [
+                 'pourosova_at_glance'=> (!empty($pourosova_at_glance_data_get)? json_encode($pourosova_at_glance_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                 'is_active'   => $request->is_active,
+                 'created_by'  => Auth::user()->id,
+                 'created_ip'  => request()->ip(),
+                 'created_at'   => date('Y-m-d H:i:s'),
+             ];
+             ////dd($upazila_basic_info_data);
+             $data_save = DB::table('upazila_basic_info')->where('id', '=', $pourosova_at_glance_id)->update($upazila_basic_info_data);
+ 
+             return response()->json([
+                 'status' => $data_save ? 'success' : 'error',
+                 'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+             ]);
+ 
+ 
+         }else{
+             $pourosova_at_glance_data_get[] = $pourosova_at_glance_info;
+ 
+             $upazila_basic_info_data = [
+                 'pourosova_at_glance'=> (!empty($pourosova_at_glance_data_get)? json_encode($pourosova_at_glance_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                 'is_active'   => $request->is_active,
+                 'created_by'  => Auth::user()->id,
+                 'created_ip'  => request()->ip(),
+                 'created_at'   => date('Y-m-d H:i:s'),
+             ];
+            //dd($upazila_basic_info_data);
+             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+             return response()->json([
+                 'status' => $data_save ? 'success' : 'error',
+                 'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+             ]);
+         }
     }
 
     /**
@@ -61,9 +174,22 @@ class PourosovaRelatedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_at_glance', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->pourosova_at_glance);
+
+        $info = array_filter($informations, function($info) use($request){
+            return $info->id == $request->id;
+        });
+
+
+        return response()->json([
+            'status' => !empty($info) ? 'success' : 'error',
+            'msg'    => !empty($info) ? 'Data Found' : 'Something went wrong',
+            'data'   => !empty($info) ? array_values($info) : []
+        ]);
     }
 
     /**
@@ -73,9 +199,55 @@ class PourosovaRelatedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $id = $request->pourosova_at_glance_id;
+
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_at_glance', '!=', NULL)->first();
+
+        // dd($if_exist_check_info);
+         $pourosova_at_glance_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+ 
+ 
+         $pourosova_at_glance_data_get = json_decode($if_exist_check_info->pourosova_at_glance);
+        
+         $key = array_search($request->pourosova_at_glance_id, array_column($pourosova_at_glance_data_get, 'id'));
+ 
+         $pourosova_at_glance_info = [
+             'id'               => $id,
+             'title'            => $request->title,
+             'description'      => $request->description,
+             'display_position' => $request->display_position,
+             'is_active'        => $request->is_active,
+             'created_by'       => Auth::user()->id,
+             'created_ip'       => request()->ip(),
+             'created_at'       => date('Y-m-d H:i:s'),
+         ];
+ 
+ 
+ 
+        // dd($upazila_basic_info_data);
+ 
+         if (!empty($pourosova_at_glance_data_get)){
+             $pourosova_at_glance_data_get[$key] = $pourosova_at_glance_info;
+ 
+             $upazila_basic_info_data = [
+                 'pourosova_at_glance'=> (!empty($pourosova_at_glance_data_get)? json_encode($pourosova_at_glance_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                 'is_active'   => $request->is_active,
+                 'created_by'  => Auth::user()->id,
+                 'created_ip'  => request()->ip(),
+                 'created_at'   => date('Y-m-d H:i:s'),
+             ];
+             ////dd($upazila_basic_info_data);
+             $data_save = DB::table('upazila_basic_info')->where('id', '=', $pourosova_at_glance_id)->update($upazila_basic_info_data);
+ 
+             return response()->json([
+                 'status' => $data_save ? 'success' : 'error',
+                 'msg'    => $data_save ? 'Successfully Updated' : 'Someting went wrong',
+             ]);
+ 
+         }
     }
 
     /**
@@ -84,9 +256,50 @@ class PourosovaRelatedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_at_glance', '!=', NULL)->first();
+
+         $pourosova_at_glance_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+ 
+ 
+         $pourosova_at_glance_data_get = json_decode($if_exist_check_info->pourosova_at_glance);
+        
+         $key = array_search($request->id, array_column($pourosova_at_glance_data_get, 'id'));
+ 
+         $pourosova_at_glance_info = [
+             'id'               => $request->id,
+             'title'            => $pourosova_at_glance_data_get[0]->title,
+             'description'      => $pourosova_at_glance_data_get[0]->description,
+             'display_position' => $pourosova_at_glance_data_get[0]->display_position,
+             'is_active'        => 0,
+             'created_by'       => Auth::user()->id,
+             'created_ip'       => request()->ip(),
+             'created_at'       => date('Y-m-d H:i:s'),
+         ];
+ 
+        //  dd($pourosova_at_glance_info);
+ 
+         if (!empty($pourosova_at_glance_data_get)){
+             $pourosova_at_glance_data_get[$key] = $pourosova_at_glance_info;
+ 
+             $upazila_basic_info_data = [
+                 'pourosova_at_glance'=> (!empty($pourosova_at_glance_data_get)? json_encode($pourosova_at_glance_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                 'is_active'   => 1,
+                 'created_by'  => Auth::user()->id,
+                 'created_ip'  => request()->ip(),
+                 'created_at'   => date('Y-m-d H:i:s'),
+             ];
+             //dd($upazila_basic_info_data);
+             $data_save = DB::table('upazila_basic_info')->where('id', '=', $pourosova_at_glance_id)->update($upazila_basic_info_data);
+ 
+             return response()->json([
+                 'status' => $data_save ? 'success' : 'error',
+                 'msg'    => $data_save ? 'Successfully Deleted' : 'Someting went wrong',
+             ]);
+ 
+         }
     }
 
     public function pourosova_mayor(Request $request)
@@ -165,7 +378,7 @@ class PourosovaRelatedController extends Controller
             $mayor_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get):NULL),
+                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
@@ -185,7 +398,7 @@ class PourosovaRelatedController extends Controller
             $mayor_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get):NULL),
+                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'created_by'      => Auth::user()->id,
                 'created_ip'      => request()->ip(),
@@ -265,7 +478,7 @@ class PourosovaRelatedController extends Controller
             $mayor_data_get[$key] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get):NULL),
+                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => $request->is_active,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
@@ -320,7 +533,7 @@ class PourosovaRelatedController extends Controller
             $mayor_data_get[$key] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
-                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get):NULL),
+                'mayor'           => (!empty($mayor_data_get)? json_encode($mayor_data_get, JSON_UNESCAPED_UNICODE):NULL),
                 'is_active'       => 1,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
@@ -417,14 +630,15 @@ class PourosovaRelatedController extends Controller
             $upazila_basic_info_data = [
                 'councilor'       => (!empty($councilor_data_get)? json_encode($councilor_data_get):NULL),
                 'is_active'       => $request->is_active,
-                'updated_by'      => Auth::user()->id,
-                'updated_ip'      => request()->ip(),
-                'updated_at'      => date('Y-m-d H:i:s'),
+                'created_by'      => Auth::user()->id,
+                'created_ip'      => request()->ip(),
+                'created_at'      => date('Y-m-d H:i:s'),
             ];
         
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $councilor_id)->update($upazila_basic_info_data);
 
             if($data_save){
+
                 return redirect()->route('pourosova_related.pourosova_councilor')->with('message', 'Successfully Save');   
             }
 
@@ -523,6 +737,7 @@ class PourosovaRelatedController extends Controller
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $councilor_id)->update($upazila_basic_info_data);
 
             if($data_save){
+
                 return redirect()->route('pourosova_related.pourosova_councilor')->with('message', 'Successfully Updated');   
             }
 
@@ -656,6 +871,7 @@ class PourosovaRelatedController extends Controller
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $kormocari_id)->update($upazila_basic_info_data);
 
             if($data_save){
+
                 return redirect()->route('pourosova_related.pourosova_kormocari')->with('message', 'Successfully Save');   
             }
 
@@ -1281,7 +1497,7 @@ class PourosovaRelatedController extends Controller
 
         $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
-       // dd($if_exist_check_info);
+
         $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
 
@@ -1315,8 +1531,6 @@ class PourosovaRelatedController extends Controller
 
       
 
-       // dd($upazila_basic_info_data);
-
         if (!empty($citizen_charter_data_get)){
             $citizen_charter_data_get[] =$citizen_charter_info;
 
@@ -1330,7 +1544,7 @@ class PourosovaRelatedController extends Controller
                 'created_at'   => date('Y-m-d H:i:s'),
                 'updated_at'   => NULL,
             ];
-            ////dd($upazila_basic_info_data);
+           
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $citizen_charter_id)->update($upazila_basic_info_data);
 
             return response()->json([
@@ -1352,7 +1566,7 @@ class PourosovaRelatedController extends Controller
                 'created_at'   => date('Y-m-d H:i:s'),
                 'updated_at'   => NULL,
             ];
-           //dd($upazila_basic_info_data);
+           
             $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
             return response()->json([
                 'status' => $data_save ? 'success' : 'error',
@@ -1386,7 +1600,6 @@ class PourosovaRelatedController extends Controller
 
         $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
-       // dd($if_exist_check_info);
         $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
         $citizen_charter_data_get = json_decode($if_exist_check_info->citizen_charter);
@@ -1409,9 +1622,7 @@ class PourosovaRelatedController extends Controller
             'updated_at'       => NULL,
         ];
 
-      
 
-       // dd($upazila_basic_info_data);
 
         if (!empty($citizen_charter_data_get)){
             $citizen_charter_data_get[$key] = $citizen_charter_info;
@@ -1426,7 +1637,7 @@ class PourosovaRelatedController extends Controller
                 'created_at'   => date('Y-m-d H:i:s'),
                 'updated_at'   => NULL,
             ];
-            ////dd($upazila_basic_info_data);
+            
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $citizen_charter_id)->update($upazila_basic_info_data);
 
             return response()->json([
@@ -1442,7 +1653,7 @@ class PourosovaRelatedController extends Controller
 
         $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
-       // dd($if_exist_check_info);
+       
         $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
         $citizen_charter_data_get = json_decode($if_exist_check_info->citizen_charter);
@@ -1472,8 +1683,6 @@ class PourosovaRelatedController extends Controller
             'updated_at'       => NULL,
         ];
 
-    
-       // dd($upazila_basic_info_data);
 
         if (!empty($citizen_charter_data_get)){
             $citizen_charter_data_get[$key] = $citizen_charter_info;
@@ -1488,7 +1697,7 @@ class PourosovaRelatedController extends Controller
                 'created_at'   => date('Y-m-d H:i:s'),
                 'updated_at'   => NULL,
             ];
-            ////dd($upazila_basic_info_data);
+            
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $citizen_charter_id)->update($upazila_basic_info_data);
 
             return response()->json([

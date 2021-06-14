@@ -130,6 +130,15 @@ Route::get('/upazila_female_vice_chairman/edit/{id}', [UpazilaParishadController
 Route::post('/upazila_female_vice_chairman/update/{id}', [UpazilaParishadController::class, 'female_vice_chairman_update'])->name('upazila_parishad.female_vice_chairman_update');
 Route::get('/upazila_female_vice_chairman/delete/{id}', [UpazilaParishadController::class, 'female_vice_chairman_delete'])->name('upazila_parishad.female_vice_chairman_delete');
 
+
+// Pourosova area start 
+Route::get('/pourosova-at-glance', [PourosovaRelatedController::class, 'index'])->name('pourosova_related.index');
+Route::post('/pourosova-at-glance/store', [PourosovaRelatedController::class, 'store'])->name('pourosova_related.store');
+Route::post('/pourosova-at-glance/edit', [PourosovaRelatedController::class, 'edit'])->name('pourosova_related.edit');
+Route::post('/pourosova-at-glance/update', [PourosovaRelatedController::class, 'update'])->name('pourosova_related.update');
+Route::post('/pourosova-at-glance/delete', [PourosovaRelatedController::class, 'destroy'])->name('pourosova_related.delete');
+
+
 Route::get('/pourosova_mayor', [PourosovaRelatedController::class, 'pourosova_mayor'])->name('pourosova_related.pourosova_mayor');
 Route::get('/pourosova_mayor/create', [PourosovaRelatedController::class, 'pourosova_mayor_create'])->name('pourosova_related.pourosova_mayor_create');
 Route::post('/pourosova_mayor/store', [PourosovaRelatedController::class, 'pourosova_mayor_store'])->name('pourosova_related.pourosova_mayor_store');
