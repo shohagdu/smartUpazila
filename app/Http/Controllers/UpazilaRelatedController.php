@@ -930,6 +930,308 @@ class UpazilaRelatedController extends Controller
             ]);
 
         }
+    }
+
+    // slider 
+
+    public function slider(Request $request)
+    {
+         $if_exist_check_info = Upazila_basic_info::where('slider', '!=', NULL)->first();
+
+         $informations = !empty($if_exist_check_info->slider) ? json_decode($if_exist_check_info->slider) : [];
+
+         $data = array_filter($informations, function($data){
+            return $data->is_active != 0;
+        });   
+
+        return view('upazila_related.slider', compact('data'));
+    }
+
+    public function slider_create()
+    {
+        return view('upazila_related.slider_create');
+    }
+
+    public function slider_store(Request $request)
+    {
+
+        $if_exist_check_info = Upazila_basic_info::where('slider', '!=', NULL)->first();
+
+        $slider_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+
+        if ($slider_id > 0){
+
+            $slider_data_get = json_decode($if_exist_check_info->slider);
+
+
+            $id = count((array)$slider_data_get)+1;
+
+        }else{
+
+            $id = 1;
+        }
+
+
+        if(isset($request->image)){
+
+            $imageName = 'slider_'.time().'.'.$request->image->extension();  
+  
+            $request->image->move('img/slider', $imageName);
+  
+            $image = $imageName;
+  
+          }else{
+  
+            $image = NULL;
+  
+          }
+
+        $upazila_slider_info = [
+            'id'             => $id,
+            'title'          => $request->title,
+            'description'    => $request->description,
+            'image'          => $image,
+            'view_order'     => $request->view_order,
+            'is_active'      => $request->is_active,
+            'created_by'     => Auth::user()->id,
+            'created_ip'     => request()->ip(),
+            'created_at'     => date('Y-m-d H:i:s'),
+        ];
+
+
+        if (!empty($slider_data_get)){
+
+            $slider_data_get[] = $upazila_slider_info;
+
+            $upazila_basic_info_data = [
+                'slider'       => (!empty($slider_data_get)? json_encode($slider_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'created_ip'      => request()->ip(),
+                'created_at'      => date('Y-m-d H:i:s'),
+            ];
+        
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $slider_id)->update($upazila_basic_info_data);
+
+            if($data_save){
+                return redirect()->route('upazila_related.slider')->with('message', 'Successfully Save');   
+            }
+
+
+
+        }else{
+
+            $slider_data_get[] = $upazila_slider_info;
+
+            $upazila_basic_info_data = [
+                'slider'       => (!empty($slider_data_get)? json_encode($slider_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                'is_active'       => $request->is_active,
+                'created_by'      => Auth::user()->id,
+                'created_ip'      => request()->ip(),
+                'created_at'      => date('Y-m-d H:i:s'),
+            ];
+
+            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+
+            if($data_save){
+                
+                  return redirect()->route('upazila_related.slider')->with('message', 'Successfully Save');  
+
+            }
+        }
+    }
+
+    public function slider_edit($id)
+    {
+
+        $if_exist_check_info = Upazila_basic_info::where('slider', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->slider);
+
+        $info = array_filter($informations, function($info) use($id){
+            return $info->id == $id;
+        });   
+         $slider_data = array_values($info);
+
+        return view('upazila_related.slider_edit', compact('slider_data'));
+    }
+
+    public function slider_update(Request $request, $id){
+
+        $if_exist_check_info = Upazila_basic_info::where('slider', '!=', NULL)->first();
+
+        $slider_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $slider_data_get = json_decode($if_exist_check_info->slider);
+
+        $key = array_search($id, array_column($slider_data_get, 'id'));
+
+
+        if(isset($request->image)){
+
+            $imageName = 'slider_'.time().'.'.$request->image->extension();  
+  
+            $request->image->move('img/slider', $imageName);
+  
+            $image = $imageName;
+  
+          }else{
+  
+            $image = $request->pre_image;
+  
+          }
+
+        $upazila_slider_info = [
+            'id'             => $id,
+            'title'          => $request->title,
+            'description'    => $request->description,
+            'image'          => $image,
+            'view_order'     => $request->view_order,
+            'is_active'      => $request->is_active,
+            'updated_by'     => Auth::user()->id,
+            'updated_ip'     => request()->ip(),
+            'updated_at'     => date('Y-m-d H:i:s'),
+        ];
+
+
+        if (!empty($slider_data_get)){
+
+            $slider_data_get[$key] = $upazila_slider_info;
+
+            $upazila_basic_info_data = [
+                'slider'       => (!empty($slider_data_get)? json_encode($slider_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                'is_active'       => $request->is_active,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
+            ];
+    
+
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $slider_id)->update($upazila_basic_info_data);
+
+            if($data_save){
+                return redirect()->route('upazila_related.slider')->with('message', 'Successfully Updated');   
+            }
+        }
+    }
+
+    public function slider_delete(Request $request, $id){
+
+        $if_exist_check_info = Upazila_basic_info::where('slider', '!=', NULL)->first();
+
+        $slider_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $slider_data_get = json_decode($if_exist_check_info->slider);
+
+        $info = array_filter($slider_data_get, function($info) use($id){
+            return $info->id == $id;
+        }); 
+
+         $slider_data = array_values($info);
+
+        $key = array_search($id, array_column($slider_data_get, 'id'));
+
+
+
+        $upazila_slider_info = [
+            'id'             => $id,
+            'title'          => $slider_data[0]->title,
+            'description'    => $slider_data[0]->description,
+            'image'          => $slider_data[0]->image,
+            'view_order'     => $slider_data[0]->view_order,
+            'is_active'      => 0,
+            'updated_by'     => Auth::user()->id,
+            'updated_ip'     => request()->ip(),
+            'updated_at'     => date('Y-m-d H:i:s'),
+        ];
+
+
+        if (!empty($slider_data_get)){
+
+            $slider_data_get[$key] = $upazila_slider_info;
+
+            $upazila_basic_info_data = [
+                'slider'       => (!empty($slider_data_get)? json_encode($slider_data_get, JSON_UNESCAPED_UNICODE):NULL),
+                'is_active'       => 1,
+                'updated_by'      => Auth::user()->id,
+                'updated_ip'      => request()->ip(),
+                'updated_at'      => date('Y-m-d H:i:s'),
+            ];
+    
+
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $slider_id)->update($upazila_basic_info_data);
+
+            if($data_save){
+                return redirect()->route('upazila_related.slider')->with('message', 'Successfully Delete');   
+            }
+        }
+    }
+
+     //social_media
+     public function social_media(){
+
+        $if_exist_check_info = Upazila_basic_info::where('social_media', '!=', NULL)->first();
+        $data = !empty($if_exist_check_info->social_media) ? json_decode($if_exist_check_info->social_media) : NULL;
+
+        $social_media =  !empty($data) ?  $data : NULL;
+
+
+        
+        return view('upazila_related.social_media', compact('social_media'));
+    }
+
+    public function social_media_store(Request $request){
+
+
+        $if_exist_check_info = Upazila_basic_info::where('social_media', '!=', NULL)->first();
+
+        $social_media_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+       
+
+        $social_media_info = [
+            'facebook_link'    => $request->facebook_link,
+            'youtube_link'     => $request->youtube_link,
+            'twitter_link'     => $request->twitter_link,
+            'instagram_link'   => $request->instagram_link,
+            'created_by'       => Auth::user()->id,
+            'created_ip'       => request()->ip(),
+            'created_at'       => date('Y-m-d H:i:s'),
+        ];
+        
+        //dd($social_media_info);
+
+            if(!empty($if_exist_check_info)){
+
+                $upazila_basic_info_data = [
+                    'social_media'=> (!empty($social_media_info)? json_encode($social_media_info, JSON_UNESCAPED_UNICODE ):NULL),
+                    'is_active'   =>1,
+                    'updated_by'  => Auth::user()->id,
+                    'updated_ip'  => request()->ip(),
+                    'updated_at'   => date('Y-m-d H:i:s'),
+                ];
+
+                
+                $data_save = DB::table('upazila_basic_info')->where('id', '=', $social_media_id)->update($upazila_basic_info_data);
+
+                return redirect()->route('upazila_related.social_media')->with('message', 'Successfully Saved');   
+
+            }else{
+
+                $upazila_basic_info_data = [
+                    'social_media'=> (!empty($social_media_info)? json_encode($social_media_info, JSON_UNESCAPED_UNICODE):NULL),
+                    'is_active'   => 1,
+                    'created_by'  => Auth::user()->id,
+                    'created_ip'  => request()->ip(),
+                    'created_at'   => date('Y-m-d H:i:s'),
+                ];
+         
+                $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+
+                return redirect()->route('upazila_related.social_media')->with('message', 'Successfully Save');   
+
+            }
 
     }
 

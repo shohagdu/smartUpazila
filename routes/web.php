@@ -96,6 +96,18 @@ Route::post('/freedom_fighter/edit', [UpazilaRelatedController::class, 'freedom_
 Route::post('/freedom_fighter/update', [UpazilaRelatedController::class, 'freedom_fighter_update'])->name('freedom_fighter.update');
 Route::post('/freedom_fighter/delete', [UpazilaRelatedController::class, 'freedom_fighter_delete'])->name('freedom_fighter.delete');
 
+//slider
+Route::get('/slider', [UpazilaRelatedController::class, 'slider'])->name('upazila_related.slider');
+Route::get('/slider/create', [UpazilaRelatedController::class, 'slider_create'])->name('upazila_related.slider_create');
+Route::post('/slider/store', [UpazilaRelatedController::class, 'slider_store'])->name('upazila_related.slider_store');
+Route::get('/slider/edit/{id}', [UpazilaRelatedController::class, 'slider_edit'])->name('upazila_related.slider_edit');
+Route::post('/slider/update/{id}', [UpazilaRelatedController::class, 'slider_update'])->name('upazila_related.slider_update');
+Route::get('/slider/delete/{id}', [UpazilaRelatedController::class, 'slider_delete'])->name('upazila_related.slider_delete');
+
+
+// social media
+Route::get('/social-media', [UpazilaRelatedController::class, 'social_media'])->name('upazila_related.social_media');
+Route::post('/social-media/store', [UpazilaRelatedController::class, 'social_media_store'])->name('upazila_related.social_media_store');
 
 Route::get('/upazila_chairman', [UpazilaParishadController::class, 'index'])->name('upazila_parishad.upazila_chairman');
 Route::get('/upazila_chairman/create', [UpazilaParishadController::class, 'create'])->name('upazila_chairman.create');

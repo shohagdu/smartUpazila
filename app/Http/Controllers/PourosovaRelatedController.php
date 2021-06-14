@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AllTypeTitle;
+use App\Models\Upazila_basic_info;
 use DataTables;
 use Session;
 use DB;
@@ -90,7 +91,7 @@ class PourosovaRelatedController extends Controller
 
     public function pourosova_mayor(Request $request)
     {
-         $if_exist_check_info = DB::table('upazila_basic_info')->where('mayor', '!=', NULL)->first();
+         $if_exist_check_info = Upazila_basic_info::where('mayor', '!=', NULL)->first();
 
          $informations = !empty($if_exist_check_info->mayor) ? json_decode($if_exist_check_info->mayor) : [];
 
@@ -110,7 +111,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_mayor_store(Request $request)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('mayor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('mayor', '!=', NULL)->first();
 
         $mayor_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -205,7 +206,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_mayor_edit($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('mayor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('mayor', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->mayor);
 
@@ -220,7 +221,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_mayor_update(Request $request, $id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('mayor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('mayor', '!=', NULL)->first();
 
         $mayor_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -282,7 +283,7 @@ class PourosovaRelatedController extends Controller
 
     public function pourosova_mayor_delete($id){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('mayor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('mayor', '!=', NULL)->first();
 
         $mayor_data_get = json_decode($if_exist_check_info->mayor);
 
@@ -340,7 +341,7 @@ class PourosovaRelatedController extends Controller
 
     public function pourosova_councilor(Request $request)
     {
-         $if_exist_check_info = DB::table('upazila_basic_info')->where('councilor', '!=', NULL)->first();
+         $if_exist_check_info = Upazila_basic_info::where('councilor', '!=', NULL)->first();
 
          $informations = !empty($if_exist_check_info->councilor) ? json_decode($if_exist_check_info->councilor) : [];
 
@@ -360,7 +361,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_councilor_store(Request $request)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('councilor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('councilor', '!=', NULL)->first();
 
         $councilor_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -454,7 +455,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_councilor_edit($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('councilor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('councilor', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->councilor);
 
@@ -469,7 +470,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_councilor_update(Request $request, $id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('councilor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('councilor', '!=', NULL)->first();
 
         $councilor_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -530,7 +531,7 @@ class PourosovaRelatedController extends Controller
 
     public function pourosova_councilor_delete($id){
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('councilor', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('councilor', '!=', NULL)->first();
 
         $councilor_data_get = json_decode($if_exist_check_info->councilor);
 
@@ -587,7 +588,7 @@ class PourosovaRelatedController extends Controller
     // kormocari
     public function pourosova_kormocari(Request $request)
     {
-         $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+         $if_exist_check_info = Upazila_basic_info::where('kormocari', '!=', NULL)->first();
 
          $informations = !empty($if_exist_check_info->kormocari) ? json_decode($if_exist_check_info->kormocari) : [];
 
@@ -607,7 +608,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_kormocari_store(Request $request)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormocari', '!=', NULL)->first();
 
         $kormocari_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -687,7 +688,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_kormocari_edit($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormocari', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->kormocari);
 
@@ -702,7 +703,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_kormocari_update(Request $request, $id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormocari', '!=', NULL)->first();
 
         $kormocari_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -751,7 +752,7 @@ class PourosovaRelatedController extends Controller
         public function pourosova_kormocari_delete($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormocari', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormocari', '!=', NULL)->first();
 
         $kormocari_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -807,7 +808,7 @@ class PourosovaRelatedController extends Controller
       // kormokorta
     public function pourosova_kormokorta(Request $request)
     {
-         $if_exist_check_info = DB::table('upazila_basic_info')->where('kormokorta', '!=', NULL)->first();
+         $if_exist_check_info = Upazila_basic_info::where('kormokorta', '!=', NULL)->first();
 
          $informations = !empty($if_exist_check_info->kormokorta) ? json_decode($if_exist_check_info->kormokorta) : [];
 
@@ -827,7 +828,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_kormokorta_store(Request $request)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormokorta', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormokorta', '!=', NULL)->first();
 
         $kormokorta_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -907,7 +908,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_kormokorta_edit($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormokorta', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormokorta', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->kormokorta);
 
@@ -922,7 +923,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_kormokorta_update(Request $request, $id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormokorta', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormokorta', '!=', NULL)->first();
 
         $kormokorta_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -971,7 +972,7 @@ class PourosovaRelatedController extends Controller
         public function pourosova_kormokorta_delete($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('kormokorta', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('kormokorta', '!=', NULL)->first();
 
         $kormokorta_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -1028,7 +1029,7 @@ class PourosovaRelatedController extends Controller
 
     public function pourosova_ward(Request $request)
     {
-         $if_exist_check_info = DB::table('upazila_basic_info')->where('pourosova_ward', '!=', NULL)->first();
+         $if_exist_check_info = Upazila_basic_info::where('pourosova_ward', '!=', NULL)->first();
 
          $informations = !empty($if_exist_check_info->pourosova_ward) ? json_decode($if_exist_check_info->pourosova_ward) : [];
 
@@ -1048,7 +1049,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_ward_store(Request $request)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('pourosova_ward', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_ward', '!=', NULL)->first();
 
         $ward_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -1121,7 +1122,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_ward_edit($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('pourosova_ward', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_ward', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->pourosova_ward);
 
@@ -1136,7 +1137,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_ward_update(Request $request, $id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('pourosova_ward', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_ward', '!=', NULL)->first();
 
         $ward_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -1181,7 +1182,7 @@ class PourosovaRelatedController extends Controller
     public function pourosova_ward_delete($id)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('pourosova_ward', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('pourosova_ward', '!=', NULL)->first();
 
         $ward_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -1233,7 +1234,7 @@ class PourosovaRelatedController extends Controller
     public function citizen_charter(Request $request)
     {
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
         if($request->ajax()){
             $informations = !empty($if_exist_check_info->citizen_charter) ? json_decode($if_exist_check_info->citizen_charter) : [];
@@ -1278,7 +1279,7 @@ class PourosovaRelatedController extends Controller
     {
         
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
        // dd($if_exist_check_info);
         $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -1363,7 +1364,7 @@ class PourosovaRelatedController extends Controller
 
     public function citizen_charter_edit(Request $request)
     {
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
         $informations  = json_decode($if_exist_check_info->citizen_charter);
 
@@ -1383,7 +1384,7 @@ class PourosovaRelatedController extends Controller
     {
         $id = $request->citizen_charter_id;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
        // dd($if_exist_check_info);
         $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -1439,7 +1440,7 @@ class PourosovaRelatedController extends Controller
 
         $id = $request->id;
 
-        $if_exist_check_info = DB::table('upazila_basic_info')->where('citizen_charter', '!=', NULL)->first();
+        $if_exist_check_info = Upazila_basic_info::where('citizen_charter', '!=', NULL)->first();
 
        // dd($if_exist_check_info);
         $citizen_charter_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;

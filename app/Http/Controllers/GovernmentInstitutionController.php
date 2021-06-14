@@ -261,7 +261,7 @@ class GovernmentInstitutionController extends Controller
 
         if($data_save){
             
-              return redirect()->route('government_institution.health_issues')->with('message', 'Successfully Save');  
+              return redirect()->route('government_institution.health_issues')->with('message', 'Successfully Update');  
 
         }
     }
@@ -356,10 +356,10 @@ class GovernmentInstitutionController extends Controller
                         ->where('type','=',6)
                         ->get();
 
-         $low_and_order_info = DB::table('institutions')->where('type', '=', 6)->where('id', '=', $id)->first();
+         $info = DB::table('institutions')->where('type', '=', 6)->where('id', '=', $id)->first();
 
 
-         return view('government_institution.agriculture_and_food_edit', compact('type_info','low_and_order_info'));
+         return view('government_institution.agriculture_and_food_edit', compact('type_info','info'));
     }
 
 

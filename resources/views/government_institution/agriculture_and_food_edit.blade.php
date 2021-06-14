@@ -90,8 +90,8 @@
                             <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_active" name="is_active" required>
                                     <option value=""> Select</option>
-                                    <option value="1" <?php if($low_and_order_info->is_active==1){ echo "selected";}?>> Active </option>
-                                    <option value="2" <?php if($low_and_order_info->is_active==2){ echo "selected";}?>> Inactive </option>
+                                    <option value="1" <?php if($info->is_active==1){ echo "selected";}?>> Active </option>
+                                    <option value="2" <?php if($info->is_active==2){ echo "selected";}?>> Inactive </option>
                                    
                                 </select>
                                 

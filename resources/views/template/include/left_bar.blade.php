@@ -111,15 +111,21 @@
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >Setup</span></a>
                 <ul>
-                    <li  <?php if(in_array($combine_segment,['unionSetup'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['unionSetup'])){ echo 'class="active"';} ?>>
                         <a href="{{url('unionSetup')}}" title="Union Setup"> <span class="menu-item-parent">Union Setup</span></a>
                     </li>
 
-                    <li  <?php if(in_array($combine_segment,['upazilaSetup'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['upazilaSetup'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazilaSetup')}}" title="Upazila Setup"><span class="menu-item-parent">Upazila Setup</span></a>
                     </li>
-                    <li  <?php if(in_array($combine_segment,['all-type-title'])){ echo 'class="active"';} ?>>
+                    <li  <?php if(in_array($segment1,['all-type-title'])){ echo 'class="active"';} ?>>
                         <a href="{{url('all-type-title')}}" title="All Type Title"><span class="menu-item-parent">All Type Title</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['slider'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('slider')}}" title="All Type Title"><span class="menu-item-parent"> Slider </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['social-media'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('social-media')}}" title="All Type Title"><span class="menu-item-parent"> Social media </span></a>
                     </li>
                     
                 </ul>
