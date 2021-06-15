@@ -130,6 +130,14 @@ Route::get('/upazila_female_vice_chairman/edit/{id}', [UpazilaParishadController
 Route::post('/upazila_female_vice_chairman/update/{id}', [UpazilaParishadController::class, 'female_vice_chairman_update'])->name('upazila_parishad.female_vice_chairman_update');
 Route::get('/upazila_female_vice_chairman/delete/{id}', [UpazilaParishadController::class, 'female_vice_chairman_delete'])->name('upazila_parishad.female_vice_chairman_delete');
 
+// parisad kajjoboli 
+Route::get('/parisad-kajjoboli', [UpazilaParishadController::class, 'parisad_kajjoboli'])->name('upazila_parishad.parisad_kajjoboli');
+Route::post('/parisad-kajjoboli/store', [UpazilaParishadController::class, 'parisad_kajjoboli_store'])->name('upazila_parishad.parisad_kajjoboli_store');
+Route::post('/parisad-kajjoboli/edit', [UpazilaParishadController::class, 'parisad_kajjoboli_edit'])->name('upazila_parishad.parisad_kajjoboli_edit');
+Route::post('/parisad-kajjoboli/update', [UpazilaParishadController::class, 'parisad_kajjoboli_update'])->name('upazila_parishad.parisad_kajjoboli_update');
+Route::post('/parisad-kajjoboli/delete', [UpazilaParishadController::class, 'parisad_kajjoboli_destroy'])->name('upazila_parishad.parisad_kajjoboli_destroy');
+
+
 
 // Pourosova area start 
 Route::get('/pourosova-at-glance', [PourosovaRelatedController::class, 'index'])->name('pourosova_related.index');
@@ -176,6 +184,9 @@ Route::post('/pourosova_kormocari/store', [PourosovaRelatedController::class, 'p
 Route::get('/pourosova_kormocari/edit/{id}', [PourosovaRelatedController::class, 'pourosova_kormocari_edit'])->name('pourosova_related.pourosova_kormocari_edit');
 Route::post('/pourosova_kormocari/update/{id}', [PourosovaRelatedController::class, 'pourosova_kormocari_update'])->name('pourosova_related.pourosova_kormocari_update');
 Route::get('/pourosova_kormocari/delete/{id}', [PourosovaRelatedController::class, 'pourosova_kormocari_delete'])->name('pourosova_related.pourosova_kormocari_delete');
+
+// sangotonik_katamo
+Route::get('/pourosova-sangotonik-katamo', [PourosovaRelatedController::class, 'sangotonik_katamo'])->name('pourosova_related.sangotonik_katamo');
 
 // Citizen's Charter
 Route::get('/citizen-charter', [PourosovaRelatedController::class, 'citizen_charter'])->name('pourosova_related.citizen_charter');

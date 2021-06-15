@@ -1708,4 +1708,12 @@ class PourosovaRelatedController extends Controller
         
     }
 
+    //sangotonik_katamo
+
+    public function sangotonik_katamo(Request $request){
+        
+        return view('pourosova_related.parisad_sangotonik_katamo');
+
+    }
+
 }

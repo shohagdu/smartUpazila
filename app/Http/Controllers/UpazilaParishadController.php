@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Upazila_basic_info;
 use DataTables;
 use Session;
 use DB;
@@ -502,6 +503,256 @@ class UpazilaParishadController extends Controller
         }
     }
 
+    // parisad kajjboli
+
+    public function parisad_kajjoboli(Request $request)
+    {
+
+        $if_exist_check_info = Upazila_basic_info::where('parisad_kajjoboli', '!=', NULL)->first();
+
+
+        if($request->ajax()){
+           $informations = !empty($if_exist_check_info->parisad_kajjoboli) ? json_decode($if_exist_check_info->parisad_kajjoboli) : [];
+
+            $data = array_filter($informations, function($data){
+                return $data->is_active != 0;
+            });
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('is_active',function($row){
+                    $html = '';
+
+                    if($row->is_active == 1){
+                        $html.='<span class="label label-info"> Active </span>';
+                    }elseif($row->is_active == 2){
+
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+
+
+                    return $html;
+                })
+                ->addColumn('action',function($row){
+                    $html = '';
+
+                        $html.='<button class="btn btn-primary btn-xs parsadKajjaboliEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs parisadKajjaboliDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>';
+
+                    return $html;
+                })
+                ->rawColumns(['is_active','action'])
+                ->make(true);
+        }else{
+
+        return view('upazila_parishad.parisad_kajjoboli');
+        }
+
+    }
+    public function parisad_kajjoboli_store(Request $request)
+    {
+
+        $if_exist_check_info = Upazila_basic_info::where('parisad_kajjoboli', '!=', NULL)->first();
+
+        $parisad_kajjoboli_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+        
+
+        if ($parisad_kajjoboli_id > 0){
+
+            $parisad_kajjoboli_data_get = json_decode($if_exist_check_info->parisad_kajjoboli);
+
+
+            $id = count((array)$parisad_kajjoboli_data_get)+1;
+
+        }else{
+
+            $id = 1;
+        }
+
+        $parisad_kajjoboli_info = [
+            'id'                => $id,
+            'office'            => $request->office,
+            'message'           => $request->message,
+            'display_position' => $request->display_position,
+            'is_active'        => $request->is_active,
+            'created_by'       => Auth::user()->id,
+            'created_ip'       => request()->ip(),
+            'created_at'       => date('Y-m-d H:i:s'),
+        ];
+
+
+
+        if (!empty($parisad_kajjoboli_data_get)){
+            $parisad_kajjoboli_data_get[] = $parisad_kajjoboli_info;
+
+            $upazila_basic_info_data = [
+                'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'created_ip'  => request()->ip(),
+                'created_at'   => date('Y-m-d H:i:s'),
+            ];
+           
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $parisad_kajjoboli_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+
+
+        }else{
+            $parisad_kajjoboli_data_get[] = $parisad_kajjoboli_info;
+
+            $upazila_basic_info_data = [
+                'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'created_ip'  => request()->ip(),
+                'created_at'   => date('Y-m-d H:i:s'),
+            ];
+            
+
+            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+            ]);
+        }
+
+    }
+
+    public function parisad_kajjoboli_edit(Request $request)
+    {
+        $if_exist_check_info = Upazila_basic_info::where('parisad_kajjoboli', '!=', NULL)->first();
+
+        $informations  = json_decode($if_exist_check_info->parisad_kajjoboli);
+
+        $info = array_filter($informations, function($info) use($request){
+            return $info->id == $request->id;
+        });
+
+        return response()->json([
+            'status' => !empty($info) ? 'success' : 'error',
+            'msg'    => !empty($info) ? 'Data Found' : 'Something went wrong',
+            'data'   => !empty($info) ? array_values($info) : []
+        ]);
+    }
+
+    public function parisad_kajjoboli_update(Request $request)
+    {
+
+        $id = $request->kajjaboli_id;
+
+        $if_exist_check_info = Upazila_basic_info::where('parisad_kajjoboli', '!=', NULL)->first();
+
+        $parisad_kajjoboli_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $parisad_kajjoboli_data_get = json_decode($if_exist_check_info->parisad_kajjoboli);
+
+        $key = array_search($request->kajjaboli_id, array_column($parisad_kajjoboli_data_get, 'id'));
+
+        
+
+        $parisad_kajjoboli_info = [
+            'id'                => $id,
+            'office'            => $request->office,
+            'message'           => $request->message,
+            'display_position' => $request->display_position,
+            'is_active'        => $request->is_active,
+            'created_by'       => Auth::user()->id,
+            'created_ip'       => request()->ip(),
+            'created_at'       => date('Y-m-d H:i:s'),
+        ];
+
+
+
+        if (!empty($parisad_kajjoboli_data_get)){
+
+            $parisad_kajjoboli_data_get[$key] = $parisad_kajjoboli_info;
+
+            $upazila_basic_info_data = [
+                'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'created_ip'  => request()->ip(),
+                'created_at'   => date('Y-m-d H:i:s'),
+            ];
+           
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $parisad_kajjoboli_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Updated' : 'Someting went wrong',
+            ]);
+
+
+        }
+
+    }
+
+    public function parisad_kajjoboli_destroy(Request $request)
+    {
+
+
+        $if_exist_check_info = Upazila_basic_info::where('parisad_kajjoboli', '!=', NULL)->first();
+
+        $parisad_kajjoboli_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
+
+        $parisad_kajjoboli_data_get = json_decode($if_exist_check_info->parisad_kajjoboli);
+
+
+        $id = $request->id;
+
+        $info = array_filter($parisad_kajjoboli_data_get, function($info) use($id){
+            return $info->id == $id;
+        });
+
+
+         $parisad_kajjoboli_data_info = array_values($info);
+
+
+        $key = array_search($request->id, array_column($parisad_kajjoboli_data_get, 'id'));
+
+        
+
+        $parisad_kajjoboli_info = [
+            'id'               => $id,
+            'office'           => $parisad_kajjoboli_data_info[0]->office,
+            'message'          => $parisad_kajjoboli_data_info[0]->message,
+            'display_position' => $parisad_kajjoboli_data_info[0]->display_position,
+            'is_active'        => 0,
+            'created_by'       => Auth::user()->id,
+            'created_ip'       => request()->ip(),
+            'created_at'       => date('Y-m-d H:i:s'),
+        ];
+
+
+
+        if (!empty($parisad_kajjoboli_data_get)){
+
+            $parisad_kajjoboli_data_get[$key] = $parisad_kajjoboli_info;
+
+            $upazila_basic_info_data = [
+                'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
+                'is_active'   => $request->is_active,
+                'created_by'  => Auth::user()->id,
+                'created_ip'  => request()->ip(),
+                'created_at'   => date('Y-m-d H:i:s'),
+            ];
+           
+            $data_save = DB::table('upazila_basic_info')->where('id', '=', $parisad_kajjoboli_id)->update($upazila_basic_info_data);
+
+            return response()->json([
+                'status' => $data_save ? 'success' : 'error',
+                'msg'    => $data_save ? 'Successfully Deleted' : 'Someting went wrong',
+            ]);
+
+
+        }
+
+    }
+
     // female vice chairman
 
     public function female_vice_chairman(Request $request)
@@ -737,5 +988,6 @@ class UpazilaParishadController extends Controller
 
         }
     }
+
 
 }

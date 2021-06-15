@@ -51,6 +51,9 @@
                     <li  <?php if(in_array($segment1,['upazila_female_vice_chairman'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazila_female_vice_chairman')}}" title="Female vice chairman"> <span class="menu-item-parent">মহিলা ভাইস চেয়ারম্যান </span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['parisad-kajjoboli'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('parisad-kajjoboli')}}" title="Parisad kajjoboli"> <span class="menu-item-parent">উপজেলা পরিষদের কার্যাবলী </span></a>
+                    </li>
                     <li  <?php if(in_array($segment1,['pourosova-at-glance'])){ echo 'class="active"';} ?>>
                         <a href="{{url('pourosova-at-glance')}}" title="pourosova at glance"> <span class="menu-item-parent"> এক নজরে পৌরসভা </span></a>
                     </li>
@@ -68,6 +71,9 @@
                     </li>
                     <li  <?php if(in_array($segment1,['pourosova_kormocari'])){ echo 'class="active"';} ?>>
                         <a href="{{url('pourosova_kormocari')}}" title="pourosova kormocari"> <span class="menu-item-parent"> কর্মচারীবৃন্দ  </span></a>
+                    </li>   
+                    <li  <?php if(in_array($segment1,['/pourosova-sangotonik-katamo'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('/pourosova-sangotonik-katamo')}}" title="pourosova kormocari"> <span class="menu-item-parent"> পৌরসভা  সাংগঠনিক কাঠামো  </span></a>
                     </li>   
                     <li  <?php if(in_array($segment1,['citizen-charter'])){ echo 'class="active"';} ?>>
                         <a href="{{url('citizen-charter')}}" title="citizen-charter"> <span class="menu-item-parent"> সিটিজেন চার্টার  </span></a>
