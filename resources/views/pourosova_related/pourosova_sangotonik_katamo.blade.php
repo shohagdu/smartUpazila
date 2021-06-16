@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  :: Parisad sangotonik katamo
+    :: Admin  :: Pourosova sangotonik katamo
 @endsection
 @section('show_message')
     @if(Session::has('message'))
@@ -21,7 +21,7 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-               <h2>Parisad sangotonik katamo</h2>
+               <h2>Pourosova sangotonik katamo</h2>
                 <button onclick="AddNew()"  class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </button>
             </header>
             <!-- widget div-->
@@ -29,12 +29,11 @@
                 <div class="widget-body no-padding">
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
-                        <table class="table table-striped table-bordered" id="parisad_kajjaboli_table">
+                        <table class="table table-striped table-bordered" id="structure_table">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th> Structure Name</th>
-                                    <th> Sub Structure</th>
+                                    <th> Structure Name </th>
                                     <th> Status </th>
                                     <th>Action</th>
                                 </tr>
@@ -46,13 +45,13 @@
         </div>
     </article>
 
-    <div id="UpIntroduceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="sangotonikKatamoeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                   <div class="row">
-                  <div class="col-md-6">  <h5 class="modal-title" id="myModalLabel"> Parisad sangotonik katamo </h5></div>
+                  <div class="col-md-6">  <h5 class="modal-title" id="myModalLabel"> Pourosova sangotonik katamo </h5></div>
                     <div class="col-md-6">  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></div>
                   </div>
                 
@@ -62,19 +61,22 @@
                     <div class="modal-body">
 
                          <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Structure Name <span class="text-danger">*</span></label>
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Structure  <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <select class="form-control form-control-alt" id="structure" name="structure" required>
+                                <select class="form-control form-control-alt" id="parent_id" name="parent_id" required>
                                     <option value=""> Select</option>
-                                    <option value="1"> মেয়র  </option>
+                                    @foreach($get_structure as $item)
+                                    <option value="{{ $item->id}}"> {{ $item->structure_name}}  </option>
+
+                                    @endforeach
                                    
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 form-control-label modalLabelText">Sub  Structure  <span class="text-danger">*</span></label>
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Structure Name <span class="text-danger">*</span></label>
                             <div class="col-md-7">
-                                <input class="form-control form-control-alt" id="sub_structure " name="sub_structure" required>
+                                <input class="form-control form-control-alt" id="structure_name" name="structure_name" required>
                                    
                             </div>
                         </div>
@@ -93,9 +95,9 @@
 
                     </div>
                     <div class="modal-footer">
-                    <input type="hidden" id="kajjaboli_id" name="kajjaboli_id">
+                    <input type="hidden" id="structure_id" name="structure_id">
 
-                        <button type="submit" onclick="UpIntroduceUpdate()" id="union_setup_update_button" style="display: none;"
+                        <button type="submit" onclick="sangotonikKatamoUpdate()" id="union_setup_update_button" style="display: none;"
                                 class="btn btn-info btn-sm waves-effect waves-light"> <i class="glyphicon glyphicon-send"></i> <span id="SubmitbtnText"> Submit </span>
                         </button>
                         <button type="submit" onclick="UpIntroduceSave()" id="union_setup_save_button"
@@ -117,43 +119,59 @@
 
 <!-- <script src="{{ asset('js') }}/union_setup.js"></script> -->
 <script>
+  $(document).ready(function(){
+    let unionSetupTable = $("#structure_table").DataTable({
+        scrollCollapse: true,
+        autoWidth: false,
+        responsive: true,
+        serverSide: true,
+        processing: true,
+        ajax:"{{route('pourosova_related.sangotonik_katamo')}}",
+        columns:[
+            {data:'DT_RowIndex',name:'DT_RowIndex'},
+            {data: 'structure_name',name:'structure_name'},
+            {data: 'is_active',name:'is_active'},
+            {data: 'action',name:'action'},
+        ]
+    });
+});
+
     
 function AddNew()
 {
-    var office        =  $('#office').val('');
-    var message       =  $('#message').val('');
-    var display_position  =  $('#display_position').val('');
-    var is_active         =  $('#is_active').val('');
-    var kajjaboli_id      = $('#kajjaboli_id').val('');
+    var parent_id        =  $('#parent_id').val('');
+    var structure_name   =  $('#structure_name').val('');
+    var is_active        =  $('#is_active').val('');
+    var structure_id     = $('#structure_id').val('');
 
-    $("#UpIntroduceModal").modal('toggle');
+    $("#sangotonikKatamoeModal").modal('toggle');
 
     document.getElementById("SubmitbtnText").innerHTML = "Submit";
 }
 
-// union info save
+// Sangotoni Katamo save
 function UpIntroduceSave(){
 
-var office       =  $('#office').val();
-var message      =  $('#message').val();
-var display_position =  $('#display_position').val();
-var is_active        =  $('#is_active').val();
+var parent_id       =  $('#parent_id').val();
+var structure_name  =  $('#structure_name').val();
+var is_active       =  $('#is_active').val();
 
 $.ajax({
-        url:"{{route('upazila_parishad.parisad_kajjoboli_store')}}",
+        url:"{{route('pourosova_related.sangotonik_katamo_store')}}",
         type:"POST",
         data:{
-            office: office,
-            message: message,
-            display_position: display_position,
+            parent_id: parent_id,
+            structure_name: structure_name,
             is_active: is_active,
         },
         success:function(responseText){
             
                 if(responseText.status == 'success'){
                     swal("Success", responseText.msg, "success");
-                    $("#parisad_kajjaboli_table").DataTable().draw(true);
-                    $("#UpIntroduceModal").modal('toggle');
+                    $("#structure_table").DataTable().draw(true);
+                    $("#sangotonikKatamoeModal").modal('toggle');
+
+                    window.location.reload();
 
 
                 }else{
@@ -164,11 +182,11 @@ $.ajax({
 }
 
 
-$(document).on("click",".parsadKajjaboliEdit",function(){
+$(document).on("click",".sangotonikKatamoEdit",function(){
     let id = $(this).data('id');
 
     $.ajax({
-        url:"{{route('upazila_parishad.parisad_kajjoboli_edit')}}",
+        url:"{{route('pourosova_related.sangotonik_katamo_edit')}}",
         type:"POST",
         data:{
             id: id
@@ -177,19 +195,20 @@ $(document).on("click",".parsadKajjaboliEdit",function(){
 
 
             if(responseText.status == 'success'){
-                let data = responseText.data[0];
-                //console.log(data);
-                var office            =  $('#office').val(data.office);
-                var message           =  $('#message').val(data.message);
-                var display_position  =  $('#display_position').val(data.display_position);
+                let data = responseText.data;
+                
+                console.log(data.parent_id);
+
+                var parent_id         =  $('#parent_id').val(data.parent_id);
+                var structure_name    =  $('#structure_name').val(data.structure_name);
                 var is_active         =  $('#is_active').val(data.is_active);
-                var kajjaboli_id      = $('#kajjaboli_id').val(data.id);
+                var structure_id      = $('#structure_id').val(data.id);
 
                 $('#union_setup_update_button').show();
                 $('#union_setup_save_button').hide();
                 document.getElementById("SubmitbtnText").innerHTML = "Update";
 
-                $("#UpIntroduceModal").modal('toggle');
+                $("#sangotonikKatamoeModal").modal('toggle');
             }
             else{
                 swal("Sorry", responseText.msg, "error");
@@ -199,31 +218,29 @@ $(document).on("click",".parsadKajjaboliEdit",function(){
 });
 
 
-// parisad_kajjoboli_update 
-function UpIntroduceUpdate(){
+// sangotonik-katamo update 
+function sangotonikKatamoUpdate(){
 
-var office           =  $('#office').val();
-var message          =  $('#message').val();
-var display_position =  $('#display_position').val();
-var is_active        =  $('#is_active').val();
-var kajjaboli_id     = $('#kajjaboli_id').val();
+var parent_id       =  $('#parent_id').val();
+var structure_name  =  $('#structure_name').val();
+var is_active       =  $('#is_active').val();
+var structure_id    = $('#structure_id').val();
 
 $.ajax({
-        url:"{{route('upazila_parishad.parisad_kajjoboli_update')}}",
+        url:"{{route('pourosova_related.sangotonik_katamo_update')}}",
         type:"POST",
         data:{
-            office: office,
-            message: message,
-            display_position: display_position,
+            parent_id: parent_id,
+            structure_name: structure_name,
             is_active: is_active,
-            kajjaboli_id:kajjaboli_id,
+            structure_id:structure_id,
         },
         success:function(responseText){
             
                 if(responseText.status == 'success'){
                     swal("Success", responseText.msg, "success");
-                    $("#parisad_kajjaboli_table").DataTable().draw(true);
-                    $("#UpIntroduceModal").modal('toggle');
+                    $("#structure_table").DataTable().draw(true);
+                    $("#sangotonikKatamoeModal").modal('toggle');
 
                 }else{
 
@@ -234,7 +251,7 @@ $.ajax({
 }
 
 // upazila parisadKajjaboliDelete  
-$(document).on("click",".parisadKajjaboliDelete",function(){
+$(document).on("click",".sangotonikKatamoDelete",function(){
     let id = $(this).data('id');
 
     swal({
@@ -249,7 +266,7 @@ $(document).on("click",".parisadKajjaboliDelete",function(){
              if (willDelete) {
                    
                     $.ajax({
-                        url:"{{route('upazila_parishad.parisad_kajjoboli_destroy')}}",
+                        url:"{{route('pourosova_related.sangotonik_katamo_delete')}}",
                         type:"POST",
                         data:{
                             id: id
@@ -258,7 +275,7 @@ $(document).on("click",".parisadKajjaboliDelete",function(){
 
                             if(responseText.status == 'success'){
                                 swal("Success", responseText.msg, "success");
-                                $("#parisad_kajjaboli_table").DataTable().draw(true);
+                                $("#structure_table").DataTable().draw(true);
                             }
                             else{
                                 swal("Sorry", responseText.msg, "error");

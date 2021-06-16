@@ -7,6 +7,7 @@ use App\Http\Controllers\UpazilaRelatedController;
 use App\Http\Controllers\UpazilaParishadController;
 use App\Http\Controllers\PourosovaRelatedController;
 use App\Http\Controllers\GovernmentInstitutionController;
+use App\Http\Controllers\NoticeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -187,6 +188,10 @@ Route::get('/pourosova_kormocari/delete/{id}', [PourosovaRelatedController::clas
 
 // sangotonik_katamo
 Route::get('/pourosova-sangotonik-katamo', [PourosovaRelatedController::class, 'sangotonik_katamo'])->name('pourosova_related.sangotonik_katamo');
+Route::post('/pourosova-sangotonik-katamo/store', [PourosovaRelatedController::class, 'sangotonik_katamo_store'])->name('pourosova_related.sangotonik_katamo_store');
+Route::post('/pourosova-sangotonik-katamo/edit', [PourosovaRelatedController::class, 'sangotonik_katamo_edit'])->name('pourosova_related.sangotonik_katamo_edit');
+Route::post('/pourosova-sangotonik-katamo/update', [PourosovaRelatedController::class, 'sangotonik_katamo_update'])->name('pourosova_related.sangotonik_katamo_update');
+Route::post('/pourosova-sangotonik-katamo/delete', [PourosovaRelatedController::class, 'sangotonik_katamo_delete'])->name('pourosova_related.sangotonik_katamo_delete');
 
 // Citizen's Charter
 Route::get('/citizen-charter', [PourosovaRelatedController::class, 'citizen_charter'])->name('pourosova_related.citizen_charter');
@@ -261,3 +266,12 @@ Route::post('/religious-institutions/store', [GovernmentInstitutionController::c
 Route::get('/religious-institutions/edit/{id}', [GovernmentInstitutionController::class, 'religious_institutions_edit'])->name('government_institution.religious_institutions_edit');
 Route::post('/religious-institutions/supdate/{id}', [GovernmentInstitutionController::class, 'religious_institutions_update'])->name('government_institution.religious_institutions_update');
 Route::get('/religious-institutions/delete/{id}', [GovernmentInstitutionController::class, 'religious_institutions_delete'])->name('government_institution.religious_institutions_delete');
+
+
+// Notice
+Route::get('/notice', [NoticeController::class, 'index'])->name('notice.index');
+Route::get('/notice/create', [NoticeController::class, 'create'])->name('notice.create');
+Route::post('/notice/store', [NoticeController::class, 'store'])->name('notice.store');
+Route::get('/notice/edit/{id}', [NoticeController::class, 'edit'])->name('notice.edit');
+Route::post('/notice/update/{id}', [NoticeController::class, 'update'])->name('notice.update');
+Route::get('/notice/delete/{id}', [NoticeController::class, 'destroy'])->name('notice.delete');

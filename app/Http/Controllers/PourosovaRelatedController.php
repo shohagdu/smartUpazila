@@ -1711,9 +1711,112 @@ class PourosovaRelatedController extends Controller
     //sangotonik_katamo
 
     public function sangotonik_katamo(Request $request){
+
+        $get_structure = DB::table('organizational_structure')->where('is_active', '!=', 0)->get();
+
+        if($request->ajax()){
+           
+            return DataTables::of($get_structure)
+                ->addIndexColumn()
+                ->addColumn('is_active',function($row){
+                    $html = '';
+                     
+                    if($row->is_active == 1){
+                        $html.='<span class="label label-info"> Active </span>'; 
+                    }elseif($row->is_active == 2){
+                        
+                        $html.='<span class="label label-warning"> Inactive </span>';
+                    }
+                   
+
+                    return $html;
+                })
+                ->addColumn('action',function($row){
+                    $html = '';
+                     
+                        $html.='<button class="btn btn-primary btn-xs sangotonikKatamoEdit" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-pencil"></i> Edit</button> &nbsp; &nbsp; <button class="btn btn-danger btn-xs sangotonikKatamoDelete" data-id="'.$row->id.'"> <i class="glyphicon glyphicon-trash"></i> Delete</button>'; 
+
+                    return $html;
+                })
+                ->rawColumns(['is_active','action'])
+                ->make(true);
+        }
         
-        return view('pourosova_related.parisad_sangotonik_katamo');
+        return view('pourosova_related.pourosova_sangotonik_katamo', compact('get_structure'));
 
     }
+
+    public function sangotonik_katamo_store(Request $request){
+
+
+        $structure_info = [
+            'parent_id'        => $request->parent_id,
+            'structure_name'   => $request->structure_name,
+            'is_active'        => $request->is_active,
+            'created_by'       => Auth::user()->id,
+            'created_ip'       => request()->ip(),
+            'created_at'       => date('Y-m-d H:i:s'),
+        ];
+
+        $data_save = DB::table('organizational_structure')->insert($structure_info);
+
+        return response()->json([
+            'status' => $data_save ? 'success' : 'error',
+            'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
+        ]);
+    }
+
+    public function sangotonik_katamo_edit(Request $request)
+    {
+        $info = DB::table('organizational_structure')->where('is_active', '!=', 0)->where('id', '=', $request->id)->first();
+
+
+        return response()->json([
+            'status' => !empty($info) ? 'success' : 'error',
+            'msg'    => !empty($info) ? 'Data Found' : 'Something went wrong',
+            'data'   => !empty($info) ? $info : []
+        ]);
+    }
+
+    public function sangotonik_katamo_update(Request $request){
+
+
+        $structure_info = [
+            'parent_id'        => $request->parent_id,
+            'structure_name'   => $request->structure_name,
+            'is_active'        => $request->is_active,
+            'updated_by'       => Auth::user()->id,
+            'updated_ip'       => request()->ip(),
+            'updated_at'       => date('Y-m-d H:i:s'),
+        ];
+
+        $data_save = DB::table('organizational_structure')->where('id', '=', $request->structure_id)->update($structure_info);
+
+        return response()->json([
+            'status' => $data_save ? 'success' : 'error',
+            'msg'    => $data_save ? 'Successfully Updated' : 'Someting went wrong',
+        ]);
+    }
+
+    public function sangotonik_katamo_delete(Request $request){
+
+
+        $structure_info = [
+           
+            'is_active'        => 0,
+            'updated_by'       => Auth::user()->id,
+            'updated_ip'       => request()->ip(),
+            'updated_at'       => date('Y-m-d H:i:s'),
+        ];
+
+        $data_save = DB::table('organizational_structure')->where('id', '=', $request->id)->update($structure_info);
+
+        return response()->json([
+            'status' => $data_save ? 'success' : 'error',
+            'msg'    => $data_save ? 'Successfully Delete' : 'Someting went wrong',
+        ]);
+    }
+
+
 
 }

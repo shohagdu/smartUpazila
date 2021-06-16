@@ -1158,7 +1158,7 @@ class UpazilaRelatedController extends Controller
                 return redirect()->route('upazila_related.slider')->with('message', 'Successfully Delete');   
             }
         }
-    }
+    } 
 
      //social_media
      public function social_media(){

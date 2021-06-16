@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  ::  Slider
+    :: Admin  ::  Notice
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
@@ -18,8 +18,8 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-               <h2> Slider  </h2>
-                <a href="{{ route('upazila_related.slider_create')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </a>
+               <h2> Notice  </h2>
+                <a href="{{ route('notice.create')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </a>
             </header>
             <!-- widget div-->
             <div >
@@ -32,19 +32,19 @@
                                     <th> # </th>
                                     <th> Title </th>
                                     <th> Description</th>
-                                    <th> Image </th>
+                                    <th> Document </th>
                                     <th> Status </th>
                                     <th style="width: 150px;"> Action</th>
                                 </tr>
                                 @php $i=1;  @endphp    
-                                @foreach($data as $item)
+                                @foreach($get_notice as $item)
                                     <tbody>
                                         <tr>
                                             <td>{{ $i++}}</td>
                                             <td>{{$item->title}}</td>
                                             <td>{{$item->description}}</td>
                                             <td>
-                                                <img style="width: 150px; height: 100px;" src="{{ asset('img/slider')}}/{{$item->image}}"/>
+                                                <img style="width: 150px; height: 100px;" src="{{ asset('img/attachment')}}/{{$item->attachment}}"/>
                                             </td>
                                             <td>
                                                 @if($item->is_active == 1)
@@ -54,8 +54,8 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('upazila_related.slider_edit', $item->id)}}" class="btn btn-primary btn-xs"> <i class="glyphicon glyphicon-pencil"></i> Edit </a> &nbsp; &nbsp; 
-                                                <a onclick="return confirm('Are you sure you want to delete?')" href="{{ route('upazila_related.slider_delete', $item->id)}}" class="btn btn-danger btn-xs "> <i class="glyphicon glyphicon-trash"></i> Delete</a>
+                                                <a href="{{ route('notice.edit', $item->id)}}" class="btn btn-primary btn-xs"> <i class="glyphicon glyphicon-pencil"></i> Edit </a> &nbsp; &nbsp; 
+                                                <a onclick="return confirm('Are you sure you want to delete?')" href="{{ route('notice.delete', $item->id)}}" class="btn btn-danger btn-xs "> <i class="glyphicon glyphicon-trash"></i> Delete</a>
                                             </td>
                                         </tr>
                                     </tbody>

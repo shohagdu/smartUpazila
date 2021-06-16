@@ -102,6 +102,9 @@
                     <li  <?php if(in_array($segment1,['religious-institutions'])){ echo 'class="active"';} ?>>
                         <a href="{{url('religious-institutions')}}" title="religious institutions"> <span class="menu-item-parent"> ধর্মীয় প্রতিষ্ঠান </span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['notice'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('notice')}}" title="Notice"> <span class="menu-item-parent"> নোটিশ </span></a>
+                    </li>
                 </ul>
             </li>
             <li>
