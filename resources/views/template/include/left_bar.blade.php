@@ -139,6 +139,9 @@
                     <li  <?php if(in_array($segment1,['social-media'])){ echo 'class="active"';} ?>>
                         <a href="{{url('social-media')}}" title="All Type Title"><span class="menu-item-parent"> Social media </span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['footer-area'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('footer-area')}}" title="Footer Area"><span class="menu-item-parent"> Footer Area </span></a>
+                    </li>
                     
                 </ul>
             </li>

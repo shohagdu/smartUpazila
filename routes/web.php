@@ -8,6 +8,7 @@ use App\Http\Controllers\UpazilaParishadController;
 use App\Http\Controllers\PourosovaRelatedController;
 use App\Http\Controllers\GovernmentInstitutionController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\FooterAreaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -275,3 +276,16 @@ Route::post('/notice/store', [NoticeController::class, 'store'])->name('notice.s
 Route::get('/notice/edit/{id}', [NoticeController::class, 'edit'])->name('notice.edit');
 Route::post('/notice/update/{id}', [NoticeController::class, 'update'])->name('notice.update');
 Route::get('/notice/delete/{id}', [NoticeController::class, 'destroy'])->name('notice.delete');
+
+// foter area
+Route::get('/footer-area', [FooterAreaController::class, 'index'])->name('footer_area.index');
+Route::get('/footer-area/privacy-policy', [FooterAreaController::class, 'privacy_policy'])->name('footer_area.privacy_policy');
+Route::post('/footer-area/privacy-policy/store', [FooterAreaController::class, 'privacy_policy_store'])->name('footer_area.privacy_policy_store');
+Route::get('/footer-area/terms-of-use', [FooterAreaController::class, 'terms_of_use'])->name('footer_area.terms_of_use');
+Route::post('/footer-area/terms-of-use/store', [FooterAreaController::class, 'terms_of_use_store'])->name('footer_area.terms_of_use_store');
+Route::get('/footer-area/in-overall-cooperation', [FooterAreaController::class, 'in_overall_cooperation'])->name('footer_area.in_overall_cooperation');
+Route::post('/footer-area/in-overall-cooperation/store', [FooterAreaController::class, 'in_overall_cooperation_store'])->name('footer_area.in_overall_cooperation_store');
+Route::get('/footer-area/sitemap', [FooterAreaController::class, 'sitemap'])->name('footer_area.sitemap');\
+Route::post('/footer-area/sitemap/store', [FooterAreaController::class, 'sitemap_store'])->name('footer_area.sitemap_store');
+Route::get('/footer-area/commonly-asked', [FooterAreaController::class, 'commonly_asked'])->name('footer_area.commonly_asked');
+Route::post('/footer-area/commonly-asked/store', [FooterAreaController::class, 'commonly_asked_store'])->name('footer_area.commonly_asked_store');
