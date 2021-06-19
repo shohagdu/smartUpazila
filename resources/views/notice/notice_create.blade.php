@@ -46,7 +46,8 @@
 
                             <label for="name" class="col-md-1 form-control-label modalLabelText"> Description </label>
                                 <div class="col-md-10">
-                                    <textarea rows="5"  name="description" class="form-control" placeholder="Description"></textarea>
+                                   
+                                    <textarea class="form-control" id="summary-ckeditor" name="description"></textarea>
                                 </div>
 
                             </div>
@@ -63,32 +64,42 @@
                             </div>
 
                              <label for="name" class="col-md-2 form-control-label modalLabelText"> View order <span class="text-danger">*</span></label>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <input type="text" class="form-control form-control-alt" name="view_order" id="view_order" required
                                         placeholder="View Order">
                                 </div>
 
-                                
-                                <div class="col-md-2">
-                                <p><span style="font-weight: bold;"> Is Current </span>  &nbsp;&nbsp;
-                                    <input  type="checkbox" type="text" class="" name="is_current" id="is_current"
-                                       value="1">
-                                </p>
-                                </div>
                            </div>
                            <div class="form-group row">
+                           
                             <label for="name" class="col-md-1 form-control-label modalLabelText"> Attachment</label>
                             <div class="col-md-4">
                                 <input type="file" class="form-control form-control-alt" name="attachment" id="attachment">
                             </div>
-                            <div class="col-md-2"></div>
+
+                            <label for="name" class="col-md-2 form-control-label modalLabelText"> Type</label>
                             <div class="col-md-4">
-                                <img src="" id="attachment_preview" style="width: 100%; height: 100px;"/>
+                                 <select class="form-control form-control-alt" id="type" name="type" required>
+                                    <option value=""> Select</option>
+                                    <option value="1"> Notice  </option>
+                                    <option value="2"> Government Initiatives </option>
+                                    <option value="3"> Scroll News </option>
+                                   
+                                </select>
                             </div>
 
                             </div>
 
-                             <button style="float: right;"  class="btn btn-sm btn-success" type="submit"> Save </button><br><br>
+                           <div class="form-group row">
+                          
+                                <div class="col-md-1"></div>
+                                <div class="col-md-4">
+                                    <img src="{{ asset('img')}}/deafult.jpg" id="attachment_preview" style="width: 100%; height: 100px;"/>
+                                </div>
+
+                            </div>
+
+                             <button style="float: right; margin-right: 100px;"  class="btn btn-sm btn-success" type="submit"> Save </button><br><br><br>
                        </form> <br>             
 
                     </div>
@@ -100,6 +111,10 @@
 
 
 @section('js')
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+CKEDITOR.replace( 'summary-ckeditor' );
+</script>
 
 <script>
     attachment.onchange = evt => {

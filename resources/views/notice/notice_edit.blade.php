@@ -46,7 +46,7 @@
 
                             <label for="name" class="col-md-1 form-control-label modalLabelText"> Description </label>
                                 <div class="col-md-10">
-                                    <textarea rows="5"  name="description" id="description" class="form-control" >{{$get_notice->description}}</textarea>
+                                    <textarea rows="5"  class="form-control" id="summary-ckeditor" name="description">{{$get_notice->description}}</textarea>
                                 </div>
 
                             </div>
@@ -63,33 +63,47 @@
                             </div>
 
                              <label for="name" class="col-md-2 form-control-label modalLabelText"> View order <span class="text-danger">*</span></label>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <input type="text" class="form-control form-control-alt" name="view_order" id="view_order" required
                                     value="{{$get_notice->view_order}}">
                                 </div>
 
                                 
-                                <div class="col-md-2">
-                                <p><span style="font-weight: bold;"> Is Current </span>  &nbsp;&nbsp;
-                                    <input @if($get_notice->is_current== 1) checked @endif type="checkbox" type="text"  name="is_current" id="is_current"
-                                       value="1">
-                                </p>
-                                </div>
+        
                            </div>
                            <div class="form-group row">
                             <label for="name" class="col-md-1 form-control-label modalLabelText"> Attachment</label>
                             <div class="col-md-4">
                                 <input type="file" class="form-control form-control-alt" name="attachment" id="attachment">
-                                <input type="hidden" class="form-control form-control-alt" name="pre_attachment" id="pre_attachment">
+                                <input type="hidden" class="form-control form-control-alt" name="pre_attachment" id="pre_attachment" value="{{$get_notice->attachment}}">
                             </div>
-                            <div class="col-md-2"></div>
+                            <label for="name" class="col-md-2 form-control-label modalLabelText"> Type</label>
                             <div class="col-md-4">
-                                <img src="{{ asset('img/attachment')}}/{{$get_notice->attachment}}" id="attachment_preview" style="width: 100%; height: 100px;"/>
+                            <select class="form-control form-control-alt" id="type" name="type" required>
+                                    <option value=""> Select</option>
+                                    <option value="1" <?php if($get_notice->type==1){ echo "selected";}?>> Notice  </option>
+                                    <option value="2" <?php if($get_notice->type==2){ echo "selected";}?>> Government Initiatives </option>
+                                    <option value="3" <?php if($get_notice->type==3){ echo "selected";}?>> Scroll News </option>
+                                   
+                                </select>
                             </div>
 
                             </div>
 
-                             <button style="float: right;"  class="btn btn-sm btn-info" type="submit"> Update </button><br><br>
+                            <div class="form-group row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-4">
+                                  @if(!empty($info->attachment))
+                                  <img src="{{ asset('img/attachment')}}/{{$get_notice->attachment}}" id="attachment_preview" style="width: 100%; height: 100px;"/>
+                                    @else
+                                    <img src="{{ asset('img')}}/deafult.jpg" id="attachment_preview" style="width: 100%; height: 100px;"/>
+                                   @endif
+                              
+                            </div>
+
+                            </div>
+
+                             <button style="float: right;margin-right: 100px;"  class="btn btn-sm btn-info" type="submit"> Update </button><br><br>
                        </form> <br>             
 
                     </div>
@@ -101,6 +115,10 @@
 
 
 @section('js')
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+CKEDITOR.replace( 'summary-ckeditor' );
+</script>
 
 <script>
     attachment.onchange = evt => {

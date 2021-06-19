@@ -25,7 +25,30 @@
                 <a href="<?php  echo asset('/dashboard');?>" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >Website Manage</span></a>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >Home</span></a>
+                <ul>
+                    <li  <?php if(in_array($segment1,['people'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('people')}}" title="People"> <span class="menu-item-parent"> উপজেলা সম্পর্কে </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['notice'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('notice')}}" title="Notice"> <span class="menu-item-parent"> নোটিশ </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['slider'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('slider')}}" title="All Type Title"><span class="menu-item-parent"> Slider </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['social-media'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('social-media')}}" title="All Type Title"><span class="menu-item-parent"> Social media </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['footer-area'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('footer-area')}}" title="Footer Area"><span class="menu-item-parent"> Footer Area </span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['dynamic-content-page'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('dynamic-content-page')}}" title="dynamic content page"><span class="menu-item-parent"> Dynamic content page </span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" > উপজেলা সম্পর্কিত </span></a>
                 <ul>
                     <li  <?php if(in_array($segment1,['upazilaIntroduction'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazilaIntroduction')}}" title="Upazila Introduction"> <span class="menu-item-parent">উপজেলা পরিচিতি</span></a>
@@ -42,6 +65,14 @@
                     <li  <?php if(in_array($segment1,['freedom_fighter'])){ echo 'class="active"';} ?>>
                         <a href="{{url('freedom_fighter')}}" title="freedom fighter"> <span class="menu-item-parent"> মুক্তিযোদ্ধাদের তালিকা </span></a>
                     </li>
+                    
+                   
+                </ul>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >উপজেলা পরিষদ</span></a>
+                <ul>
                     <li  <?php if(in_array($segment1,['upazila_chairman'])){ echo 'class="active"';} ?>>
                         <a href="{{url('upazila_chairman')}}" title="upazila chairman"> <span class="menu-item-parent"> চেয়ারম্যান, উপজেলা পরিষদ  </span></a>
                     </li>
@@ -54,6 +85,14 @@
                     <li  <?php if(in_array($segment1,['parisad-kajjoboli'])){ echo 'class="active"';} ?>>
                         <a href="{{url('parisad-kajjoboli')}}" title="Parisad kajjoboli"> <span class="menu-item-parent">উপজেলা পরিষদের কার্যাবলী </span></a>
                     </li>
+                   
+                </ul>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >পৌরসভা সম্পর্কিত</span></a>
+                <ul>
+                    
                     <li  <?php if(in_array($segment1,['pourosova-at-glance'])){ echo 'class="active"';} ?>>
                         <a href="{{url('pourosova-at-glance')}}" title="pourosova at glance"> <span class="menu-item-parent"> এক নজরে পৌরসভা </span></a>
                     </li>
@@ -78,6 +117,13 @@
                     <li  <?php if(in_array($segment1,['citizen-charter'])){ echo 'class="active"';} ?>>
                         <a href="{{url('citizen-charter')}}" title="citizen-charter"> <span class="menu-item-parent"> সিটিজেন চার্টার  </span></a>
                     </li>  
+                    
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >সরকারি প্রতিষ্ঠান</span></a>
+                <ul>
+                     
                     <li  <?php if(in_array($segment1,['lowAndOrder'])){ echo 'class="active"';} ?>>
                         <a href="{{url('lowAndOrder')}}" title="low and order"> <span class="menu-item-parent"> আইন-শৃঙ্খলা বিষয়ক  </span></a>
                     </li>  
@@ -93,6 +139,12 @@
                     <li  <?php if(in_array($segment1,['govt-engineers'])){ echo 'class="active"';} ?>>
                         <a href="{{url('govt-engineers')}}" title="govt engineers"> <span class="menu-item-parent"> প্রকৌশল ও যোগাযোগ</span></a>
                     </li>
+                   
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >অন্যান্য প্রতিষ্ঠান</span></a>
+                <ul>                    
                     <li  <?php if(in_array($segment1,['educational-institutions'])){ echo 'class="active"';} ?>>
                         <a href="{{url('educational-institutions')}}" title="educational institutions"> <span class="menu-item-parent"> শিক্ষা প্রতিষ্ঠান </span></a>
                     </li>
@@ -102,11 +154,9 @@
                     <li  <?php if(in_array($segment1,['religious-institutions'])){ echo 'class="active"';} ?>>
                         <a href="{{url('religious-institutions')}}" title="religious institutions"> <span class="menu-item-parent"> ধর্মীয় প্রতিষ্ঠান </span></a>
                     </li>
-                    <li  <?php if(in_array($segment1,['notice'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('notice')}}" title="Notice"> <span class="menu-item-parent"> নোটিশ </span></a>
-                    </li>
                 </ul>
             </li>
+
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >Reports</span></a>
                 <ul>
@@ -132,15 +182,6 @@
                     </li>
                     <li  <?php if(in_array($segment1,['all-type-title'])){ echo 'class="active"';} ?>>
                         <a href="{{url('all-type-title')}}" title="All Type Title"><span class="menu-item-parent">All Type Title</span></a>
-                    </li>
-                    <li  <?php if(in_array($segment1,['slider'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('slider')}}" title="All Type Title"><span class="menu-item-parent"> Slider </span></a>
-                    </li>
-                    <li  <?php if(in_array($segment1,['social-media'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('social-media')}}" title="All Type Title"><span class="menu-item-parent"> Social media </span></a>
-                    </li>
-                    <li  <?php if(in_array($segment1,['footer-area'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('footer-area')}}" title="Footer Area"><span class="menu-item-parent"> Footer Area </span></a>
                     </li>
                     
                 </ul>

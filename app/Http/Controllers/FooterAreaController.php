@@ -14,7 +14,14 @@ class FooterAreaController extends Controller
     
     public function index()
     {
-        return view('footer_area.footer_area');
+        $if_exist_check_info = FooterArea::where('privacy_policy', '!=', NULL)->first();
+
+        $data = !empty($if_exist_check_info->privacy_policy) ? json_decode($if_exist_check_info->privacy_policy) : NULL;
+
+        $info =  !empty($data) ?  $data->privacy_policy : NULL;
+
+
+        return view('footer_area.footer_area', compact('info'));
     }
 
     public function privacy_policy()

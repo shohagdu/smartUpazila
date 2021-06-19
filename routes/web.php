@@ -9,6 +9,9 @@ use App\Http\Controllers\PourosovaRelatedController;
 use App\Http\Controllers\GovernmentInstitutionController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\FooterAreaController;
+use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\DynamicContentPageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -289,3 +292,19 @@ Route::get('/footer-area/sitemap', [FooterAreaController::class, 'sitemap'])->na
 Route::post('/footer-area/sitemap/store', [FooterAreaController::class, 'sitemap_store'])->name('footer_area.sitemap_store');
 Route::get('/footer-area/commonly-asked', [FooterAreaController::class, 'commonly_asked'])->name('footer_area.commonly_asked');
 Route::post('/footer-area/commonly-asked/store', [FooterAreaController::class, 'commonly_asked_store'])->name('footer_area.commonly_asked_store');
+
+Route::get('/people', [PeopleController::class, 'index'])->name('people.index');
+Route::get('/people/create', [PeopleController::class, 'create'])->name('people.create');
+Route::post('/people/store', [PeopleController::class, 'store'])->name('people.store');
+Route::get('/people/edit/{id}', [PeopleController::class, 'edit'])->name('people.edit');
+Route::post('/people/update/{id}', [PeopleController::class, 'update'])->name('people.update');
+Route::get('/people/delete/{id}', [PeopleController::class, 'destroy'])->name('people.delete');
+
+
+// DynamicContentPage
+Route::get('/dynamic-content-page', [DynamicContentPageController::class, 'index'])->name('dynamic_content_page.index');
+Route::get('dynamic-content-page/create', [DynamicContentPageController::class, 'create'])->name('dynamic_content_page.create');
+Route::post('/dynamic-content-page/store', [DynamicContentPageController::class, 'store'])->name('dynamic_content_page.store');
+Route::get('/dynamic-content-page/edit/{id}', [DynamicContentPageController::class, 'edit'])->name('dynamic_content_page.edit');
+Route::post('/dynamic-content-page/update/{id}', [DynamicContentPageController::class, 'update'])->name('dynamic_content_page.update');
+Route::get('/dynamic-content-page/delete/{id}', [DynamicContentPageController::class, 'destroy'])->name('dynamic_content_page.delete');
