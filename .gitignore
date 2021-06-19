@@ -11,3 +11,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+#image folder git ignore
+/img/attachment/*
+#IDE metadata
+#idea folder
+.idea/
