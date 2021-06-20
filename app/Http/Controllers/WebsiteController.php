@@ -123,7 +123,7 @@ class WebsiteController extends Controller
          public function up_frakton_chirman()
     {
         $field='upazila_chairman';
-        $title=' উপজেলা চেয়ারম্যান  :: Upazila';
+        $title=' উপজেলা প্রাক্তন চেয়ারম্যান গণ  :: Upazila';
         $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
         $info=(!empty($data->$field)?json_decode($data->$field,true):'');
         $info_new=[];
@@ -151,12 +151,36 @@ class WebsiteController extends Controller
 
     public function mayor()
     {
-        return view('subpage.mayor');
+        $field='mayor';
+        $title=' পৌরসভার মেয়র  :: Upazila';
+        $heading='পৌরসভার মেয়র';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+        }
+        return view('subpage.mayor',['title'=>$title,'data'=>(!empty($info_new[0])?$info_new[0]:''),'heading'=>$heading]);
+
     }
 
      public function councilor()
     {
-        return view('subpage.councilor');
+        $field='councilor';
+        $title=' কাউন্সিলর  :: Upazila';
+        $heading='কাউন্সিলর';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+        }
+
+        return view('subpage.councilor',['title'=>$title,'data'=>(!empty($info_new)?$info_new:''),'heading'=>$heading]);
     }
 
      public function pourosova_word()
@@ -166,17 +190,61 @@ class WebsiteController extends Controller
 
      public function kormokorta()
     {
-        return view('subpage.pourosova_kormokorta');
+        $field='kormokorta';
+        $title=' কর্মকর্তাবৃন্দ  :: Upazila';
+        $heading='কর্মকর্তাবৃন্দ';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+        }
+        return view('subpage.pourosova_kormokorta',['title'=>$title,'data'=>(!empty($info_new)?$info_new:''),'heading'=>$heading]);
+
+       // return view('subpage.pourosova_kormokorta');
     }
 
      public function citizen_serzer()
     {
-        return view('subpage.pourosova_citizen_serzen');
+        $field='citizen_charter';
+        $title=' সিটিজেন চার্টার  :: Upazila';
+        $heading='সিটিজেন চার্টার';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+            $rowData=[];
+            if (!empty($info_new)){
+                $settingInfo=AllTypeTitle::where(['type'=>3])->pluck('title','id');
+                foreach ($info_new as $key=> $infoData){
+                    if(!empty($infoData['type'])) {
+                        $rowData[$settingInfo[$infoData['type']]][] = $infoData;
+                    }
+                }
+            }
+        }
+        return view('subpage.pourosova_citizen_serzen',['title'=>$title,'data'=>(!empty($rowData)?$rowData:''),'heading'=>$heading]);
     }
 
      public function kormocari()
     {
-        return view('subpage.pourosova_kormocari');
+        $field='kormocari';
+        $title=' কর্মচারীবৃন্দ  :: Upazila';
+        $heading='কর্মচারীবৃন্দ';
+        $data=Upazila_basic_info::where(['is_active'=>1])->select($field)->whereNotNull($field)->orderBy('id')->first();
+        $info=(!empty($data->$field)?json_decode($data->$field,true):'');
+        $info_new=[];
+        if(!empty($info)) {
+            $info_new = array_filter($info, function ($var) {
+                return ($var['is_active'] == 1);
+            });
+        }
+        return view('subpage.pourosova_kormocari',['title'=>$title,'data'=>(!empty($info_new)?$info_new:''),'heading'=>$heading]);
     }
 
      public function sangotonik_katamo()

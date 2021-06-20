@@ -1,70 +1,26 @@
 @extends("index")
 @section('title_area')
-councilor :: Natore  Sadar
+    {{ (!empty($title)?$title:'') }}
 @endsection
 @section('main_content_area')
 <!-- left side -->
 <div class="col-md-8">
   <div class="all_content_wrap">
-    <h4>কাউন্সিলর বৃন্দের প্রোফাইল</h4>
-    
+    <h4>কাউন্সিলর বৃন্দের প্রোফাইল </h4>
     <div class="row">
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
+        @if(!empty($data))
+            @foreach($data as $row)
+                <div class="col-md-6">
+                    <img src="<?php echo (!empty($row['image']) && (file_exists('img/councilor/'.$row['image']))?url('img/councilor/'.$row['image']):url('fontView/assets/img/avatars/male.png')) ?>" style="height: 200px;" onerror="{{ url('fontView/assets/img/avatars/male.png') }}" alt="" class="img-thumbnail img-width">
+                    <h3 class="padding-bottom-50px">{{ (!empty($row['name'])?$row['name']:'-') }}</h3>
+                    <p>ওয়ার্ড নংঃ    {{ (!empty($row['ward_no'])?$row['ward_no']:'-') }}</p>
+                    <p>ইমেইলঃ    {{ (!empty($row['email'])?$row['email']:'-') }}</p>
+                    <p>ফোনঃ    {{ (!empty($row['mobile'])?$row['mobile']:'-') }}</p>
+                </div>
+            @endforeach
+        @endif
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-      <div class="col-md-6">
-        <img src="img/councilor.jpg" alt="" class="img-width">
-        <h3>নামঃ    মোছাঃ কামরুন নাহার</h3>
-        <p>পদবীঃ    ১,২,৩নং (সংরক্ষিত) ওয়ার্ড কাউন্সিলর</p>
-        <p>ফোনঃ     ০১৭২১-৫১২৬৪৭</p>
-      </div>
-    </div>
-    
+
   </div>
 </div>
 <!-- left end -->
