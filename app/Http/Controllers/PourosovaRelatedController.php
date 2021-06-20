@@ -17,11 +17,7 @@ class PourosovaRelatedController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(Request $request)
     {
 
@@ -316,7 +312,6 @@ class PourosovaRelatedController extends Controller
             return $data->is_active != 0;
         });
 
-
         return view('pourosova_related.pourosova_mayor', compact('data'));
     }
 
@@ -375,7 +370,6 @@ class PourosovaRelatedController extends Controller
             'created_ip'     => request()->ip(),
             'created_at'     => date('Y-m-d H:i:s'),
         ];
-
 
         if (!empty($mayor_data_get)){
 
@@ -1722,6 +1716,19 @@ class PourosovaRelatedController extends Controller
 
             return DataTables::of($get_structure)
                 ->addIndexColumn()
+                ->addColumn('type',function($row){
+                    $html = '';
+
+                    if($row->type == 1){
+                        $html.='<span class=""> উপজেলা সাংগঠনিক </span>';
+                    }elseif($row->type == 2){
+
+                        $html.='<span class=""> পৌরসভা সাংগঠনিক  </span>';
+                    }
+
+
+                    return $html;
+                })
                 ->addColumn('is_active',function($row){
                     $html = '';
 
@@ -1742,7 +1749,7 @@ class PourosovaRelatedController extends Controller
 
                     return $html;
                 })
-                ->rawColumns(['is_active','action'])
+                ->rawColumns(['type','is_active','action'])
                 ->make(true);
         }
 
@@ -1756,6 +1763,7 @@ class PourosovaRelatedController extends Controller
         $structure_info = [
             'parent_id'        => $request->parent_id,
             'structure_name'   => $request->structure_name,
+            'type'             => $request->type,
             'is_active'        => $request->is_active,
             'created_by'       => Auth::user()->id,
             'created_ip'       => request()->ip(),
@@ -1788,6 +1796,7 @@ class PourosovaRelatedController extends Controller
         $structure_info = [
             'parent_id'        => $request->parent_id,
             'structure_name'   => $request->structure_name,
+            'type'             => $request->type,
             'is_active'        => $request->is_active,
             'updated_by'       => Auth::user()->id,
             'updated_ip'       => request()->ip(),
@@ -1806,7 +1815,6 @@ class PourosovaRelatedController extends Controller
 
 
         $structure_info = [
-
             'is_active'        => 0,
             'updated_by'       => Auth::user()->id,
             'updated_ip'       => request()->ip(),

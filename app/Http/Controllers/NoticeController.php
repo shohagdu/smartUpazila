@@ -12,7 +12,14 @@ use DB;
 
 class NoticeController extends Controller
 {
-   
+    public $notice_model;
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->notice_model = new Notice();
+
+    }
+    
     public function index()
     {
         $get_notice = Notice::where('is_active', '!=', 0)->orderBy('id','DESC')->get();
@@ -134,4 +141,24 @@ class NoticeController extends Controller
             return redirect()->route('notice.index')->with('message', 'Successfully Delete');   
         }
     }
+
+    public function search(Request $request){
+            $type   = $request->type;
+            $status = $request->is_active;
+
+            $query = DB::table('notices')->where('is_active', '!=', 0)->orderBy('id', 'DESC');
+
+            if($type !=''){
+                $query->Where("type", "=", $type);
+            }
+            if($status !=''){
+                $query->Where("is_active", "=", $status);
+            }
+
+            $get_notice = $query->get();
+
+            return view('notice.notice', compact('get_notice'));
+
+    }
+
 }

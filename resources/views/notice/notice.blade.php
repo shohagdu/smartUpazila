@@ -22,9 +22,38 @@
                 <a href="{{ route('notice.create')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </a>
             </header>
             <!-- widget div-->
-            <div >
-                <div class="widget-body no-padding">
-                    <div class="col-sm-12">
+                    <div >
+                        <div class="widget-body no-padding">
+                            <div class="col-sm-12"><br>
+                                <form action="{{ route('notice.search')}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-1 form-control-label modalLabelText"> Type <span class="text-danger">*</span></label>
+                                        <div class="col-md-3">
+                                            <select class="form-control form-control-alt" id="type" name="type" required>
+                                                <option value=""> Select</option>
+                                                <option value="1"> Notice  </option>
+                                                <option value="2"> Government Initiatives </option>
+                                                <option value="3"> Scroll News </option>
+                                    
+                                                
+                                            </select>
+                                        </div>
+                                        <label for="name" class="col-md-1 form-control-label modalLabelText"> Status <span class="text-danger">*</span></label>
+                                        <div class="col-md-3">
+                                            <select class="form-control form-control-alt" id="status" name="status">
+                                                <option value=""> Select</option>
+                                                <option value="1"> Active </option>
+                                                <option value="2"> Inactive </option>
+                                    
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                        <button style="background-color:#4d3b6b;" class="btn btn-sm btn-success" type="submit"> Search </button>
+                                        </div>
+                                    </div>
+                                </form>
                         <div class="col-sm-12" style="margin-top:10px;"></div>
                         <table class="table table-striped table-bordered" id="InformationTable">
                             <thead>

@@ -11,7 +11,11 @@ use DB;
 
 class UpazilaParishadController extends Controller
 {
-   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(Request $request)
     {
          $if_exist_check_info = DB::table('upazila_basic_info')->where('upazila_chairman', '!=', NULL)->first();

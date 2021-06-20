@@ -11,17 +11,22 @@ use DB;
 
 class FooterAreaController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $if_exist_check_info = FooterArea::where('privacy_policy', '!=', NULL)->first();
+        $if_exist_check_info = FooterArea::where('is_active', '!=', 0)->first();
 
-        $data = !empty($if_exist_check_info->privacy_policy) ? json_decode($if_exist_check_info->privacy_policy) : NULL;
+        $privacy_policy_info = !empty($if_exist_check_info->privacy_policy) ? json_decode($if_exist_check_info->privacy_policy) : NULL;
+        $terms_of_use_info = !empty($if_exist_check_info->terms_of_use) ? json_decode($if_exist_check_info->terms_of_use) : NULL;
+        $in_overall_cooperation_info = !empty($if_exist_check_info->in_overall_cooperation) ? json_decode($if_exist_check_info->in_overall_cooperation) : NULL;
+        $sitemap_info = !empty($if_exist_check_info->sitemap) ? json_decode($if_exist_check_info->sitemap) : NULL;
+        $commonly_asked_info = !empty($if_exist_check_info->commonly_asked) ? json_decode($if_exist_check_info->commonly_asked) : NULL;
 
-        $info =  !empty($data) ?  $data->privacy_policy : NULL;
 
-
-        return view('footer_area.footer_area', compact('info'));
+        return view('footer_area.footer_area', compact('privacy_policy_info', 'terms_of_use_info', 'in_overall_cooperation_info', 'sitemap_info', 'commonly_asked_info'));
     }
 
     public function privacy_policy()
@@ -36,9 +41,8 @@ class FooterAreaController extends Controller
     }
     public function privacy_policy_store(Request $request)
     {
-        $if_exist_check_info = FooterArea::where('privacy_policy', '!=', NULL)->first();
+        $if_exist_check_info = FooterArea::where('is_active', '=', 1)->count();
 
-        $id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
         $info = [
             'privacy_policy'  => $request->privacy_policy,
@@ -46,10 +50,10 @@ class FooterAreaController extends Controller
             'created_by'      => Auth::user()->id,
             'created_ip'      => request()->ip(),
             'created_at'      => date('Y-m-d H:i:s'),
-        ];
+        ];;
 
-
-        if(!empty($if_exist_check_info)){
+        if($if_exist_check_info >  0){
+        
 
             $basic_info_data = [
                 'privacy_policy'=> (!empty($info)? json_encode($info, JSON_UNESCAPED_UNICODE ):NULL),
@@ -60,7 +64,7 @@ class FooterAreaController extends Controller
             ];
 
 
-            $response = DB::table('footer_areas')->where('id', '=', $id)->update($basic_info_data);
+            $response = DB::table('footer_areas')->where('is_active', '=', '1')->update($basic_info_data);
 
             if($response){
 
@@ -76,7 +80,6 @@ class FooterAreaController extends Controller
                 'created_ip'   => request()->ip(),
                 'created_at'   => date('Y-m-d H:i:s'),
             ];
-
 
             $response = DB::table('footer_areas')->insert($basic_info_data);
 
@@ -101,7 +104,7 @@ class FooterAreaController extends Controller
 
     public function terms_of_use_store(Request $request)
     {
-        $if_exist_check_info = FooterArea::where('terms_of_use', '!=', NULL)->first();
+        $if_exist_check_info = FooterArea::where('is_active', '=', 1)->count();
 
         $id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -114,18 +117,18 @@ class FooterAreaController extends Controller
         ];
 
 
-        if(!empty($if_exist_check_info)){
+        if($if_exist_check_info > 0 ){
 
             $basic_info_data = [
                 'terms_of_use'=> (!empty($info)? json_encode($info, JSON_UNESCAPED_UNICODE ):NULL),
-                'is_active'   =>1,
+                'is_active'   => 1,
                 'updated_by'  => Auth::user()->id,
                 'updated_ip'  => request()->ip(),
                 'updated_at'   => date('Y-m-d H:i:s'),
             ];
 
 
-            $response = DB::table('footer_areas')->where('id', '=', $id)->update($basic_info_data);
+            $response = DB::table('footer_areas')->where('is_active', '=', 1)->update($basic_info_data);
 
             if($response){
 
@@ -166,7 +169,7 @@ class FooterAreaController extends Controller
 
     public function in_overall_cooperation_store(Request $request)
     {
-        $if_exist_check_info = FooterArea::where('in_overall_cooperation', '!=', NULL)->first();
+        $if_exist_check_info = FooterArea::where('is_active', '=', 1)->count();
 
         $id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -179,7 +182,7 @@ class FooterAreaController extends Controller
         ];
 
 
-        if(!empty($if_exist_check_info)){
+        if($if_exist_check_info > 0 ){
 
             $basic_info_data = [
                 'in_overall_cooperation'=> (!empty($info)? json_encode($info, JSON_UNESCAPED_UNICODE ):NULL),
@@ -190,7 +193,7 @@ class FooterAreaController extends Controller
             ];
 
 
-            $response = DB::table('footer_areas')->where('id', '=', $id)->update($basic_info_data);
+            $response = DB::table('footer_areas')->where('is_active', '=', 1)->update($basic_info_data);
 
             if($response){
 
@@ -229,7 +232,7 @@ class FooterAreaController extends Controller
 
     public function sitemap_store(Request $request)
     {
-        $if_exist_check_info = FooterArea::where('sitemap', '!=', NULL)->first();
+        $if_exist_check_info = FooterArea::where('is_active', '=', 1)->count();
 
         $id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -253,7 +256,7 @@ class FooterAreaController extends Controller
             ];
 
 
-            $response = DB::table('footer_areas')->where('id', '=', $id)->update($basic_info_data);
+            $response = DB::table('footer_areas')->where('is_active', '=', 1)->update($basic_info_data);
 
             if($response){
 
@@ -292,7 +295,7 @@ class FooterAreaController extends Controller
 
     public function commonly_asked_store(Request $request)
     {
-        $if_exist_check_info = FooterArea::where('commonly_asked', '!=', NULL)->first();
+        $if_exist_check_info = FooterArea::where('is_active', '=', 1)->count();
 
         $id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
@@ -305,7 +308,7 @@ class FooterAreaController extends Controller
         ];
 
 
-        if(!empty($if_exist_check_info)){
+        if($if_exist_check_info > 0){
 
             $basic_info_data = [
                 'commonly_asked'=> (!empty($info)? json_encode($info, JSON_UNESCAPED_UNICODE ):NULL),
@@ -316,7 +319,7 @@ class FooterAreaController extends Controller
             ];
 
 
-            $response = DB::table('footer_areas')->where('id', '=', $id)->update($basic_info_data);
+            $response = DB::table('footer_areas')->where('is_active', '=', 1)->update($basic_info_data);
 
             if($response){
 

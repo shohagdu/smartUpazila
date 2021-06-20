@@ -191,11 +191,11 @@ Route::post('/pourosova_kormocari/update/{id}', [PourosovaRelatedController::cla
 Route::get('/pourosova_kormocari/delete/{id}', [PourosovaRelatedController::class, 'pourosova_kormocari_delete'])->name('pourosova_related.pourosova_kormocari_delete');
 
 // sangotonik_katamo
-Route::get('/pourosova-sangotonik-katamo', [PourosovaRelatedController::class, 'sangotonik_katamo'])->name('pourosova_related.sangotonik_katamo');
-Route::post('/pourosova-sangotonik-katamo/store', [PourosovaRelatedController::class, 'sangotonik_katamo_store'])->name('pourosova_related.sangotonik_katamo_store');
-Route::post('/pourosova-sangotonik-katamo/edit', [PourosovaRelatedController::class, 'sangotonik_katamo_edit'])->name('pourosova_related.sangotonik_katamo_edit');
-Route::post('/pourosova-sangotonik-katamo/update', [PourosovaRelatedController::class, 'sangotonik_katamo_update'])->name('pourosova_related.sangotonik_katamo_update');
-Route::post('/pourosova-sangotonik-katamo/delete', [PourosovaRelatedController::class, 'sangotonik_katamo_delete'])->name('pourosova_related.sangotonik_katamo_delete');
+Route::get('/sangotonik-katamo', [PourosovaRelatedController::class, 'sangotonik_katamo'])->name('pourosova_related.sangotonik_katamo');
+Route::post('/sangotonik-katamo/store', [PourosovaRelatedController::class, 'sangotonik_katamo_store'])->name('pourosova_related.sangotonik_katamo_store');
+Route::post('/sangotonik-katamo/edit', [PourosovaRelatedController::class, 'sangotonik_katamo_edit'])->name('pourosova_related.sangotonik_katamo_edit');
+Route::post('/sangotonik-katamo/update', [PourosovaRelatedController::class, 'sangotonik_katamo_update'])->name('pourosova_related.sangotonik_katamo_update');
+Route::post('/sangotonik-katamo/delete', [PourosovaRelatedController::class, 'sangotonik_katamo_delete'])->name('pourosova_related.sangotonik_katamo_delete');
 
 // Citizen's Charter
 Route::get('/citizen-charter', [PourosovaRelatedController::class, 'citizen_charter'])->name('pourosova_related.citizen_charter');
@@ -279,6 +279,7 @@ Route::post('/notice/store', [NoticeController::class, 'store'])->name('notice.s
 Route::get('/notice/edit/{id}', [NoticeController::class, 'edit'])->name('notice.edit');
 Route::post('/notice/update/{id}', [NoticeController::class, 'update'])->name('notice.update');
 Route::get('/notice/delete/{id}', [NoticeController::class, 'destroy'])->name('notice.delete');
+Route::post('/notice/search', [NoticeController::class, 'search'])->name('notice.search');
 
 // foter area
 Route::get('/footer-area', [FooterAreaController::class, 'index'])->name('footer_area.index');

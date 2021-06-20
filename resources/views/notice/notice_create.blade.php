@@ -40,7 +40,6 @@
                                     <input type="text" class="form-control form-control-alt" name="title" id="title" required
                                         placeholder="Title">
                                 </div>
-
                            </div>
                            <div class="form-group row">
 

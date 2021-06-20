@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  :: Pourosova sangotonik katamo
+    :: Admin  :: sangotonik katamo
 @endsection
 @section('show_message')
     @if(Session::has('message'))
@@ -21,7 +21,7 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-               <h2>Pourosova sangotonik katamo</h2>
+               <h2> sangotonik katamo</h2>
                 <button onclick="AddNew()"  class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-plus"></i> Add New </button>
             </header>
             <!-- widget div-->
@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th> Structure Name </th>
+                                    <th> Type </th>
                                     <th> Status </th>
                                     <th>Action</th>
                                 </tr>
@@ -51,7 +52,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                   <div class="row">
-                  <div class="col-md-6">  <h5 class="modal-title" id="myModalLabel"> Pourosova sangotonik katamo </h5></div>
+                  <div class="col-md-6">  <h5 class="modal-title" id="myModalLabel">  sangotonik katamo </h5></div>
                     <div class="col-md-6">  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></div>
                   </div>
                 
@@ -81,6 +82,17 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 form-control-label modalLabelText"> Type <span class="text-danger">*</span></label>
+                            <div class="col-md-7">
+                                <select class="form-control form-control-alt" id="type" name="type" required>
+                                    <option value=""> Select</option>
+                                    <option value="1"> উপজেলা সাংগঠনিক </option>
+                                    <option value="2"> পৌরসভা  </option>
+                                   
+                                </select>
+                            </div>
+                        </div> 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 form-control-label modalLabelText"> Status <span class="text-danger">*</span></label>
                             <div class="col-md-7">
@@ -130,6 +142,7 @@
         columns:[
             {data:'DT_RowIndex',name:'DT_RowIndex'},
             {data: 'structure_name',name:'structure_name'},
+            {data: 'type',name:'type'},
             {data: 'is_active',name:'is_active'},
             {data: 'action',name:'action'},
         ]
@@ -141,6 +154,7 @@ function AddNew()
 {
     var parent_id        =  $('#parent_id').val('');
     var structure_name   =  $('#structure_name').val('');
+    var type             =  $('#type').val('');
     var is_active        =  $('#is_active').val('');
     var structure_id     = $('#structure_id').val('');
 
@@ -154,6 +168,7 @@ function UpIntroduceSave(){
 
 var parent_id       =  $('#parent_id').val();
 var structure_name  =  $('#structure_name').val();
+var type            =  $('#type').val();
 var is_active       =  $('#is_active').val();
 
 $.ajax({
@@ -162,6 +177,7 @@ $.ajax({
         data:{
             parent_id: parent_id,
             structure_name: structure_name,
+            type: type,
             is_active: is_active,
         },
         success:function(responseText){
@@ -201,6 +217,7 @@ $(document).on("click",".sangotonikKatamoEdit",function(){
 
                 var parent_id         =  $('#parent_id').val(data.parent_id);
                 var structure_name    =  $('#structure_name').val(data.structure_name);
+                var type              =  $('#type').val(data.type);
                 var is_active         =  $('#is_active').val(data.is_active);
                 var structure_id      = $('#structure_id').val(data.id);
 
@@ -224,6 +241,7 @@ function sangotonikKatamoUpdate(){
 var parent_id       =  $('#parent_id').val();
 var structure_name  =  $('#structure_name').val();
 var is_active       =  $('#is_active').val();
+var type            =  $('#type').val();
 var structure_id    = $('#structure_id').val();
 
 $.ajax({
@@ -233,6 +251,7 @@ $.ajax({
             parent_id: parent_id,
             structure_name: structure_name,
             is_active: is_active,
+            type: type,
             structure_id:structure_id,
         },
         success:function(responseText){

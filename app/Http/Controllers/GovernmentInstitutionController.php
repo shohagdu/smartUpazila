@@ -12,6 +12,11 @@ use DB;
 
 class GovernmentInstitutionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function low_and_order(Request $request)
     {
 

@@ -33,6 +33,9 @@
                     <li  <?php if(in_array($segment1,['notice'])){ echo 'class="active"';} ?>>
                         <a href="{{url('notice')}}" title="Notice"> <span class="menu-item-parent"> নোটিশ </span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['/sangotonik-katamo'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('/sangotonik-katamo')}}" title="sangotonik-katamo"> <span class="menu-item-parent">   সাংগঠনিক কাঠামো  </span></a>
+                    </li>   
                     <li  <?php if(in_array($segment1,['slider'])){ echo 'class="active"';} ?>>
                         <a href="{{url('slider')}}" title="All Type Title"><span class="menu-item-parent"> Slider </span></a>
                     </li>
@@ -111,9 +114,7 @@
                     <li  <?php if(in_array($segment1,['pourosova_kormocari'])){ echo 'class="active"';} ?>>
                         <a href="{{url('pourosova_kormocari')}}" title="pourosova kormocari"> <span class="menu-item-parent"> কর্মচারীবৃন্দ  </span></a>
                     </li>   
-                    <li  <?php if(in_array($segment1,['/pourosova-sangotonik-katamo'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('/pourosova-sangotonik-katamo')}}" title="pourosova kormocari"> <span class="menu-item-parent"> পৌরসভা  সাংগঠনিক কাঠামো  </span></a>
-                    </li>   
+                
                     <li  <?php if(in_array($segment1,['citizen-charter'])){ echo 'class="active"';} ?>>
                         <a href="{{url('citizen-charter')}}" title="citizen-charter"> <span class="menu-item-parent"> সিটিজেন চার্টার  </span></a>
                     </li>  
