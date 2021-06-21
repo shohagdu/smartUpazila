@@ -22,7 +22,7 @@
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
 
-                        <form action="{{ route('upazila_chairman.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('upazila_parishad.vice_chairman_store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                              <br><br>
                             <div class="form-group row">

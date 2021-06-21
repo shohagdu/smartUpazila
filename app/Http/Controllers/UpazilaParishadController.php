@@ -11,9 +11,11 @@ use DB;
 
 class UpazilaParishadController extends Controller
 {
+    public $basic_info_model;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->basic_info_model = new Upazila_basic_info();
     }
     
     public function index(Request $request)
@@ -26,7 +28,6 @@ class UpazilaParishadController extends Controller
             return $data->is_active != 0;
         });   
 
-
         return view('upazila_parishad.upazila_chirman', compact('data'));
     }
 
@@ -38,7 +39,7 @@ class UpazilaParishadController extends Controller
    
     public function store(Request $request)
     {
-
+        $data_exist = $this->basic_info_model->data_exist();
         $if_exist_check_info = DB::table('upazila_basic_info')->where('upazila_chairman', '!=', NULL)->first();
 
         $upazila_chairman_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -55,7 +56,6 @@ class UpazilaParishadController extends Controller
 
             $id = 1;
         }
-
 
         if(isset($request->image)){
 
@@ -87,13 +87,13 @@ class UpazilaParishadController extends Controller
             'created_at'     => date('Y-m-d H:i:s'),
         ];
 
-
+    if($data_exist > 0){
         if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
                 'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
@@ -113,14 +113,14 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'created_by'      => Auth::user()->id,
                 'created_ip'      => request()->ip(),
                 'created_at'      => date('Y-m-d H:i:s'),
             ];
 
 
-            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('is_active', '!=', 0)->update($upazila_basic_info_data);
 
            if($data_save){
 
@@ -128,7 +128,7 @@ class UpazilaParishadController extends Controller
 
            }
         }
-
+     }   
 
     }
 
@@ -201,7 +201,7 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'upazila_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
@@ -293,24 +293,19 @@ class UpazilaParishadController extends Controller
 
     public function vice_chairman_store(Request $request)
     {
-
+        $data_exist = $this->basic_info_model->data_exist();
         $if_exist_check_info = DB::table('upazila_basic_info')->where('vice_chariman', '!=', NULL)->first();
-
         $upazila_chairman_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
-
 
         if ($upazila_chairman_id > 0){
 
             $upazila_chairman_data_get = json_decode($if_exist_check_info->vice_chariman);
-
-
             $id = count((array)$upazila_chairman_data_get)+1;
 
         }else{
 
             $id = 1;
         }
-
 
         if(isset($request->image)){
 
@@ -342,13 +337,14 @@ class UpazilaParishadController extends Controller
             'created_at'     => date('Y-m-d H:i:s'),
         ];
 
+        if($data_exist > 0){
 
         if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
                 'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
@@ -365,17 +361,17 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'created_by'      => Auth::user()->id,
                 'created_ip'      => request()->ip(),
                 'created_at'      => date('Y-m-d H:i:s'),
             ];
 
-            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('is_active','!=', 0)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.vice_chairman')->with('message', 'Successfully Save');   
         }
-
+     } 
     }
 
     public function vice_chairman_edit($id)
@@ -440,7 +436,7 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'vice_chariman'   => (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
@@ -449,8 +445,6 @@ class UpazilaParishadController extends Controller
             $data_save = DB::table('upazila_basic_info')->where('id', '=', $upazila_chairman_id)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.vice_chairman')->with('message', 'Successfully Updated');   
-
-
         }     
     }
 
@@ -554,7 +548,7 @@ class UpazilaParishadController extends Controller
     }
     public function parisad_kajjoboli_store(Request $request)
     {
-
+        $data_exist = $this->basic_info_model->data_exist();
         $if_exist_check_info = Upazila_basic_info::where('parisad_kajjoboli', '!=', NULL)->first();
 
         $parisad_kajjoboli_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
@@ -583,14 +577,14 @@ class UpazilaParishadController extends Controller
             'created_at'       => date('Y-m-d H:i:s'),
         ];
 
-
+        if($data_exist > 0){
 
         if (!empty($parisad_kajjoboli_data_get)){
             $parisad_kajjoboli_data_get[] = $parisad_kajjoboli_info;
 
             $upazila_basic_info_data = [
                 'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
-                'is_active'   => $request->is_active,
+                'is_active'   => 1,
                 'created_by'  => Auth::user()->id,
                 'created_ip'  => request()->ip(),
                 'created_at'   => date('Y-m-d H:i:s'),
@@ -609,21 +603,20 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
-                'is_active'   => $request->is_active,
+                'is_active'   => 1,
                 'created_by'  => Auth::user()->id,
                 'created_ip'  => request()->ip(),
                 'created_at'   => date('Y-m-d H:i:s'),
             ];
             
-
-            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('is_active','!=', 0)->update($upazila_basic_info_data);
 
             return response()->json([
                 'status' => $data_save ? 'success' : 'error',
                 'msg'    => $data_save ? 'Successfully Added' : 'Someting went wrong',
             ]);
         }
-
+      }
     }
 
     public function parisad_kajjoboli_edit(Request $request)
@@ -677,7 +670,7 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
-                'is_active'   => $request->is_active,
+                'is_active'   => 1,
                 'created_by'  => Auth::user()->id,
                 'created_ip'  => request()->ip(),
                 'created_at'   => date('Y-m-d H:i:s'),
@@ -739,7 +732,7 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'parisad_kajjoboli'=> (!empty($parisad_kajjoboli_data_get)? json_encode($parisad_kajjoboli_data_get):NULL),
-                'is_active'   => $request->is_active,
+                'is_active'   => 1,
                 'created_by'  => Auth::user()->id,
                 'created_ip'  => request()->ip(),
                 'created_at'   => date('Y-m-d H:i:s'),
@@ -780,17 +773,12 @@ class UpazilaParishadController extends Controller
 
     public function female_vice_chairman_store(Request $request)
     {
-
+        $data_exist = $this->basic_info_model->data_exist();
         $if_exist_check_info = DB::table('upazila_basic_info')->where('female_vice_chairman', '!=', NULL)->first();
-
         $upazila_chairman_id  = !empty($if_exist_check_info->id) ? $if_exist_check_info->id : 0;
 
-
         if ($upazila_chairman_id > 0){
-
             $upazila_chairman_data_get = json_decode($if_exist_check_info->female_vice_chairman);
-
-
             $id = count((array)$upazila_chairman_data_get)+1;
 
         }else{
@@ -810,7 +798,6 @@ class UpazilaParishadController extends Controller
           }else{
   
             $image = NULL;
-  
           }
 
         $upazila_chairman_info = [
@@ -829,8 +816,8 @@ class UpazilaParishadController extends Controller
             'created_at'     => date('Y-m-d H:i:s'),
         ];
 
-
-        if (!empty($upazila_chairman_data_get)){
+        if($data_exist){
+          if (!empty($upazila_chairman_data_get)){
             $upazila_chairman_data_get[] = $upazila_chairman_info;
 
             $upazila_basic_info_data = [
@@ -858,11 +845,11 @@ class UpazilaParishadController extends Controller
                 'created_at'      => date('Y-m-d H:i:s'),
             ];
 
-            $data_save = DB::table('upazila_basic_info')->insert($upazila_basic_info_data);
+            $data_save = DB::table('upazila_basic_info')->where('is_active', '!=', 0)->update($upazila_basic_info_data);
 
             return redirect()->route('upazila_parishad.female_vice_chairman')->with('message', 'Successfully Save');   
         }
-
+      } 
     }
 
     public function female_vice_chairman_edit($id)
@@ -927,7 +914,7 @@ class UpazilaParishadController extends Controller
 
             $upazila_basic_info_data = [
                 'female_vice_chairman'=> (!empty($upazila_chairman_data_get)? json_encode($upazila_chairman_data_get, JSON_UNESCAPED_UNICODE):NULL),
-                'is_active'       => $request->is_active,
+                'is_active'       => 1,
                 'updated_by'      => Auth::user()->id,
                 'updated_ip'      => request()->ip(),
                 'updated_at'      => date('Y-m-d H:i:s'),
