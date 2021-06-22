@@ -157,6 +157,21 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >মহোদয়ের তথ্য</span></a>
+                <ul>
+                    <li  <?php if(in_array($segment1,['dc-info'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('dc-info')}}" title="dc info"> <span class="menu-item-parent">ডিসি মহোদয়ের তথ্য</span></a>
+                    </li>
+
+                    <li  <?php if(in_array($segment1,['uno-info'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('uno-info')}}" title="Uno info"><span class="menu-item-parent">ইউএনও মহোদয়ের তথ্য</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['chairman-info'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('chairman-info')}}" title="Chairman Info"><span class="menu-item-parent">চেয়ারম্যান মহোদয়ের তথ্য</span></a>
+                    </li>
+                </ul>
+            </li>
 
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent" >Reports</span></a>

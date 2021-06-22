@@ -11,6 +11,7 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\FooterAreaController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\DynamicContentPageController;
+use App\Http\Controllers\DcUnoChairmanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -301,7 +302,6 @@ Route::get('/people/edit/{id}', [PeopleController::class, 'edit'])->name('people
 Route::post('/people/update/{id}', [PeopleController::class, 'update'])->name('people.update');
 Route::get('/people/delete/{id}', [PeopleController::class, 'destroy'])->name('people.delete');
 
-
 // DynamicContentPage
 Route::get('/dynamic-content-page', [DynamicContentPageController::class, 'index'])->name('dynamic_content_page.index');
 Route::get('dynamic-content-page/create', [DynamicContentPageController::class, 'create'])->name('dynamic_content_page.create');
@@ -309,3 +309,23 @@ Route::post('/dynamic-content-page/store', [DynamicContentPageController::class,
 Route::get('/dynamic-content-page/edit/{id}', [DynamicContentPageController::class, 'edit'])->name('dynamic_content_page.edit');
 Route::post('/dynamic-content-page/update/{id}', [DynamicContentPageController::class, 'update'])->name('dynamic_content_page.update');
 Route::get('/dynamic-content-page/delete/{id}', [DynamicContentPageController::class, 'destroy'])->name('dynamic_content_page.delete');
+
+// DC Uno Chairman Info
+Route::get('/dc-info', [DcUnoChairmanController::class, 'index'])->name('dc.index');
+Route::post('/dc-info/store', [DcUnoChairmanController::class, 'store'])->name('dc.store');
+Route::post('/dc-info/edit', [DcUnoChairmanController::class, 'edit'])->name('dc.edit');
+Route::post('/dc-info/delete', [DcUnoChairmanController::class, 'destroy'])->name('dc.delete');
+
+Route::get('/uno-info', [DcUnoChairmanController::class, 'uno_info'])->name('uno.uno_info');
+Route::post('/uno-info/store', [DcUnoChairmanController::class, 'uno_store'])->name('uno.uno_store');
+Route::post('/uno-info/edit', [DcUnoChairmanController::class, 'uno_edit'])->name('uno.uno_edit');
+Route::post('/uno-info/delete', [DcUnoChairmanController::class, 'uno_destroy'])->name('uno.uno_delete');
+
+Route::get('/chairman-info', [DcUnoChairmanController::class, 'chairman_info'])->name('chairman.chairman_info');
+Route::post('/chairman-info/store', [DcUnoChairmanController::class, 'chairman_store'])->name('chairman.chairman_store');
+Route::post('/chairman-info/edit', [DcUnoChairmanController::class, 'chairman_edit'])->name('chairman.chairman_edit');
+Route::post('/chairman-info/delete', [DcUnoChairmanController::class, 'chairman_destroy'])->name('chairman.chairman_delete');
+
+// get district , upazila info 
+Route::post('/get_district_info', [DcUnoChairmanController::class, 'get_district_info'])->name('dc.get_district_info');
+Route::post('/get_upazila_info', [DcUnoChairmanController::class, 'get_upazila_info'])->name('dc.get_upazila_info');

@@ -19,6 +19,7 @@ class AllTypeTitleController extends Controller
     {
         if($request->ajax()){
             $data = AllTypeTitle::where('is_active','!=','0')->get();
+            
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('is_active',function($row){
