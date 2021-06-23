@@ -27,6 +27,46 @@
             <!-- widget div-->
             <div >
                 <div class="widget-body no-padding">
+                    <div class="row"><br>
+                        <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <label>Division <span class="text-danger">*</span></label>
+                                <select class="form-control form-control-alt" onchange="getDistrict(this.value, 'districtId')" id="divisionId" name="divisionId" required>
+                                    <option value=""> Select</option>
+                                    @foreach($division as $item )
+                                    <option value="{{$item->id}}"> {{$item->bn_name}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>District </label>
+                                <select class="form-control form-control-alt" onchange="getUpazila(this.value, 'upazilaId')" id="districtId" name="districtId" required>
+                                    <option value=""> Select</option>
+                                
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Upazila </label>
+                                <select class="form-control form-control-alt" id="upazilaId" name="upazilaId" required>
+                                    <option value=""> Select</option>
+                                
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Status </label>
+                                <select class="form-control form-control-alt" id="isActive" name="isActive" required>
+                                    <option value=""> Select</option>
+                                    <option value="1"> Active </option>
+                                    <option value="2"> Inactive </option>
+                                    
+                                </select>
+                            </div>
+
+                        <div class="col-md-1">
+                            <button class="btn btn-md btn-primary btn-block FilterResult" style="margin-top: 25px;"><i
+                                    class="fa fa-search"></i></button>
+                        </div>
+                    </div>
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
                         <table class="table table-striped table-bordered" id="dc_uno_chairman_table">
@@ -190,7 +230,15 @@
         responsive: true,
         serverSide: true,
         processing: true,
-        ajax:"{{route('dc.index')}}",
+        ajax: {
+                url: '{{route("dc.index")}}',
+                data: function (e) {
+                    (e.division_id = $("#divisionId").val() || 0);
+                    (e.district_id = $("#districtId").val() || 0);
+                    (e.upazila_id = $("#upazilaId").val() || 0);
+                    (e.is_active = $("#isActive").val() || 0);
+                },
+            },
         columns:[
             {data:'DT_RowIndex',name:'DT_RowIndex'},
             {data: 'name',name:'name'},
@@ -349,6 +397,12 @@ $(document).on("click",".DcUnoChairmanDelete",function(){
         });
 
 });
+
+$(document).on("click", ".FilterResult", function () {
+          
+     $("#dc_uno_chairman_table").DataTable().draw(true);
+});
+
 </script>
 
 @endsection

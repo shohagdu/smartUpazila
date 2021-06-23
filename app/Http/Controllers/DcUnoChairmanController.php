@@ -18,8 +18,20 @@ class DcUnoChairmanController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $information = DcUnoChairmanInfo::where('is_active','!=', 0)->where('type','=',1)->get();
-            $data = !empty($information) ? $information : [];
+            $information = DcUnoChairmanInfo::where('is_active','!=', 0);
+                if ($request->division_id > 0) {
+                $information->where('division_id', '=', $request->division_id);
+                }
+                if ($request->district_id > 0) {
+                    $information->where('district_id', '=', $request->district_id);
+                }
+                if ($request->upazila_id > 0) {
+                    $information->where('upazila_id', '=', $request->upazila_id);
+                }
+                if ($request->is_active > 0) {
+                    $information->where('is_active', '=', $request->is_active);
+                }
+            $data = $information->where('type','=', 1)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('division_id',function($row){
@@ -139,8 +151,20 @@ class DcUnoChairmanController extends Controller
     public function uno_info(Request $request)
     {
         if($request->ajax()){
-            $information = DcUnoChairmanInfo::where('is_active','!=', 0)->where('type','=', 2)->get();
-            $data = !empty($information) ? $information : [];
+            $information = DcUnoChairmanInfo::where('is_active','!=', 0);
+                if ($request->division_id > 0) {
+                $information->where('division_id', '=', $request->division_id);
+                }
+                if ($request->district_id > 0) {
+                    $information->where('district_id', '=', $request->district_id);
+                }
+                if ($request->upazila_id > 0) {
+                    $information->where('upazila_id', '=', $request->upazila_id);
+                }
+                if ($request->is_active > 0) {
+                    $information->where('is_active', '=', $request->is_active);
+                }
+            $data = $information->where('type','=', 2)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('division_id',function($row){
@@ -258,8 +282,20 @@ class DcUnoChairmanController extends Controller
      public function chairman_info(Request $request)
      {
          if($request->ajax()){
-             $information = DcUnoChairmanInfo::where('is_active','!=', 0)->where('type','=', 3)->get();
-             $data = !empty($information) ? $information : [];
+            $information = DcUnoChairmanInfo::where('is_active','!=', 0);
+                if ($request->division_id > 0) {
+                $information->where('division_id', '=', $request->division_id);
+                }
+                if ($request->district_id > 0) {
+                    $information->where('district_id', '=', $request->district_id);
+                }
+                if ($request->upazila_id > 0) {
+                    $information->where('upazila_id', '=', $request->upazila_id);
+                }
+                if ($request->is_active > 0) {
+                    $information->where('is_active', '=', $request->is_active);
+                }
+            $data = $information->where('type','=', 3)->get();
              return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('division_id',function($row){
