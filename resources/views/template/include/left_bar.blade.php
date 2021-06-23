@@ -202,7 +202,21 @@
                     
                 </ul>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent" >User</span></a>
+                <ul>
+                    <li  <?php if(in_array($segment1,['user-list'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('user-list')}}" title="User list"> <span class="menu-item-parent">User List</span></a>
+                    </li>
 
+                    <li  <?php if(in_array($segment1,['user/create'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('user/create')}}" title="User create"><span class="menu-item-parent">User Create</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['acl-menu/create'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('acl-menu/create')}}" title="User create"><span class="menu-item-parent">Acl Menu Create</span></a>
+                    </li>
+                </ul>
+            </li>
 
             <li  <?php if(in_array($segment1,['change_password'])){ echo 'class="active"';} ?>>
                 <a href="<?php  echo asset('/change_password');?>" title="Change Password"><i class="fa fa-lg fa-fw fa fa-key"></i> <span class="menu-item-parent">Change Password</span></a>

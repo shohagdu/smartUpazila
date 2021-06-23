@@ -12,6 +12,8 @@ use App\Http\Controllers\FooterAreaController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\DynamicContentPageController;
 use App\Http\Controllers\DcUnoChairmanController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AclMenuRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -325,6 +327,17 @@ Route::get('/chairman-info', [DcUnoChairmanController::class, 'chairman_info'])-
 Route::post('/chairman-info/store', [DcUnoChairmanController::class, 'chairman_store'])->name('chairman.chairman_store');
 Route::post('/chairman-info/edit', [DcUnoChairmanController::class, 'chairman_edit'])->name('chairman.chairman_edit');
 Route::post('/chairman-info/delete', [DcUnoChairmanController::class, 'chairman_destroy'])->name('chairman.chairman_delete');
+
+// user area
+Route::get('/user-list', [UserController::class, 'index'])->name('user.list');
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+
+// Acl  menu 
+Route::get('/acl-menu/create', [AclMenuRoleController::class, 'create'])->name('acl.menu_create');
 
 // get district , upazila info 
 Route::post('/get_district_info', [DcUnoChairmanController::class, 'get_district_info'])->name('dc.get_district_info');
