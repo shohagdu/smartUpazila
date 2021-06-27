@@ -8,6 +8,7 @@ use App\Models\DcUnoChairmanInfo;
 use App\Models\Division;
 use App\Models\District;
 use App\Models\Upazila;
+use App\Models\Upazila_basic_info;
 use DataTables;
 use Session;
 use DB;
@@ -28,9 +29,6 @@ class DcUnoChairmanController extends Controller
                 if ($request->district_id > 0) {
                     $information->where('district_id', '=', $request->district_id);
                 }
-                if ($request->upazila_id > 0) {
-                    $information->where('upazila_id', '=', $request->upazila_id);
-                }
                 if ($request->is_active > 0) {
                     $information->where('is_active', '=', $request->is_active);
                 }
@@ -42,9 +40,6 @@ class DcUnoChairmanController extends Controller
                  })
                  ->addColumn('district_id',function($row){
                     return District::find($row->district_id)->bn_name;
-                 })
-                 ->addColumn('upazila_id',function($row){
-                    return Upazila::find($row->upazila_id)->bn_name;
                  })
                 ->addColumn('is_active',function($row){
                     $html = '';
@@ -65,13 +60,15 @@ class DcUnoChairmanController extends Controller
 
                     return $html;
                 })
-                ->rawColumns(['division_id','district_id','upazila_id','is_active','action'])
+                ->rawColumns(['division_id','district_id','is_active','action'])
                 ->make(true);
         }else{
             $division = Division::all();
             $district = District::all();
-            $upazila  = Upazila::all();
-            return view('dc_uno_chairman.dc', compact('division', 'district', 'upazila'));
+            $get_batch_info = Upazila_basic_info::where('bcs_batch', '!=', NULL)->first();
+            $bcs_batch_data = !empty($get_batch_info->bcs_batch) ? json_decode($get_batch_info->bcs_batch) : [];
+
+            return view('dc_uno_chairman.dc', compact('division', 'district', 'bcs_batch_data'));
         }
     }
 
@@ -96,8 +93,6 @@ class DcUnoChairmanController extends Controller
 
         $info->division_id = $request->division_id; 
         $info->district_id = $request->district_id;
-        $info->upazila_id  = $request->upazila_id;
-        $info->union_name  = $request->union_name;
         $info->name        = $request->name;
         $info->mobile      = $request->mobile;
         $info->email       = $request->email;
@@ -204,7 +199,10 @@ class DcUnoChairmanController extends Controller
             $division = Division::all();
             $district = District::all();
             $upazila  = Upazila::all();
-            return view('dc_uno_chairman.uno', compact('division', 'district', 'upazila'));
+            $get_batch_info = Upazila_basic_info::where('bcs_batch', '!=', NULL)->first();
+            $bcs_batch_data = !empty($get_batch_info->bcs_batch) ? json_decode($get_batch_info->bcs_batch) : [];
+
+            return view('dc_uno_chairman.uno', compact('division', 'district', 'upazila', 'bcs_batch_data'));
         }
     }
 
@@ -229,7 +227,6 @@ class DcUnoChairmanController extends Controller
         $info->division_id = $request->division_id; 
         $info->district_id = $request->district_id;
         $info->upazila_id  = $request->upazila_id;
-        $info->union_name  = $request->union_name;
         $info->name        = $request->name;
         $info->mobile      = $request->mobile;
         $info->email       = $request->email;

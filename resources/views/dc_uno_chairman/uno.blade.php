@@ -91,7 +91,7 @@
 
     <div id="DcUnoChairmanModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                   <div class="row">
@@ -104,8 +104,8 @@
                       action="javascript:void(0)">
                     <div class="modal-body">
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Division <span class="text-danger">*</span></label>
+                            <label class="col-md-2 modalLabelText">Division <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
                                 <select class="form-control form-control-alt" onchange="getDistrict(this.value, 'district_id')" id="division_id" name="division_id" required>
                                     <option value=""> Select</option>
                                     @foreach($division as $item )
@@ -113,8 +113,8 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label>District <span class="text-danger">*</span></label>
+                            <label class="col-md-2 modalLabelText">District <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
                                 <select class="form-control form-control-alt" onchange="getUpazila(this.value, 'upazila_id')" id="district_id" name="district_id" required>
                                     <option value=""> Select</option>
                                     @foreach($district as $item )
@@ -124,8 +124,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Upazila <span class="text-danger">*</span></label>
+                            <label class="col-md-2 modalLabelText">Upazila <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="upazila_id" name="upazila_id" required>
                                     <option value=""> Select</option>
                                     @foreach($upazila as $item )
@@ -133,64 +133,50 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label>Union Name <span class="text-danger">*</span></label>
-                                <input type="name" class="form-control form-control-alt" name="union_name" id="union_name"
-                                       placeholder="Union Name" required>
-                            </div>
+                            
                         </div>
+                        <h6 style="text-align: left; font-weight: bold;">Uno Information : </h6>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Name <span class="text-danger">*</span></label>
+                            <label class="col-md-2 modalLabelText"> Name <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
                                 <input type="text" class="form-control form-control-alt" name="name" id="name"
                                        placeholder="Name" required>
                             </div>
-                            <div class="col-md-6">
-                                <label>Mobile <span class="text-danger">*</span></label>
+                            <label class="col-md-2 modalLabelText">Mobile <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
                                 <input type="text" class="form-control form-control-alt" name="mobile" id="mobile"
                                        placeholder="Mobile" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Email </label>
+                            <label class="col-md-2 modalLabelText">Email </label>
+                            <div class="col-md-4">
                                 <input type="email" class="form-control form-control-alt" name="email" id="email"
                                        placeholder="Email" >
                             </div>
-                            <div class="col-md-6">
-                                <label> BCS Batch </label>
+                            <label class="col-md-2 modalLabelText" > BCS Batch </label>
+                            <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="bcs_batch" name="bcs_batch" >
                                     <option value=""> Select</option>
-                                    <option value="1"> ১ম ব্যাচ  </option>
-                                    <option value="2"> ২য়  ব্যাচ</option>
-                                    <option value="3"> ৩য়  ব্যাচ </option>
-                                    <option value="4"> ৪র্থ  ব্যাচ </option>
-                                    <option value="5"> ৫ম  ব্যাচ</option>
-                                    <option value="6"> ৬ষ্ঠ  ব্যাচ</option> 
-                                    <option value="7"> ৭ম  ব্যাচ </option>
-                                    <option value="8"> ৮ম  ব্যাচ </option>
-                                    <option value="9"> ৯ম  ব্যাচ  </option>
-                                    <option value="10"> ১০তম  ব্যাচ  </option>
-                                    <option value="11"> ১১তম  ব্যাচ </option>
-                                    <option value="12"> ১২তম  ব্যাচ  </option>
-                                    <option value="13"> ১৩তম  ব্যাচ  </option>
-                                   
+                                    @foreach($bcs_batch_data as $item )
+                                    <option value="{{$item->id}}"> {{$item->name}} </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Address </label>
+                            <label class="col-md-2 modalLabelText">Address </label>
+                            <div class="col-md-4">
                                 <textarea name="address" id="address" class="form-control" placeholder="Address"></textarea>
                             </div>
-                            <div class="col-md-6">
-                                <label>Comment </label>
+                            <label class="col-md-2 modalLabelText">Comment </label>
+                            <div class="col-md-4">
                                 <textarea name="comment" id="comment" class="form-control" placeholder="Comment"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Status <span class="text-danger">*</span></label>
+                            <label class="col-md-2 modalLabelText">Status <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_active" name="is_active" required>
                                     <option value=""> Select</option>
                                     <option value="1"> Active </option>
@@ -258,7 +244,6 @@ function AddNew()
     var division_id        =  $('#division_id').val('');
     var district_id        =  $('#district_id').val('');
     var upazila_id         =  $('#upazila_id').val('');
-    var union_name         =  $('#union_name').val('');
     var name               =  $('#name').val('');
     var mobile             =  $('#mobile').val('');
     var email              =  $('#email').val('');
@@ -278,7 +263,6 @@ function DcUnoChairmanSave(){
     var division_id        =  $('#division_id').val();
     var district_id        =  $('#district_id').val();
     var upazila_id         =  $('#upazila_id').val();
-    var union_name         =  $('#union_name').val();
     var name               =  $('#name').val();
     var mobile             =  $('#mobile').val();
     var email              =  $('#email').val();
@@ -296,7 +280,6 @@ function DcUnoChairmanSave(){
                     division_id: division_id,
                     district_id: district_id,
                     upazila_id: upazila_id,
-                    union_name:union_name,
                     name: name,
                     mobile: mobile,
                     email: email,
@@ -338,7 +321,6 @@ $(document).on("click",".DcUnoChairmanEdit",function(){
                 var division_id        =  $('#division_id').val(data.division_id);
                 var district_id        =  $('#district_id').val(data.district_id);
                 var upazila_id         =  $('#upazila_id').val(data.upazila_id);
-                var union_name         =  $('#union_name').val(data.union_name);
                 var name               =  $('#name').val(data.name);
                 var mobile             =  $('#mobile').val(data.mobile);
                 var email              =  $('#email').val(data.email);

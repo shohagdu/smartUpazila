@@ -1,6 +1,6 @@
 @extends("master")
 @section('title_area')
-    :: Admin  :: Menu add
+    :: Admin  :: Menu Edit
 @endsection
 @section('show_message')
     @if(Session::has('message'))
@@ -21,8 +21,8 @@
         <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
             <header>
                 <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
-                <h2> Menu add </h2>
-                <a href="{{ route('government_institution.non_govt_organizations')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  Menu List </a>
+                <h2> Menu Edit </h2>
+                <a href="{{ route('menu.list')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  Menu List </a>
             </header>
 
             <!-- widget div-->
@@ -31,28 +31,28 @@
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
 
-                        <form action="{{ route('menu.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('menu.update', $menu_info->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                              <br><br>
                             <div class="form-group row">
                                 <label for="name" class="col-md-1 form-control-label modalLabelText"> Title <span class="text-danger">*</span></label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control form-control-alt" name="title" id="title" required
-                                        placeholder="Title">
+                                        value="{{$menu_info->title}}">
                                 </div>
 
                                 <label for="name" class="col-md-2 form-control-label modalLabelText"> Link </label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-alt" name="link" id="link" placeholder="link">
+                                    <input type="text" class="form-control form-control-alt" name="link" id="link" value="{{$menu_info->link}}">
                                 </div>
                            </div>
                            <div class="form-group row">
                                 <label for="name" class="col-md-1 form-control-label modalLabelText"> Menu  </label>
                                 <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="parent_id" name="parent_id" >
-                                        <option value=""> Root</option>
+                                        <option value="" > Root</option>
                                         @foreach($get_menu_info as $item)
-                                        <option value="{{ $item->id}}"> {{$item->title}}</option>
+                                        <option value="{{ $item->id}}" <?php if($menu_info->parent_id== $item->id){ echo "selected";}?>> {{$item->title}}</option>
                                         @endforeach
                                     
                                     </select>
@@ -60,24 +60,23 @@
 
                                 <label for="name" class="col-md-2 form-control-label modalLabelText"> Glyphicon Icon </label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-alt" name="glyphicon_icon" id="glyphicon_icon" placeholder="Glyphicon Icon ">
+                                    <input type="text" class="form-control form-control-alt" name="glyphicon_icon" id="glyphicon_icon" value="{{$menu_info->glyphicon_icon}}">
                                 </div>
                            </div>
                            
                            <div class="form-group row">
                             <label for="name" class="col-md-1 form-control-label modalLabelText"> Position </label>
                             <div class="col-md-4">
-                               <input type="text" class="form-control form-control-alt" name="display_position" id="display_position" 
-                                        placeholder="Display Position"> 
+                               <input type="text" class="form-control form-control-alt" name="display_position" id="display_position"  value="{{$menu_info->display_position}}"> 
                             </div>
 
                             <label for="name" class="col-md-2 form-control-label modalLabelText"> Is main menu </label>
                             <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_main_menu" name="is_main_menu" required>
                                     <option value=""> Select</option>
-                                    <option value="1"> 1st Step  </option>
-                                    <option value="2"> 2nd Step  </option>      
-                                    <option value="3"> 3rd Step  </option>                             
+                                    <option value="1" <?php if($menu_info->is_main_menu==1){ echo "selected";}?>> 1st Step  </option>
+                                    <option value="2" <?php if($menu_info->is_main_menu==2){ echo "selected";}?>> 2nd Step  </option>      
+                                    <option value="3" <?php if($menu_info->is_main_menu==3){ echo "selected";}?>> 3rd Step  </option>                             
                                 </select>         
                             </div>
 
@@ -88,13 +87,13 @@
                             <div class="col-md-4">
                                 <select class="form-control form-control-alt" id="is_active" name="is_active" required>
                                     <option value=""> Select</option>
-                                    <option value="1"> Active </option>
-                                    <option value="2"> Inactive </option>                              
+                                    <option value="1" <?php if($menu_info->is_active==1){ echo "selected";}?>> Active </option>
+                                    <option value="2" <?php if($menu_info->is_active==2){ echo "selected";}?>> Inactive </option>                          
                                 </select>                             
                             </div>
                            </div>
                            
-                          <button style="float: right; margin-right: 95px;" class="btn btn-sm btn-success" type="submit"> Save </button><br><br>
+                          <button style="float: right; margin-right: 95px;" class="btn btn-sm btn-info" type="submit"> Upsate </button><br><br>
                        </form> <br>             
 
                     </div>

@@ -337,7 +337,20 @@ Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.
 Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
 // Acl  menu 
-Route::get('/acl-menu/create', [AclMenuRoleController::class, 'create'])->name('acl.menu_create');
+Route::get('/acl-menu-list', [AclMenuRoleController::class, 'index'])->name('menu.list');
+Route::get('/acl-menu/create', [AclMenuRoleController::class, 'create'])->name('menu.create');
+Route::post('/acl-menu/store', [AclMenuRoleController::class, 'store'])->name('menu.store');
+Route::get('/acl-menu/edit/{id}', [AclMenuRoleController::class, 'edit'])->name('menu.edit');
+Route::post('/acl-menu/update/{id}', [AclMenuRoleController::class, 'update'])->name('menu.update');
+Route::get('/acl-menu/delete/{id}', [AclMenuRoleController::class, 'destroy'])->name('menu.delete');
+
+Route::get('/acl-role-list', [AclMenuRoleController::class, 'role_list'])->name('role.list');
+Route::get('/acl-role/create', [AclMenuRoleController::class, 'role_create'])->name('role.role_create');
+Route::post('/acl-role/store', [AclMenuRoleController::class, 'role_store'])->name('role.role_store');
+Route::get('/acl-role/edit/{id}', [AclMenuRoleController::class, 'role_edit'])->name('role.role_edit');
+Route::post('/acl-role/update/{id}', [AclMenuRoleController::class, 'role_update'])->name('role.role_update');
+Route::get('/acl-role/delete/{id}', [AclMenuRoleController::class, 'role_destroy'])->name('role.role_delete');
+
 
 // get district , upazila info 
 Route::post('/get_district_info', [DcUnoChairmanController::class, 'get_district_info'])->name('dc.get_district_info');

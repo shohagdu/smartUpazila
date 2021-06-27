@@ -206,14 +206,23 @@
                 <a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent" >User</span></a>
                 <ul>
                     <li  <?php if(in_array($segment1,['user-list'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('user-list')}}" title="User list"> <span class="menu-item-parent">User List</span></a>
+                        <a href="{{url('user-list')}}" title="User list"> <span class="menu-item-parent">User list</span></a>
                     </li>
 
                     <li  <?php if(in_array($segment1,['user/create'])){ echo 'class="active"';} ?>>
                         <a href="{{url('user/create')}}" title="User create"><span class="menu-item-parent">User Create</span></a>
                     </li>
+                    <li  <?php if(in_array($segment1,['acl-menu-list'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('acl-menu-list')}}" title="Acl menu list"><span class="menu-item-parent">Acl Menu list</span></a>
+                    </li>
                     <li  <?php if(in_array($segment1,['acl-menu/create'])){ echo 'class="active"';} ?>>
-                        <a href="{{url('acl-menu/create')}}" title="User create"><span class="menu-item-parent">Acl Menu Create</span></a>
+                        <a href="{{url('acl-menu/create')}}" title="Acl Menu create"><span class="menu-item-parent">Acl Menu Create</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['acl-menu-list'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('acl-role-list')}}" title="Acl Role list"><span class="menu-item-parent">Acl Role list</span></a>
+                    </li>
+                    <li  <?php if(in_array($segment1,['acl-menu/create'])){ echo 'class="active"';} ?>>
+                        <a href="{{url('acl-role/create')}}" title="Acl Role create"><span class="menu-item-parent">Acl Role Create</span></a>
                     </li>
                 </ul>
             </li>
