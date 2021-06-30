@@ -36,7 +36,7 @@ class AclMenuRoleController extends Controller
         $menu_info = new AclMenuInfo();
 
         $menu_info->title            = $request->title;
-        $menu_info->link             = isset($request->link) ? $request->link : "#";
+        $menu_info->link             = $request->link;
         $menu_info->parent_id        = $request->parent_id;
         $menu_info->glyphicon_icon   = $request->glyphicon_icon;
         $menu_info->display_position = $request->display_position;
@@ -74,7 +74,7 @@ class AclMenuRoleController extends Controller
         $menu_info =  AclMenuInfo::find($id);
 
         $menu_info->title            = $request->title;
-        $menu_info->link             = isset($request->link) ? $request->link : "#";
+        $menu_info->link             = $request->link;
         $menu_info->parent_id        = $request->parent_id;
         $menu_info->glyphicon_icon   = $request->glyphicon_icon;
         $menu_info->display_position = $request->display_position;
@@ -162,6 +162,24 @@ class AclMenuRoleController extends Controller
                $get_menu_info[$key]['mainChild']= AclMenuInfo::where(['is_active'=> 1,'is_main_menu'=>2,'parent_id'=> $mainMenu->id])->get();
             }
         }
+
+
+        // foreach($get_menu_info as  $item){
+                    
+        //             //echo "<pre>";  
+        //            //print_r($role_data);        
+        //         if(!empty($item->mainChild)){
+
+        //             foreach($item->mainChild as $childKey => $row){
+        //                 //echo "<pre>";   
+        //                 //echo $row->title;    
+        //             }    
+        //         }
+        // }
+
+        // echo "<pre>";
+        // print_r($role_data);
+        // exit;
       
         return view('user.role.edit', compact('get_menu_info', 'get_role_info', 'role_data'));
     }

@@ -93,7 +93,7 @@
                             </div>
                            </div>
                            
-                          <button style="float: right; margin-right: 95px;" class="btn btn-sm btn-info" type="submit"> Upsate </button><br><br>
+                          <button style="float: right; margin-right: 95px;" class="btn btn-sm btn-info" type="submit"> Update </button><br><br>
                        </form> <br>             
 
                     </div>
