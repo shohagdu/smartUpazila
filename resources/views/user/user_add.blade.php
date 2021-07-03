@@ -34,7 +34,7 @@
                         <form action="{{ route('user.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
 
-                        <div class="form-group row">
+                               <div class="form-group row">
                                     <label for="name" class="col-md-2 col-form-label text-md-left">{{ __('Name') }}</label>
 
                                     <div class="col-md-4">
@@ -55,6 +55,22 @@
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                         @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="is_active" class="col-md-2 col-form-label text-md-left">{{ __('Role') }}</label>
+                                    <div class="col-md-4">
+                                        <select  class="form-control @error('role_id') is-invalid @enderror" name="role_id" value="{{ old('role_id') }}" >
+                                            <option value="">Select</option>
+                                            @foreach($role_info as $item)
+                                                <option value="{{$item->id}}"> {{$item->role_name}} </option>
+                                            @endforeach
+                                        </select>
+                                        @error('role_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

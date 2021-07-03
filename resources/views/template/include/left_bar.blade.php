@@ -25,6 +25,26 @@
                 <a href="<?php  echo asset('/home');?>" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
         </li>
         <?php
+           
+            $user_info =  App\Models\User::where(['id'=> Auth::user()->id])->first();
+            $id = $user_info->role_id;
+
+             $menuAccessArray = [];
+             $get_role_info = App\Models\AclRoleInfo::where(['is_active'=> 1, 'id'=> $id])->first();
+             $menuAccess = json_decode($get_role_info->role_info);
+             foreach($menuAccess as $key=>$access){
+                 if(gettype($access) == 'object') {
+                     foreach($access as $asses) {
+                         array_push($menuAccessArray, $asses);
+                     }
+                 }
+                 if(gettype($access) == 'integer') {
+                     array_push($menuAccessArray, $access);
+                 }
+                 array_push($menuAccessArray, $key);
+             }    
+
+
             $get_menu_info = App\Models\AclMenuInfo::where(['is_active'=> 1,'is_main_menu'=>1])->get();
         
             if(!empty($get_menu_info)){
@@ -37,11 +57,23 @@
 
         @foreach($get_menu_info as $item)
             <li>
-                <a href="{{$item->link}}"><i class="{{$item->glyphicon_icon}}"></i> <span class="menu-item-parent" >{{$item->title}}</span></a>            
+                <a href="{{$item->link}}" 
+                    @if(in_array($item->id , $menuAccessArray))
+                     style="display:show"
+                     @else
+                     style="display:none"
+                    @endif
+                ><i class="{{$item->glyphicon_icon}}"></i> <span class="menu-item-parent" >{{$item->title}}</span></a>            
                     <ul>               
                     @if(!empty($item->mainChild))
                         @foreach($item->mainChild as $childKey => $row)                      
-                            <li  <?php if(in_array($segment1,[$row->link])){ echo 'class="active"';} ?>>
+                            <li
+                             @if(in_array($row->id , $menuAccessArray))
+                               style="display:show"
+                               @else
+                               style="display:none"
+                             @endif 
+                    <?php if(in_array($segment1,[$row->link])){ echo 'class="active"';} ?>>
                                 <a href="{{url($row->link)}}" title="{{$row->title}}"> <span class="menu-item-parent">{{$row->title}}</span></a>
                             </li>
                         @endforeach

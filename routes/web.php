@@ -335,6 +335,8 @@ Route::post('/user/store', [UserController::class, 'store'])->name('user.store')
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
 Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+Route::get('change_password', [UserController::class, 'change_password'])->name('user.change_password');
+Route::post('change_password_store', [UserController::class, 'change_password_store'])->name('user.change_password_store');
 
 // Acl  menu 
 Route::get('/acl-menu-list', [AclMenuRoleController::class, 'index'])->name('menu.list');

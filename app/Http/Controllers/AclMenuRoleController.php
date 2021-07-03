@@ -130,9 +130,7 @@ class AclMenuRoleController extends Controller
     }
 
     public function role_store(Request $request){
-
         $role_info =  $request->role_info;
-        //dd($role_info);
     
         $role_data = [
             'role_name'   => $request->role_name,
@@ -152,36 +150,68 @@ class AclMenuRoleController extends Controller
 
     public function role_edit($id)
     {
-        $get_role_info = AclRoleInfo::where(['is_active'=> 1, 'id'=> $id,])->first();
-        $role_data = json_decode($get_role_info->role_info);
+        $menuAccessArray = [];
+        $get_role_info = AclRoleInfo::where(['is_active'=> 1, 'id'=> $id])->first();
+        $menuAccess = json_decode($get_role_info->role_info);
+        foreach($menuAccess as $key=>$access){
+            if(gettype($access) == 'object') {
+                foreach($access as $asses) {
+                    array_push($menuAccessArray, $asses);
+                }
+            }
+            if(gettype($access) == 'integer') {
+                array_push($menuAccessArray, $access);
+            }
+
+            array_push($menuAccessArray, $key);
+        }
+
+        $menus = AclMenuInfo::where(['is_active'=> 1,'is_main_menu'=>1])->get();
        
-        $get_menu_info = AclMenuInfo::where(['is_active'=> 1,'is_main_menu'=>1])->get();
-       
-        if(!empty($get_menu_info)){
-            foreach($get_menu_info as $key=> $mainMenu){
-               $get_menu_info[$key]['mainChild']= AclMenuInfo::where(['is_active'=> 1,'is_main_menu'=>2,'parent_id'=> $mainMenu->id])->get();
+        if(!empty($menus)){
+            foreach($menus as $key=> $mainMenu){
+               $menus[$key]['mainChild']= AclMenuInfo::where(['is_active'=> 1,'is_main_menu'=>2,'parent_id'=> $mainMenu->id])->get();
             }
         }
 
-
-        // foreach($get_menu_info as  $item){
-                    
-        //             //echo "<pre>";  
-        //            //print_r($role_data);        
-        //         if(!empty($item->mainChild)){
-
-        //             foreach($item->mainChild as $childKey => $row){
-        //                 //echo "<pre>";   
-        //                 //echo $row->title;    
-        //             }    
-        //         }
-        // }
-
-        // echo "<pre>";
-        // print_r($role_data);
-        // exit;
       
-        return view('user.role.edit', compact('get_menu_info', 'get_role_info', 'role_data'));
+        return view('user.role.edit', compact('menus', 'get_role_info', 'menuAccess', 'menuAccessArray'));
+    }
+
+    public function role_update(Request $request, $id){
+
+        $role_info =  $request->role_info;
+    
+        $role_data = [
+            'role_name'   => $request->role_name,
+            'role_info'   => (!empty($role_info)? json_encode($role_info,JSON_NUMERIC_CHECK):NULL),
+            'is_active'   => $request->is_active,
+            'updated_by'  => Auth::user()->id,
+            'updated_ip'  => request()->ip(),
+            'updated_at'  => date('Y-m-d H:i:s'),
+        ];
+
+        $data_save = DB::table('acl_role_info')->where('id', '=', $id)->update($role_data);
+
+        if($data_save){
+              return redirect()->route('role.list')->with('message', 'Successfully Updated');  
+        }
+    }
+
+    public function role_destroy($id){
+    
+        $role_data = [
+            'is_active'   => 0,
+            'updated_by'  => Auth::user()->id,
+            'updated_ip'  => request()->ip(),
+            'updated_at'  => date('Y-m-d H:i:s'),
+        ];
+
+        $data_delete = DB::table('acl_role_info')->where('id', '=', $id)->update($role_data);
+
+        if($data_delete){
+              return redirect()->route('role.list')->with('message', 'Successfully Delete');  
+        }
     }
 
 }

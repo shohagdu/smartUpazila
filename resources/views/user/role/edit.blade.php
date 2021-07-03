@@ -30,7 +30,7 @@
                 <div class="widget-body no-padding">
                     <div class="col-sm-12">
                         <div class="col-sm-12" style="margin-top:10px;"></div>
-                        <form action="{{ route('role.role_store')}}" method="POST" enctype="multipart/form-data"><br>
+                        <form action="{{ route('role.role_update', $get_role_info->id)}}" method="POST" enctype="multipart/form-data"><br>
                             @csrf
                             <div class="form-group row">
                                 <div class="col-md-1"></div>
@@ -49,7 +49,7 @@
                                     </select>            
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-sm btn-success" type="submit"> Save </button>
+                                    <button class="btn btn-sm btn-primary" type="submit"> Update </button>
                                 </div>    
                            </div>
                            <hr>
@@ -59,18 +59,18 @@
                            <p><label><input type="checkbox" id="checkAll"/> Check all</label></p>
                            </div>
                            </div>
-                         <?php 
-
-                        //{{ ( isset($role_data[$item->id]) ? 'checked' : '' ) }}
-                         // echo "<pre>";
-                        // print_r($role_info_data);exit;
-                         ?>
-                        
-                            @foreach($get_menu_info as $item)
+                    
+                            @foreach($menus as $item)
                             <div class="form-group row">
                                 <div class="col-md-1"></div>
                                     <div class="col-md-4">
-                                        <p>  <input type="checkbox"  name="role_info[{{$item->id}}]" id="role_info_{{$item->id}}" value="{{$item->id}}" > 
+                                        <p>  <input type="checkbox"
+                                          name="role_info[{{$item->id}}]" id="role_info_{{$item->id}}"
+                                           value="{{$item->id}}" 
+                                           @if(in_array($item->id , $menuAccessArray))
+                                            checked
+                                           @endif
+                                        > 
                                         <span style="margin-left: 10px; font-weight: bold"> {{$item->title}}  </span>
                                         </p>
                                     </div>
@@ -80,7 +80,13 @@
                                         @foreach($item->mainChild as $childKey => $row)
                                         <div class="col-md-2"></div>
                                         <div class="col-md-10">
-                                            <p>  <input type="checkbox"  name="role_info[{{$item->id}}][{{$row->id}}]"  value="{{$row->id}}" > 
+                                            <p>  <input type="checkbox" 
+                                            
+                                             name="role_info[{{$item->id}}][{{$row->id}}]"  value="{{$row->id}}" 
+                                                @if(in_array($row->id , $menuAccessArray))
+                                                checked
+                                                @endif
+                                             > 
                                             <span style="margin-left: 10px;"> {{$row->title}} </span>
                                             </p>
                                         </div>

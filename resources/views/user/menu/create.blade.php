@@ -22,7 +22,7 @@
             <header>
                 <span class="widget-icon"> <i class="fa fa-check txt-color-green"></i> </span>
                 <h2> Menu add </h2>
-                <a href="{{ route('government_institution.non_govt_organizations')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  Menu List </a>
+                <a href="{{ route('menu.list')}}" class="btn btn-xs btn-success addNew"><i class="glyphicon glyphicon-list"></i>  Menu List </a>
             </header>
 
             <!-- widget div-->
