@@ -20,7 +20,7 @@ $allUnionListData=$union_info = UnionInfo::where(['is_active'=>1])->get();
       </div> <!-- dropdown start -->
   </div>  <!-- col-md-7 end-->
   <div class="col-md-3 col-6  slogan cus_col" style="padding-top:3px "> <!-- col-md-2 start-->
-      <h4>নাটোর সদর উপজেলা</h4>
+      <h4>গোয়ালন্দ উপজেলা</h4>
   </div> <!-- col-md-2 end-->
   <div class="col-md-4 d-md-block d-none cus_col"> <!-- col-md-3 start-->
   <div class="icon_wrap"> <!-- icon_wrap start -->
@@ -157,26 +157,26 @@ $allUnionListData=$union_info = UnionInfo::where(['is_active'=>1])->get();
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner"> <!--carousel inner start -->
         <div class="carousel-item active"> <!-- 1st single carousel iteam start -->
-        <img src="img/slider1.jpg" class="d-block w-100" alt="...">
+        <img src="img/slider11.png" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-sm-block">
           <div class="left_logo">
             <img src="img/slide_logo.png" class="img-fluid" alt="">
           </div>
           <div class="right_text">
-            <h4>নাটোর সদর উপজেলা</h4>
+            <h4>গোয়ালন্দ সদর উপজেলা</h4>
             <h5>একটি স্বপ্ন একটি দেশ </br> ডিজিটাল বাংলাদেশ</h5>
           </div>
         </div>
         </div><!-- 1st single carousel iteam start -->
 
         <div class="carousel-item "> <!-- 2nd single carousel iteam start -->
-        <img src="img/slide2.jpg" class="d-block w-100" alt="...">
+        <img src="img/slider10.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-sm-block">
           <div class="left_logo">
             <img src="img/slide_logo.png" class="img-fluid" alt="">
           </div>
           <div class="right_text">
-            <h4>নাটোর সদর উপজেলা</h4>
+            <h4>গোয়ালন্দ উপজেলা</h4>
             <h5>একটি স্বপ্ন একটি দেশ </br> ডিজিটাল বাংলাদেশ</h5>
           </div>
         </div>
