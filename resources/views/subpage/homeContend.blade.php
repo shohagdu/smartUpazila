@@ -12,9 +12,7 @@
             @foreach($unionList as $union)
                 <div class="col-md-4">
                     <div class="col_wrap">
-                        <?php  $name = (!empty($union->union_name)?$union->union_name:''); $expUnion=explode('নং',$name);  ?>
-                        <h3>{{ !empty($expUnion[0])?$expUnion[0].' নং ':'' }}</h3>
-                        <h4>{{ !empty($expUnion[1])?$expUnion[1]:'' }} </h4>
+                        <h3><?php echo  $name = (!empty($union->union_name)?$union->union_name:'');  ?></h3>
                         <a href="{{  (!empty($union->web_url)?$union->web_url:'') }}" target="blank">ওয়েব সাইট লিংক <i class="fa fa-angle-double-right"></i></a>
                     </div>
                 </div>
